@@ -8,8 +8,9 @@ import lombok.Data;
 
 @Entity
 @Data
-public class CompanieEntity {
+public class HartaEntity {
 
     @Id
-    private String numeCompanie;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long hartaId;
 }

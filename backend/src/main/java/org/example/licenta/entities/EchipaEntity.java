@@ -1,15 +1,14 @@
 package org.example.licenta.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import org.example.licenta.entities.enums.EchipeDepartament;
 
 @Entity
 @Data
-public class CompanieEntity {
+public class EchipaEntity {
 
     @Id
-    private String numeCompanie;
+    private EchipeDepartament idEchipa;
 }
