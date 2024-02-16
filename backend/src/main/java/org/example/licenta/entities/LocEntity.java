@@ -1,23 +1,26 @@
 package org.example.licenta.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.example.licenta.entities.enums.DenumireLoc;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
+@Table(name = "loc")
 public class LocEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long locId;
+    private Long idLoc;
 
-    private boolean ocupat;
+    private DenumireLoc denumireLoc;
 
-    private LocalDate dataOcupare;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idHarta", referencedColumnName = "idHarta")
+    private HartaEntity hartaEntity;
 
+    @OneToMany(mappedBy = "locEntity")
+    private List<RezervareEntity> rezervari;
 }
