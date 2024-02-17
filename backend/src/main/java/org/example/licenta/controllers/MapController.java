@@ -2,14 +2,21 @@ package org.example.licenta.controllers;
 
 import org.example.licenta.services.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+@RestController
 public class MapController {
 
     @Autowired
     private MapService mapService;
 
-//    @PostMapping("/creazaHarta")
-//    public String uploadHarta(@RequestParam("file") MultipartFile file, @RequestParam("denumireHarta") String denumireHarta, @RequestParam("idDepartament") Long idDepartament) {
+//    @PostMapping("/uploadMap")
+//    public String uploadMap(@RequestParam("file") MultipartFile file, @RequestParam("mapName") String mapName,
+//                            @RequestParam("departmentId") Long departmentId) {
+//        mapService.saveMap(file, mapName, departmentId);
+//        return "Map uploaded successfully";
+//    }
 }
