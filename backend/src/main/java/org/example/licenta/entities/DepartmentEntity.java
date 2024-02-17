@@ -1,0 +1,23 @@
+package org.example.licenta.entities;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
+
+@Entity
+@Data
+@Table(name = "department")
+public class DepartmentEntity {
+
+    @Id
+    private String departmentId;
+
+    private String departmentName;
+
+    @OneToOne(mappedBy = "departmentEntity")
+    private MapEntity mapEntity;
+
+    @OneToMany(mappedBy = "departmentEntity")
+    private List<TeamEntity> teams;
+}
