@@ -2,7 +2,6 @@ package org.example.licenta.db.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.example.licenta.db.entities.enums.UserRole;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class UserEntity {
 
     private String userPassword;
 
-    private UserRole userRole;
+    private String userRole;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "teamId", referencedColumnName = "teamId")
@@ -30,5 +29,12 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userEntity")
     private List<ReservationEntity> reservations;
+
+    public TeamEntity setTeamId(String teamId) {
+        TeamEntity team = new TeamEntity();
+        team.setTeamId(teamId);
+        this.teamEntity = team;
+        return team;
+    }
 
 }

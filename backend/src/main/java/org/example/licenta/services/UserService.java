@@ -1,7 +1,7 @@
 package org.example.licenta.services;
 
+import org.example.licenta.db.entities.TeamEntity;
 import org.example.licenta.db.entities.UserEntity;
-import org.example.licenta.db.entities.enums.UserRole;
 import org.example.licenta.db.repositories.UserRepository;
 import org.example.licenta.dto.UserDto;
 import org.example.licenta.mappers.UserMapper;
@@ -49,24 +49,26 @@ public class UserService {
         userEntity.setUserFirstName("test");
         userEntity.setUserEmail("test");
         userEntity.setUserPassword("test");
-        userEntity.setUserRole(UserRole.ADMIN);
+        userEntity.setUserRole("ADMIN");
         userEntity.setUserId("test");
-        userEntity.setTeamEntity(null);
+//        TODO: nu merge ca-i fk
+        userEntity.setTeamEntity(userEntity.setTeamId("CAL"));
         userRepository.save(userEntity);
     }
 
-    public void updateUser(String id, UserDto userDto) {
+    public UserDto updateUser(UserDto userDto, String id) {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new RuntimeException("User not found");
         }
         user.get().setUserName(userDto.getUserName());
-//        user.get().setUserFirstName(userDto.getUserFirstName());
-//        user.get().setUserEmail(userDto.getUserEmail());
-//        user.get().setUserPassword(userDto.getUserPassword());
-//        user.get().setUserRole(userDto.getUserRole());
+        user.get().setUserFirstName(userDto.getUserFirstName());
+        user.get().setUserEmail(userDto.getUserEmail());
+        user.get().setUserPassword(userDto.getUserPassword());
+        user.get().setUserRole(userDto.getUserRole());
 //        TODO: Implement the team update
 //        user.get().setTeamEntity(userDto.getTeamEntity());
         userRepository.save(user.get());
+        return userMapper.toDto(user.get());
     }
 }

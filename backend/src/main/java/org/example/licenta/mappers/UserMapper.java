@@ -1,7 +1,7 @@
 package org.example.licenta.mappers;
 
 import org.example.licenta.db.entities.UserEntity;
-import org.example.licenta.db.entities.enums.UserRole;
+//import org.example.licenta.db.entities.enums.UserRole;
 import org.example.licenta.dto.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

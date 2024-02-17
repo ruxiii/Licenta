@@ -2,7 +2,6 @@ package org.example.licenta.db.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.example.licenta.db.entities.enums.PlaceName;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class PlaceEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long placeId;
 
-    private PlaceName placeName;
+    private String placeName;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mapId", referencedColumnName = "mapId")

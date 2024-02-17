@@ -1,5 +1,6 @@
 package org.example.licenta.controllers;
 
+import org.example.licenta.db.entities.UserEntity;
 import org.example.licenta.dto.UserDto;
 import org.example.licenta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,9 @@ public class UserController {
     public void createUser(UserDto userDto) {
         userService.createUser(userDto);
     }
-
-//    TODO nu merge sau nush eu sa dau request uri
-    @PostMapping("/users/{id}/update")
-    public void updateUser(@PathVariable String id, UserDto userDto) {
-        userService.updateUser(id, userDto);
+    
+    @PutMapping("/users/{id}/update")
+    public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable String id) {
+        return userService.updateUser(userDto, id);
     }
 }

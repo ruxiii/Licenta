@@ -2,8 +2,6 @@ package org.example.licenta.db.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.example.licenta.db.entities.enums.DepartmentTeams;
-
 import java.util.List;
 
 @Entity
@@ -12,7 +10,7 @@ import java.util.List;
 public class TeamEntity {
 
     @Id
-    private DepartmentTeams teamId;
+    private String teamId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "departmentId", referencedColumnName = "departmentId")
