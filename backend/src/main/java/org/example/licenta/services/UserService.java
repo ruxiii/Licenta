@@ -1,6 +1,5 @@
 package org.example.licenta.services;
 
-import org.example.licenta.db.entities.TeamEntity;
 import org.example.licenta.db.entities.UserEntity;
 import org.example.licenta.db.repositories.UserRepository;
 import org.example.licenta.dto.UserDto;
