@@ -4,4 +4,4 @@
 
 ***16.02.2024***  - e/r diagram done + its implementation, entities + repositories, relationships based on foreign keys, uploaded images kind of started
 
-***17.02.2024***  - starting point for images, CRUD on user
+***17.02.2024***  - starting point for images, CRUD on user, services + controllers + mappers files made
