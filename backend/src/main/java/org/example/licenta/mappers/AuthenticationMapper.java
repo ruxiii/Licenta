@@ -8,5 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface AuthenticationMapper {
 
-    AuthenticationEntity userAuthenticatied(UserEntity userEntity);
+    @Mapping(target = "userId")
+    @Mapping(target = "userPassword")
+    @Mapping(target = "userRole")
+    AuthenticationEntity registered(UserEntity userEntity);
 }

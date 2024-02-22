@@ -52,24 +52,21 @@ public class UserService {
         authRepository.deleteById(id);
     }
 
-    public void createUser(UserDto newUser) {
-//        UserEntity userEntity = userMapper.toEntity(newUser);
+    public void createUser(UserDto userDto) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUserName("test");
-        userEntity.setUserFirstName("test");
-        userEntity.setUserEmail("test");
-        userEntity.setUserPassword("test");
-        userEntity.setUserRole(UserRoles.ADMIN);
-        userEntity.setUserId("test");
-//        TODO: nu merge ca-i fk
-        userEntity.setTeamEntity(userEntity.setTeamId("CAL"));
-        userRepository.save(userEntity);
+        userEntity.setUserId(userDto.getUserId());
+        userEntity.setUserName(userDto.getUserName());
+        userEntity.setUserFirstName(userDto.getUserFirstName());
+        userEntity.setUserEmail(userDto.getUserEmail());
+//        TODO: Encode the password
+        userEntity.setUserPassword(userDto.getUserPassword());
+        userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
 
-        AuthenticationEntity authEntity = new AuthenticationEntity();
-        authEntity.setUserId(userEntity.getUserId());
-        authEntity.setUserPassword(userEntity.getUserPassword());
-        authEntity.setUserRole(String.valueOf(userEntity.getUserRole()));
-        authRepository.save(authEntity);
+//        TODO: nu merge ca-i fk
+//        userEntity.setTeamEntity(userEntity.setTeamId("CAL"));
+//
+        userRepository.save(userEntity);
+        authRepository.save(authMapper.registered(userEntity));
     }
 
     public UserDto updateUser(UserDto userDto, String id) {
@@ -84,13 +81,9 @@ public class UserService {
         user.get().setUserRole(UserRoles.valueOf(userDto.getUserRole()));
 //        TODO: Implement the team update
 //        user.get().setTeamEntity(userDto.getTeamEntity());
+//
         userRepository.save(user.get());
-
-        AuthenticationEntity auth = authRepository.findByUserId(id);
-        auth.setUserId(user.get().getUserId());
-        auth.setUserPassword(user.get().getUserPassword());
-        auth.setUserRole(String.valueOf(user.get().getUserRole()));
-        authRepository.save(auth);
+        authRepository.save(authMapper.registered(user.get()));
         return userMapper.toDto(user.get());
     }
 }
