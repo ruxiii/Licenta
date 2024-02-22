@@ -1,6 +1,7 @@
 package org.example.licenta.controllers;
 
 import org.example.licenta.dto.UserDto;
+import org.example.licenta.exceptions.UserNotFoundException;
 import org.example.licenta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public UserDto getUserById(@PathVariable String id) {
+    public UserDto getUserById(@PathVariable String id) throws UserNotFoundException {
         return userService.getUserById(id);
     }
 

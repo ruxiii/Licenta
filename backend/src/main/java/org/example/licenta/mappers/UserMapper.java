@@ -8,19 +8,19 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    @Mapping(target = "userId")
-    @Mapping(target = "userName")
-    @Mapping(target = "userFirstName")
-    @Mapping(target = "userEmail")
-    @Mapping(target = "userPassword")
-    @Mapping(target = "userRole")
+//    @Mapping(target = "userId")
+//    @Mapping(target = "userName")
+//    @Mapping(target = "userFirstName")
+//    @Mapping(target = "userEmail")
+//    @Mapping(target = "userPassword")
+//    @Mapping(target = "userRole")
     UserDto toDto(UserEntity userEntity);
 
-    @Mapping(target = "userId")
-    @Mapping(target = "userName")
-    @Mapping(target = "userFirstName")
-    @Mapping(target = "userEmail")
-    @Mapping(target = "userPassword")
-    @Mapping(target = "userRole")
+//    @Mapping(target = "userId")
+//    @Mapping(target = "userName")
+//    @Mapping(target = "userFirstName")
+//    @Mapping(target = "userEmail")
+//    @Mapping(target = "userPassword")
+//    @Mapping(target = "userRole")
     UserEntity toEntity(UserDto userDto);
 }

@@ -3,6 +3,7 @@ package org.example.licenta.services;
 import org.example.licenta.db.entities.UserEntity;
 import org.example.licenta.db.repositories.UserRepository;
 import org.example.licenta.dto.UserDto;
+import org.example.licenta.exceptions.UserNotFoundException;
 import org.example.licenta.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +30,10 @@ public class UserService {
     }
 
 //    TODO: Implement the exception handling
-    public UserDto getUserById(String id) {
+    public UserDto getUserById(String id) throws UserNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
-            throw new RuntimeException("User not found");
+                throw new UserNotFoundException("User not found");
         }
         return userMapper.toDto(user.get());
     }
