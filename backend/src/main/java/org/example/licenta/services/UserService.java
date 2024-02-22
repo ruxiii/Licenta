@@ -65,7 +65,11 @@ public class UserService {
         userEntity.setTeamEntity(userEntity.setTeamId("CAL"));
         userRepository.save(userEntity);
 
-        authRepository.save(authMapper.userAuthenticatied(userEntity));
+        AuthenticationEntity authEntity = new AuthenticationEntity();
+        authEntity.setUserId(userEntity.getUserId());
+        authEntity.setUserPassword(userEntity.getUserPassword());
+        authEntity.setUserRole(String.valueOf(userEntity.getUserRole()));
+        authRepository.save(authEntity);
     }
 
     public UserDto updateUser(UserDto userDto, String id) {
@@ -83,9 +87,9 @@ public class UserService {
         userRepository.save(user.get());
 
         AuthenticationEntity auth = authRepository.findByUserId(id);
-        auth.setUserId(userDto.getUserId());
-        auth.setUserPassword(userDto.getUserPassword());
-        auth.setUserRole(String.valueOf(UserRoles.valueOf(userDto.getUserRole())));
+        auth.setUserId(user.get().getUserId());
+        auth.setUserPassword(user.get().getUserPassword());
+        auth.setUserRole(String.valueOf(user.get().getUserRole()));
         authRepository.save(auth);
         return userMapper.toDto(user.get());
     }
