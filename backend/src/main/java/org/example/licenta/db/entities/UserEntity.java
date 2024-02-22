@@ -2,6 +2,7 @@ package org.example.licenta.db.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.licenta.db.entities.enums.UserRoles;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class UserEntity {
 
     private String userPassword;
 
-    private String userRole;
+    private UserRoles userRole;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "teamId", referencedColumnName = "teamId")
@@ -36,5 +37,4 @@ public class UserEntity {
         this.teamEntity = team;
         return team;
     }
-
 }
