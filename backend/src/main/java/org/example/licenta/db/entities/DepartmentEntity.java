@@ -11,6 +11,7 @@ import java.util.List;
 public class DepartmentEntity {
 
     @Id
+    @Column(unique=true)
     private String departmentId;
 
     private String departmentName;

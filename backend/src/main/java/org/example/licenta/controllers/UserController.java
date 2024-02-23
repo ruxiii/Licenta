@@ -1,6 +1,7 @@
 package org.example.licenta.controllers;
 
 import org.example.licenta.dto.UserDto;
+import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
 import org.example.licenta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public List<UserDto> getUsers() {
+    public List<UserDto> getUsers() throws UserNotFoundException {
         return userService.getUsers();
     }
 
@@ -25,17 +26,17 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}/delete")
-    public void deleteUser(@PathVariable String id) {
+    public void deleteUser(@PathVariable String id) throws UserNotFoundException {
         userService.deleteUser(id);
     }
 
     @PostMapping("/users/create")
-    public void createUser(@RequestBody UserDto userDto) {
+    public void createUser(@RequestBody UserDto userDto) throws UserAlreadyExistsException {
         userService.createUser(userDto);
     }
     
     @PutMapping("/users/{id}/update")
-    public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable String id) {
+    public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable String id) throws UserNotFoundException {
         return userService.updateUser(userDto, id);
     }
 }
