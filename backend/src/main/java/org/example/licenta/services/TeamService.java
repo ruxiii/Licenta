@@ -26,12 +26,6 @@ public class TeamService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    private final TeamMapper teamMapper;
-
-    public TeamService(TeamMapper teamMapper) {
-        this.teamMapper = teamMapper;
-    }
-
     public List<TeamDto> getTeams() throws TeamNotFoundException {
         if (teamRepository.findAll().isEmpty()) {
             throw new TeamNotFoundException("No teams found");

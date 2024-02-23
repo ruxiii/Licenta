@@ -1,11 +1,14 @@
 package org.example.licenta.services;
 
 import org.example.licenta.db.entities.AuthenticationEntity;
+import org.example.licenta.db.entities.TeamEntity;
 import org.example.licenta.db.entities.UserEntity;
 import org.example.licenta.db.entities.enums.UserRoles;
 import org.example.licenta.db.repositories.AuthenticationRepository;
+import org.example.licenta.db.repositories.TeamRepository;
 import org.example.licenta.db.repositories.UserRepository;
 import org.example.licenta.dto.UserDto;
+import org.example.licenta.exceptions.TeamNotFoundException;
 import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
 import org.example.licenta.mappers.AuthenticationMapper;
@@ -13,6 +16,7 @@ import org.example.licenta.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +34,9 @@ public class UserService {
     @Autowired
     private AuthenticationRepository authRepository;
 
+    @Autowired
+    private TeamRepository teamRepository;
+
     public UserService(UserMapper userMapper, AuthenticationMapper authMapper) {
         this.userMapper = userMapper;
         this.authMapper = authMapper;
@@ -41,7 +48,21 @@ public class UserService {
         }
         else {
             List<UserEntity> users = userRepository.findAll();
-            return users.stream().map(userMapper::toDto).collect(Collectors.toList());
+            List<UserDto> userDtos = new ArrayList<>();
+            for (UserEntity userEntity : users) {
+                TeamEntity teamEntity = userEntity.getTeamEntity();
+                String teamId = teamEntity.getTeamId();
+                UserDto userDto = new UserDto();
+                userDto.setUserId(userEntity.getUserId());
+                userDto.setUserName(userEntity.getUserName());
+                userDto.setUserFirstName(userEntity.getUserFirstName());
+                userDto.setUserEmail(userEntity.getUserEmail());
+                userDto.setUserPassword(userEntity.getUserPassword());
+                userDto.setUserRole(userEntity.getUserRole().toString());
+                userDto.setTeamId(teamId);
+                userDtos.add(userDto);
+            }
+            return userDtos;
         }
     }
 
@@ -51,7 +72,18 @@ public class UserService {
             throw new UserNotFoundException("User not found");
         }
         else{
-            return userMapper.toDto(user.get());
+            UserEntity userEntity = user.get();
+            TeamEntity teamEntity = userEntity.getTeamEntity();
+            String teamId = teamEntity.getTeamId();
+            UserDto userDto = new UserDto();
+            userDto.setUserId(userEntity.getUserId());
+            userDto.setUserName(userEntity.getUserName());
+            userDto.setUserFirstName(userEntity.getUserFirstName());
+            userDto.setUserEmail(userEntity.getUserEmail());
+            userDto.setUserPassword(userEntity.getUserPassword());
+            userDto.setUserRole(userEntity.getUserRole().toString());
+            userDto.setTeamId(teamId);
+            return userDto;
         }
     }
 
@@ -65,45 +97,65 @@ public class UserService {
         }
     }
 
-    public void createUser(UserDto userDto) throws UserAlreadyExistsException {
+    public void createUser(UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException {
         if (userRepository.existsById(userDto.getUserId())) {
             throw new UserAlreadyExistsException("User already exists");
         }
         else {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setUserId(userDto.getUserId());
-            userEntity.setUserName(userDto.getUserName());
-            userEntity.setUserFirstName(userDto.getUserFirstName());
-            userEntity.setUserEmail(userDto.getUserEmail());
+            if (!teamRepository.existsById(userDto.getTeamId())) {
+                throw new TeamNotFoundException("Team not found");
+            }
+            else {
+                TeamEntity teamEntity = teamRepository.findById(userDto.getTeamId()).get();
+                UserEntity userEntity = new UserEntity();
+                userEntity.setUserId(userDto.getUserId());
+                userEntity.setUserName(userDto.getUserName());
+                userEntity.setUserFirstName(userDto.getUserFirstName());
+                userEntity.setUserEmail(userDto.getUserEmail());
 //        TODO: Encode the password
-            userEntity.setUserPassword(userDto.getUserPassword());
-            userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
+                userEntity.setUserPassword(userDto.getUserPassword());
+                userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
+                userEntity.setTeamEntity(teamEntity);
 
-//        TODO: nu merge ca-i fk
-//        userEntity.setTeamEntity(userEntity.setTeamId("CAL"));
-//
-            userRepository.save(userEntity);
-            authRepository.save(authMapper.registered(userEntity));
+                userRepository.save(userEntity);
+                authRepository.save(authMapper.registered(userEntity));
+            }
         }
     }
 
-    public UserDto updateUser(UserDto userDto, String id) throws UserNotFoundException {
+    public UserDto updateUser(UserDto userDto, String id) throws UserNotFoundException, TeamNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new UserNotFoundException("User not found");
         }
         else {
-            user.get().setUserName(userDto.getUserName());
-            user.get().setUserFirstName(userDto.getUserFirstName());
-            user.get().setUserEmail(userDto.getUserEmail());
-            user.get().setUserPassword(userDto.getUserPassword());
-            user.get().setUserRole(UserRoles.valueOf(userDto.getUserRole()));
-//        TODO: Implement the team update
-//        user.get().setTeamEntity(userDto.getTeamEntity());
-//
-            userRepository.save(user.get());
-            authRepository.save(authMapper.registered(user.get()));
-            return userMapper.toDto(user.get());
+            if (!teamRepository.existsById(userDto.getTeamId())) {
+                throw new TeamNotFoundException("Team not found");
+            }
+            else {
+                String teamId = userDto.getTeamId();
+                TeamEntity teamEntity = teamRepository.findById(teamId).get();
+                UserEntity userEntity = user.get();
+                userEntity.setUserName(userDto.getUserName());
+                userEntity.setUserFirstName(userDto.getUserFirstName());
+                userEntity.setUserEmail(userDto.getUserEmail());
+                userEntity.setUserPassword(userDto.getUserPassword());
+                userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
+                userEntity.setTeamEntity(teamEntity);
+
+                UserDto updatedUser = new UserDto();
+                updatedUser.setUserId(userEntity.getUserId());
+                updatedUser.setUserName(userEntity.getUserName());
+                updatedUser.setUserFirstName(userEntity.getUserFirstName());
+                updatedUser.setUserEmail(userEntity.getUserEmail());
+                updatedUser.setUserPassword(userEntity.getUserPassword());
+                updatedUser.setUserRole(userEntity.getUserRole().toString());
+                updatedUser.setTeamId(teamEntity.getTeamId());
+
+                userRepository.save(userEntity);
+                authRepository.save(authMapper.registered(userEntity));
+                return updatedUser;
+            }
         }
     }
 }

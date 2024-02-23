@@ -1,6 +1,7 @@
 package org.example.licenta.controllers;
 
 import org.example.licenta.dto.UserDto;
+import org.example.licenta.exceptions.TeamNotFoundException;
 import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
 import org.example.licenta.services.UserService;
@@ -31,12 +32,12 @@ public class UserController {
     }
 
     @PostMapping("/users/create")
-    public void createUser(@RequestBody UserDto userDto) throws UserAlreadyExistsException {
+    public void createUser(@RequestBody UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException {
         userService.createUser(userDto);
     }
     
     @PutMapping("/users/{id}/update")
-    public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable String id) throws UserNotFoundException {
+    public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable String id) throws UserNotFoundException, TeamNotFoundException {
         return userService.updateUser(userDto, id);
     }
 }

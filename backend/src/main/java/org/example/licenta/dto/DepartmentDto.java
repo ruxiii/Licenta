@@ -10,7 +10,7 @@ public class DepartmentDto {
 
     private String departmentName;
 
-    private MapDto mapDto;
-
-    private List<TeamDto> teams;
+//    private MapDto mapDto;
+//
+//    private List<TeamDto> teams;
 }
