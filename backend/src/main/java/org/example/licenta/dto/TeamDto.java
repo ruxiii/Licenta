@@ -8,7 +8,7 @@ import java.util.List;
 public class TeamDto {
     private String teamId;
 
-    private DepartmentDto departmentDto;
+    private String departmentId;
 
-    private List<UserDto> users;
+//    private List<UserDto> users;
 }

@@ -50,7 +50,9 @@ public class UserService {
         if (user.isEmpty()) {
             throw new UserNotFoundException("User not found");
         }
-        return userMapper.toDto(user.get());
+        else{
+            return userMapper.toDto(user.get());
+        }
     }
 
     public void deleteUser(String id) throws UserNotFoundException {

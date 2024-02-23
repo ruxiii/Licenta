@@ -40,7 +40,9 @@ public class DepartmentService {
         if (department.isEmpty()) {
             throw new DepartmentNotFoundException("Department not found");
         }
-        return departmentMapper.toDto(department.get());
+        else {
+            return departmentMapper.toDto(department.get());
+        }
     }
 
     public void deleteDepartment(String id) throws DepartmentNotFoundException {
