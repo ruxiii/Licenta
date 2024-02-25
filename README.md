@@ -10,3 +10,5 @@
 
 ***23.02.2024***  - CRUD on departments, teams, events(this is not tested yet) + FK problem done for users and teams
 
+***25.02.2024***  - CRUD on maps (without pictures) + CRUD on events finished
+
