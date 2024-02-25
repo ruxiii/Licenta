@@ -3,15 +3,14 @@ package org.example.licenta.services;
 import org.example.licenta.db.entities.EventEntity;
 import org.example.licenta.db.repositories.EventRepository;
 import org.example.licenta.dto.EventDto;
-import org.example.licenta.exceptions.EventAlreadyExistsException;
 import org.example.licenta.exceptions.EventNotFoundException;
 import org.example.licenta.mappers.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -19,19 +18,21 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    private final EventMapper eventMapper;
-
-    public EventService(EventMapper eventMapper) {
-        this.eventMapper = eventMapper;
-    }
-
     public List<EventDto> getEvents() throws EventNotFoundException {
         if (eventRepository.findAll().isEmpty()) {
             throw new EventNotFoundException("No events found");
         }
         else{
             List<EventEntity> events = eventRepository.findAll();
-            return events.stream().map(eventMapper::toDto).collect(Collectors.toList());
+            List<EventDto> eventDtos = new ArrayList<>();
+            for (EventEntity event : events) {
+                EventDto eventDto = new EventDto();
+                eventDto.setEventName(event.getEventName());
+                eventDto.setEventStartDate(event.getEventStartDate());
+                eventDto.setEventEndDate(event.getEventEndDate());
+                eventDtos.add(eventDto);
+            }
+            return eventDtos;
         }
     }
 
@@ -41,7 +42,11 @@ public class EventService {
             throw new EventNotFoundException("Event not found");
         }
         else {
-            return eventMapper.toDto(event.get());
+            EventDto eventDto = new EventDto();
+            eventDto.setEventName(event.get().getEventName());
+            eventDto.setEventStartDate(event.get().getEventStartDate());
+            eventDto.setEventEndDate(event.get().getEventEndDate());
+            return eventDto;
         }
     }
 
@@ -54,13 +59,12 @@ public class EventService {
         }
     }
 
-    public void createEvent(EventDto eventDto) throws EventAlreadyExistsException {
-        if (eventRepository.existsById(eventDto.getEventId())) {
-            throw new EventAlreadyExistsException("Event already exists");
-        }
-        else {
-            eventRepository.save(eventMapper.toEntity(eventDto));
-        }
+    public void createEvent(EventDto eventDto){
+        EventEntity eventEntity = new EventEntity();
+        eventEntity.setEventName(eventDto.getEventName());
+        eventEntity.setEventStartDate(eventDto.getEventStartDate());
+        eventEntity.setEventEndDate(eventDto.getEventEndDate());
+        eventRepository.save(eventEntity);
     }
 
     public EventDto updateEvent(EventDto eventDto, String id) throws EventNotFoundException {
@@ -69,12 +73,16 @@ public class EventService {
         }
         else {
             EventEntity eventEntity = eventRepository.findById(Long.valueOf(id)).get();
-            eventEntity.setEventId(eventDto.getEventId());
             eventEntity.setEventName(eventDto.getEventName());
             eventEntity.setEventStartDate(eventDto.getEventStartDate());
             eventEntity.setEventEndDate(eventDto.getEventEndDate());
             eventRepository.save(eventEntity);
-            return eventMapper.toDto(eventEntity);
+
+            EventDto eventDto1 = new EventDto();
+            eventDto1.setEventName(eventEntity.getEventName());
+            eventDto1.setEventStartDate(eventEntity.getEventStartDate());
+            eventDto1.setEventEndDate(eventEntity.getEventEndDate());
+            return eventDto1;
         }
     }
 }
