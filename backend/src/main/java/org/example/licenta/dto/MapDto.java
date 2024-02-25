@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class MapDto {
 
-    private String denumireHarta;
+    private String mapName;
 
-    private String pozaHarta;
+    private String mapImage;
 
-    private Long idDepartament;
+    private String departmentId;
 }

@@ -16,6 +16,7 @@ public class MapEntity {
 
     private String mapName;
 
+//    TODO: implement mapImage (nu cred ca paote fi facuta pana la frontend)
     @Lob
     @Column(columnDefinition="MEDIUMBLOB")
     private String mapImage;
