@@ -30,11 +30,4 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userEntity")
     private List<ReservationEntity> reservations;
-
-    public TeamEntity setTeamId(String teamId) {
-        TeamEntity team = new TeamEntity();
-        team.setTeamId(teamId);
-        this.teamEntity = team;
-        return team;
-    }
 }

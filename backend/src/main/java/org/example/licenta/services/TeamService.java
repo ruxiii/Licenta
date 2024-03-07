@@ -8,14 +8,12 @@ import org.example.licenta.dto.TeamDto;
 import org.example.licenta.exceptions.DepartmentNotFoundException;
 import org.example.licenta.exceptions.TeamAlreadyExistsException;
 import org.example.licenta.exceptions.TeamNotFoundException;
-import org.example.licenta.mappers.TeamMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TeamService {

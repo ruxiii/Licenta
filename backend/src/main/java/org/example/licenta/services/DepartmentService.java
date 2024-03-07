@@ -5,13 +5,12 @@ import org.example.licenta.db.repositories.DepartmentRepository;
 import org.example.licenta.dto.DepartmentDto;
 import org.example.licenta.exceptions.DepartmentAlreadyExistsException;
 import org.example.licenta.exceptions.DepartmentNotFoundException;
-import org.example.licenta.mappers.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class DepartmentService {
@@ -19,19 +18,20 @@ public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    private final DepartmentMapper departmentMapper;
-
-    public DepartmentService(DepartmentMapper departmentMapper) {
-        this.departmentMapper = departmentMapper;
-    }
-
     public List<DepartmentDto> getDepartments() throws DepartmentNotFoundException {
         if (departmentRepository.findAll().isEmpty()) {
             throw new DepartmentNotFoundException("No departments found");
         }
         else {
             List<DepartmentEntity> departments = departmentRepository.findAll();
-            return departments.stream().map(departmentMapper::toDto).collect(Collectors.toList());
+            List<DepartmentDto> departmentDtos = new ArrayList<>();
+            for (DepartmentEntity departmentEntity : departments) {
+                DepartmentDto departmentDto = new DepartmentDto();
+                departmentDto.setDepartmentId(departmentEntity.getDepartmentId());
+                departmentDto.setDepartmentName(departmentEntity.getDepartmentName());
+                departmentDtos.add(departmentDto);
+            }
+            return departmentDtos;
         }
     }
 
@@ -41,7 +41,10 @@ public class DepartmentService {
             throw new DepartmentNotFoundException("Department not found");
         }
         else {
-            return departmentMapper.toDto(department.get());
+            DepartmentDto departmentDto = new DepartmentDto();
+            departmentDto.setDepartmentId(department.get().getDepartmentId());
+            departmentDto.setDepartmentName(department.get().getDepartmentName());
+            return departmentDto;
         }
     }
 
@@ -59,7 +62,9 @@ public class DepartmentService {
             throw new DepartmentAlreadyExistsException("Department already exists");
         }
         else {
-            DepartmentEntity departmentEntity = departmentMapper.toEntity(departmentDto);
+            DepartmentEntity departmentEntity = new DepartmentEntity();
+            departmentEntity.setDepartmentId(departmentDto.getDepartmentId());
+            departmentEntity.setDepartmentName(departmentDto.getDepartmentName());
             departmentRepository.save(departmentEntity);
         }
     }
@@ -70,9 +75,14 @@ public class DepartmentService {
         }
         else {
             DepartmentEntity departmentEntity = departmentRepository.findById(id).get();
+            departmentEntity.setDepartmentId(departmentDto.getDepartmentId());
             departmentEntity.setDepartmentName(departmentDto.getDepartmentName());
             departmentRepository.save(departmentEntity);
-            return departmentMapper.toDto(departmentEntity);
+
+            DepartmentDto updatedDepartmentDto = new DepartmentDto();
+            updatedDepartmentDto.setDepartmentId(departmentEntity.getDepartmentId());
+            updatedDepartmentDto.setDepartmentName(departmentEntity.getDepartmentName());
+            return updatedDepartmentDto;
         }
     }
 }

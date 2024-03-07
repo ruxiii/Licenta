@@ -11,23 +11,15 @@ import org.example.licenta.dto.UserDto;
 import org.example.licenta.exceptions.TeamNotFoundException;
 import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
-import org.example.licenta.mappers.AuthenticationMapper;
-import org.example.licenta.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
-
-    private final UserMapper userMapper;
-
-    private final AuthenticationMapper authMapper;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -36,11 +28,6 @@ public class UserService {
 
     @Autowired
     private TeamRepository teamRepository;
-
-    public UserService(UserMapper userMapper, AuthenticationMapper authMapper) {
-        this.userMapper = userMapper;
-        this.authMapper = authMapper;
-    }
 
     public List<UserDto> getUsers() throws UserNotFoundException {
         if (userRepository.findAll().isEmpty()) {
@@ -118,7 +105,12 @@ public class UserService {
                 userEntity.setTeamEntity(teamEntity);
 
                 userRepository.save(userEntity);
-                authRepository.save(authMapper.registered(userEntity));
+
+                AuthenticationEntity authEntity = new AuthenticationEntity();
+                authEntity.setUserId(userEntity.getUserId());
+                authEntity.setUserPassword(userEntity.getUserPassword());
+                authEntity.setUserRole(userEntity.getUserRole().toString());
+                authRepository.save(authEntity);
             }
         }
     }
@@ -153,7 +145,12 @@ public class UserService {
                 updatedUser.setTeamId(teamEntity.getTeamId());
 
                 userRepository.save(userEntity);
-                authRepository.save(authMapper.registered(userEntity));
+
+                AuthenticationEntity authEntity = new AuthenticationEntity();
+                authEntity.setUserId(userEntity.getUserId());
+                authEntity.setUserPassword(userEntity.getUserPassword());
+                authEntity.setUserRole(userEntity.getUserRole().toString());
+                authRepository.save(authEntity);
                 return updatedUser;
             }
         }
