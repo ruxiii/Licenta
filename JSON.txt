@@ -1,0 +1,58 @@
+-------------------------JSON DEPARTMENT-------------------------	
+	{
+        "departmentId": "TAS",
+        "departmentName": "Thales Alenia Space"
+    }
+
+	
+-------------------------JSON TEAM-------------------------	
+	{
+        "teamId": "CAL",
+        "departmentId": "TAS"
+    }	
+	
+	
+-------------------------JSON USER-------------------------
+    {
+        "userId": "T1",
+        "userName": "iftimi",
+        "userFirstName": "ruxi",
+        "userEmail": "@ruxi",
+        "userPassword": "hello",
+        "userRole": "USER",
+        "teamId": "CAL"
+    }
+	
+	
+-------------------------JSON MAP-------------------------
+    {
+        "mapNameId": "Harta TAS",
+        "mapImage": "",
+        "departmentId": "TAS"
+    }
+	
+	
+-------------------------JSON EVENT-------------------------	
+	{
+        "eventName": "vizita PCM",
+        "eventStartDate": "29-03-2024 09:00",
+        "eventEndDate": "29-03-2024 18:00"
+    }
+	
+	
+-------------------------JSON PLACE-------------------------	
+	{
+        "placeNameId": "TAS1",
+        "mapNameId": "Harta TAS"
+    }	
+		
+	
+-------------------------JSON RESERVATION-------------------------	
+	{
+        "eventStartDate": "29-03-2024 09:00",
+        "eventEndDate": "29-03-2024 18:00",
+		"userId": "T1",
+		"placeNameId": "TAS1",
+		"eventName": "vizita PCM"
+    }
+	

@@ -23,10 +23,11 @@ public class ReservationController {
 //    TODO: implement this
 //    @GetMapping("/reservations/{id}")
 
-//    TODO: implement this
-//    @DeleteMapping("/reservations/{id}")
-//    public void deleteReservation(Long id) throws ReservationNotFoundException {
-//        reservationService.deleteReservation(id);
+//    TODO: implement this; nu i corect dar merge pentru moment
+    @DeleteMapping("/reservations/{id}/delete")
+    public void deleteReservation(@PathVariable String id) throws ReservationNotFoundException {
+        reservationService.deleteReservation(id);
+    }
 
     @PostMapping("/reservations/create")
     public void createReservation(@RequestBody ReservationDto reservationDto) throws ReservationCanNotBeMadeException {

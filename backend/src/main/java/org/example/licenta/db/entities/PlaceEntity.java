@@ -14,7 +14,7 @@ public class PlaceEntity {
     private String placeNameId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "MapNameId", referencedColumnName = "MapNameId")
+    @JoinColumn(name = "mapNameId", referencedColumnName = "mapNameId")
     private MapEntity mapEntity;
 
     @OneToMany(mappedBy = "placeEntity")

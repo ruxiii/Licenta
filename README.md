@@ -1,5 +1,9 @@
 # Licenta
 
+***E/R***  - https://app.diagrams.net/#G1T7educXcqF1XYm2mvA7KJQ9-c6r3mKnA#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D
+
+***trello***  - https://trello.com/b/GoCR6k4F/licenta
+
 ***15.02.2024***  - setup done(?) + connection with the mysql database + frontend project made
 
 ***16.02.2024***  - e/r diagram done + its implementation + entities + repositories + relationships based on foreign keys + uploaded images kind of started
@@ -11,4 +15,7 @@
 ***23.02.2024***  - CRUD on departments, teams, events(this is not tested yet) + FK problem done for users and teams
 
 ***25.02.2024***  - CRUD on maps (without pictures) + CRUD on events finished
+
+***07.03.2024***  - CRUD on places + CRUD on reservations not finished (it doesn't work with event) + Backend connected to frontend
+
 

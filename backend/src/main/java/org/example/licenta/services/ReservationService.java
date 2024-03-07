@@ -48,10 +48,18 @@ public class ReservationService {
                 reservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
                 reservationDto.setUserId(userId);
                 reservationDto.setPlaceNameId(placeId);
-                reservationDto.setEventName(eventName);
+//                reservationDto.setEventName(eventName);
                 reservationDtos.add(reservationDto);
             }
             return reservationDtos;
+        }
+    }
+
+    public void deleteReservation(String id) throws ReservationNotFoundException {
+        if (reservationRepository.findById(Long.valueOf(id)).isEmpty()) {
+            throw new ReservationNotFoundException("Reservation not found");
+        } else {
+            reservationRepository.deleteById(Long.valueOf(id));
         }
     }
 
