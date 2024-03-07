@@ -11,13 +11,10 @@ import java.util.List;
 public class PlaceEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long placeId;
-
-    private String placeName;
+    private String placeNameId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mapId", referencedColumnName = "mapId")
+    @JoinColumn(name = "MapNameId", referencedColumnName = "MapNameId")
     private MapEntity mapEntity;
 
     @OneToMany(mappedBy = "placeEntity")

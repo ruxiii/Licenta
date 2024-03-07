@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MapDto {
 
-    private String mapName;
+    private String mapNameId;
 
     private String mapImage;
 

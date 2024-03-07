@@ -11,12 +11,9 @@ import java.util.List;
 public class MapEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long mapId;
+    private String mapNameId;
 
-    private String mapName;
-
-//    TODO: implement mapImage (nu cred ca paote fi facuta pana la frontend)
+//    TODO: implement mapImage (nu cred ca poate fi facuta pana la frontend)
     @Lob
     @Column(columnDefinition="MEDIUMBLOB")
     private String mapImage;

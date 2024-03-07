@@ -4,7 +4,6 @@ import org.example.licenta.db.entities.EventEntity;
 import org.example.licenta.db.repositories.EventRepository;
 import org.example.licenta.dto.EventDto;
 import org.example.licenta.exceptions.EventNotFoundException;
-import org.example.licenta.mappers.EventMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
