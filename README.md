@@ -10,12 +10,14 @@
 
 ***17.02.2024***  - starting point for images + CRUD on user + services + controllers + mappers files made
 
-***22.02.2024***  - authetication almost done (not sure about that?) + authentication table that extracts only the fields needed for user + create user done an verified from postman (regarding authentication spring security shoul be uncommented from pom.xml and so the other files - HomeController and authentication package) 
+***22.02.2024***  - authetication almost done (not sure about that?) + authentication table that extracts only the fields needed for user + create user done an verified from postman (regarding authentication spring security should be uncommented from pom.xml and so the other files - HomeController and authentication package) 
 
 ***23.02.2024***  - CRUD on departments, teams, events(this is not tested yet) + FK problem done for users and teams
 
 ***25.02.2024***  - CRUD on maps (without pictures) + CRUD on events finished
 
 ***07.03.2024***  - CRUD on places + CRUD on reservations not finished (it doesn't work with event) + Backend connected to frontend
+
+***08.03.2024***  - CRUD almost done on reservations (it works for now but it's not that correct) + list of all objects exposed in frontend 
 
 
