@@ -1,0 +1,18 @@
+<div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">DepartmentId</th>
+            <th scope="col">DepartmentName</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dep of departments">
+            <td>{{ dep.departmentId }}</td>
+            <td>{{ dep.departmentName }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

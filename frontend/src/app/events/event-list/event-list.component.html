@@ -1,0 +1,20 @@
+<div class="card my-5">
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">EventName</th>
+            <th scope="col">EventStartDate</th>
+            <th scope="col">EventEndDate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of events">
+            <td>{{ event.eventName }}</td>
+            <td>{{ event.eventStartDate }}</td>
+            <td>{{ event.eventEndDate }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
