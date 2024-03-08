@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class EventEntity {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long eventId;
 
         private String eventName;

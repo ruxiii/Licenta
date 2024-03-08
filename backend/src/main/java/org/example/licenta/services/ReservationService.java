@@ -35,8 +35,7 @@ public class ReservationService {
     public List<ReservationDto> getReservations() throws ReservationNotFoundException {
         if (reservationRepository.findAll().isEmpty()) {
             throw new ReservationNotFoundException("No reservations found");
-        }
-        else {
+        } else {
             List<ReservationEntity> reservations = reservationRepository.findAll();
             List<ReservationDto> reservationDtos = new ArrayList<>();
             for (ReservationEntity reservationEntity : reservations) {
@@ -48,13 +47,33 @@ public class ReservationService {
                 reservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
                 reservationDto.setUserId(userId);
                 reservationDto.setPlaceNameId(placeId);
-//                reservationDto.setEventName(eventName);
+                reservationDto.setEventName(eventName);
                 reservationDtos.add(reservationDto);
             }
             return reservationDtos;
         }
     }
 
+    //    TODO: nu e prea corect dar merge pentru moment
+    public ReservationDto getReservation(String id) throws ReservationNotFoundException {
+        if (reservationRepository.findById(Long.valueOf(id)).isEmpty()) {
+            throw new ReservationNotFoundException("Reservation not found");
+        } else {
+            ReservationEntity reservationEntity = reservationRepository.findById(Long.valueOf(id)).get();
+            String userId = reservationEntity.getUserEntity().getUserId();
+            String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
+            String eventName = reservationEntity.getEventEntity().getEventName();
+            ReservationDto reservationDto = new ReservationDto();
+            reservationDto.setEventStartDate(reservationEntity.getReservationStartDate());
+            reservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
+            reservationDto.setUserId(userId);
+            reservationDto.setPlaceNameId(placeId);
+            reservationDto.setEventName(eventName);
+            return reservationDto;
+        }
+    }
+
+    //    TODO: nu e prea corect dar merge pentru moment
     public void deleteReservation(String id) throws ReservationNotFoundException {
         if (reservationRepository.findById(Long.valueOf(id)).isEmpty()) {
             throw new ReservationNotFoundException("Reservation not found");
@@ -64,19 +83,70 @@ public class ReservationService {
     }
 
     public void createReservation(ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
-        UserEntity userEntity = userRepository.findById(reservationDto.getUserId()).get();
-        PlaceEntity placeEntity = placeRepository.findById(reservationDto.getPlaceNameId()).get();
-        if(userEntity == null || placeEntity == null) {
-            throw new ReservationCanNotBeMadeException("User or place not found");
+        if (userRepository.findById(reservationDto.getUserId()).isEmpty()) {
+            throw new ReservationCanNotBeMadeException("User not found");
+        } else {
+            if (placeRepository.findById(reservationDto.getPlaceNameId()).isEmpty()) {
+                throw new ReservationCanNotBeMadeException("Place not found");
+            } else {
+                UserEntity userEntity = userRepository.findById(reservationDto.getUserId()).get();
+                PlaceEntity placeEntity = placeRepository.findById(reservationDto.getPlaceNameId()).get();
+
+                String eventName = reservationDto.getEventName();
+                EventEntity eventEntity = eventRepository.findByEventName(eventName);
+
+                if (eventEntity == null) {
+                    throw new ReservationCanNotBeMadeException("Event not found");
+                } else {
+                    ReservationEntity reservationEntity = new ReservationEntity();
+                    reservationEntity.setReservationStartDate(reservationDto.getEventStartDate());
+                    reservationEntity.setReservationEndDate(reservationDto.getEventEndDate());
+                    reservationEntity.setUserEntity(userEntity);
+                    reservationEntity.setPlaceEntity(placeEntity);
+                    reservationEntity.setEventEntity(eventEntity);
+                    reservationRepository.save(reservationEntity);
+                }
+            }
         }
-        else {
-            ReservationEntity reservationEntity = new ReservationEntity();
-            reservationEntity.setReservationStartDate(reservationDto.getEventStartDate());
-            reservationEntity.setReservationEndDate(reservationDto.getEventEndDate());
-            reservationEntity.setUserEntity(userEntity);
-            reservationEntity.setPlaceEntity(placeEntity);
-//          TODO: eveniment rezervare
-            reservationRepository.save(reservationEntity);
+    }
+
+    public ReservationDto updateReservation(String id, ReservationDto reservationDto) throws ReservationNotFoundException, ReservationCanNotBeMadeException {
+        if (reservationRepository.findById(Long.valueOf(id)).isEmpty()) {
+            throw new ReservationNotFoundException("Reservation not found");
+        } else {
+            if (userRepository.findById(reservationDto.getUserId()).isEmpty()) {
+                throw new ReservationCanNotBeMadeException("User not found");
+            } else {
+                if (placeRepository.findById(reservationDto.getPlaceNameId()).isEmpty()) {
+                    throw new ReservationCanNotBeMadeException("Place not found");
+                } else {
+                    UserEntity userEntity = userRepository.findById(reservationDto.getUserId()).get();
+                    PlaceEntity placeEntity = placeRepository.findById(reservationDto.getPlaceNameId()).get();
+
+                    String eventName = reservationDto.getEventName();
+                    EventEntity eventEntity = eventRepository.findByEventName(eventName);
+
+                    if (eventEntity == null) {
+                        throw new ReservationCanNotBeMadeException("Event not found");
+                    } else {
+                        ReservationEntity reservationEntity = reservationRepository.findById(Long.valueOf(id)).get();
+                        reservationEntity.setReservationStartDate(reservationDto.getEventStartDate());
+                        reservationEntity.setReservationEndDate(reservationDto.getEventEndDate());
+                        reservationEntity.setUserEntity(userEntity);
+                        reservationEntity.setPlaceEntity(placeEntity);
+                        reservationEntity.setEventEntity(eventEntity);
+                        reservationRepository.save(reservationEntity);
+
+                        ReservationDto updatedReservationDto = new ReservationDto();
+                        updatedReservationDto.setEventStartDate(reservationEntity.getReservationStartDate());
+                        updatedReservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
+                        updatedReservationDto.setUserId(userEntity.getUserId());
+                        updatedReservationDto.setPlaceNameId(placeEntity.getPlaceNameId());
+                        updatedReservationDto.setEventName(eventEntity.getEventName());
+                        return updatedReservationDto;
+                    }
+                }
+            }
         }
     }
 }

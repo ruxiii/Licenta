@@ -20,8 +20,11 @@ public class ReservationController {
         return reservationService.getReservations();
     }
 
-//    TODO: implement this
-//    @GetMapping("/reservations/{id}")
+//    TODO: implement this; nu i corect dar merge pentru moment
+    @GetMapping("/reservations/{id}")
+    public ReservationDto getReservation(@PathVariable String id) throws ReservationNotFoundException {
+        return reservationService.getReservation(id);
+    }
 
 //    TODO: implement this; nu i corect dar merge pentru moment
     @DeleteMapping("/reservations/{id}/delete")
@@ -34,6 +37,9 @@ public class ReservationController {
         reservationService.createReservation(reservationDto);
     }
 
-//    TODO: implement this
-//    @PutMapping("/reservations/update")
+//    TODO: implement this; nu i corect dar merge pentru moment
+    @PutMapping("/reservations/{id}/update")
+    public ReservationDto updateReservation(@PathVariable String id, @RequestBody ReservationDto reservationDto) throws ReservationNotFoundException, ReservationCanNotBeMadeException {
+        return reservationService.updateReservation(id, reservationDto);
+    }
 }
