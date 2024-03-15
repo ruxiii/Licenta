@@ -20,4 +20,6 @@
 
 ***08.03.2024***  - CRUD almost done on reservations (it works for now but it's not that correct) + list of all objects exposed in frontend 
 
+***15.03.2024***  - Add a user in the database from frontend + some minor changes in the backend in order to work 
+
 
