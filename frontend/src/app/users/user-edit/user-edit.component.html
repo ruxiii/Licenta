@@ -45,7 +45,7 @@
         <div class="form-group">
             <label for="userPassword">userPassword</label>
             <input 
-                type="text" 
+                type="password" 
                 id="userPassword" 
                 class="form-control"
                 name="userPassword"
@@ -63,7 +63,6 @@
                 <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
             </select>
         </div>
-        
         <div class="form-group">
             <label for="teamId">Team</label>
             <select 
@@ -73,11 +72,9 @@
                 [(ngModel)]="user.teamId"
                 required
             >
-                <option *ngFor="let team of teams" [ngValue]="team">{{ team.teamId }}</option>
+                <option *ngFor="let team of teamsArray" [ngValue]="team">{{ team }}</option>
             </select>
         </div>
-        
-        
 
         <div class="row">
             <div class="col-xs-12">
@@ -88,4 +85,3 @@
       </form>
     </div>
   </div>
-  

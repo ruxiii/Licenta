@@ -29,6 +29,7 @@ import { TeamsService } from './teams/teams.service';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { FormsModule } from '@angular/forms';
 import { UserRolesService } from './users/user-roles.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -58,8 +59,9 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     BrowserModule,
     AppRoutingModule, 
     HttpClientModule ,
-    FormsModule
-  ],
+    FormsModule,
+    ReactiveFormsModule
+      ],
   providers: [
     provideClientHydration(), 
     UsersService,

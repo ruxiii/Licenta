@@ -19,7 +19,7 @@ export class UserEditComponent implements OnInit{
   subscription: Subscription;
   userRoles: string[] = [];
   teams: TeamsComponent[] = [];
-  teamsArray: { teamId: string, departmentId: string }[] = [];
+  teamsArray: string[] = [];
   
 
   constructor(private usersService: UsersService, 
@@ -39,7 +39,7 @@ export class UserEditComponent implements OnInit{
     this.teamsService.getTeamsIds().subscribe(teams => {
       this.teams = teams;
       for (var i = 0; i < this.teams.length; i++) {
-        this.teamsArray.push({teamId: this.teams[i].teamId, departmentId: this.teams[i].departmentId});
+        this.teamsArray.push(this.teams[i].teamId);
       }
       console.log(this.teamsArray);
     });
