@@ -28,6 +28,7 @@ import { ReservationsService } from './reservations/reservations.service';
 import { TeamsService } from './teams/teams.service';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { FormsModule } from '@angular/forms';
+import { UserRolesService } from './users/user-roles.service';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -68,6 +69,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     PlacesService,
     ReservationsService,
     TeamsService,
+    UserRolesService,
     {
       provide: HttpClient,
       useFactory: provideCustomHttpClient,

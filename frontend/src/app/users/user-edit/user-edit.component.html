@@ -54,24 +54,30 @@
         </div>
         <div class="form-group">
             <label for="userRole">userRole</label>
-            <input 
-                type="text" 
+            <select 
                 id="userRole" 
                 class="form-control"
                 name="userRole"
-                ngModel
-                required>
+                [(ngModel)]="user.userRole"
+                required >
+                <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
+            </select>
         </div>
+        
         <div class="form-group">
-            <label for="teamId">teamId</label>
-            <input 
-                type="text" 
+            <label for="teamId">Team</label>
+            <select 
                 id="teamId" 
                 class="form-control"
                 name="teamId"
-                ngModel
-                required>
+                [(ngModel)]="user.teamId"
+                required
+            >
+                <option *ngFor="let team of teams" [ngValue]="team">{{ team.teamId }}</option>
+            </select>
         </div>
+        
+        
 
         <div class="row">
             <div class="col-xs-12">

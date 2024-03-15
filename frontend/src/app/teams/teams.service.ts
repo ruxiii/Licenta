@@ -15,4 +15,9 @@ export class TeamsService{
     public getTeams(): Observable<TeamsComponent[]> {
         return this.http.get<TeamsComponent[]>(this.teamUrl);
     }
+
+    
+    public getTeamsIds(): Observable<TeamsComponent[]> {
+        return this.http.get<TeamsComponent[]>('http://localhost:8080/teams');
+    }
 }
