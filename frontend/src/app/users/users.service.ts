@@ -5,14 +5,19 @@ import { UsersComponent } from './users.component';
 
 @Injectable()
 export class UsersService {
-
-  private userUrl : string;
+  private createUserUrl : string;
+  private getAllUsersUrl : string;
 
   constructor(private http: HttpClient) { 
-    this.userUrl = 'http://localhost:8080/users';
+    this.getAllUsersUrl = 'http://localhost:8080/users';
+    this.createUserUrl = 'http://localhost:8080/users/create';
   }
 
   public getUsers(): Observable<UsersComponent[]> {
-    return this.http.get<UsersComponent[]>(this.userUrl);
+    return this.http.get<UsersComponent[]>(this.getAllUsersUrl);
   }  
+
+  public createUser(userId: string, userName: string, userFirstName: string, userEmail: string, userPassword: string, userRole: string, teamId: string) {
+    return this.http.post<UsersComponent>(this.createUserUrl, {userId, userName, userFirstName, userEmail, userPassword, userRole, teamId});
+  }
 }

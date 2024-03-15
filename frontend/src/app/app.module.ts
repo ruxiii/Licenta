@@ -26,6 +26,8 @@ import { MapsService } from './maps/maps.service';
 import { PlacesService } from './places/places.service';
 import { ReservationsService } from './reservations/reservations.service';
 import { TeamsService } from './teams/teams.service';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { FormsModule } from '@angular/forms';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -49,11 +51,13 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     PlaceListComponent,
     ReservationListComponent,
     EventListComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    HttpClientModule 
+    HttpClientModule ,
+    FormsModule
   ],
   providers: [
     provideClientHydration(), 
