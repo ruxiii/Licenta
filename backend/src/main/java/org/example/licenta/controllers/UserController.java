@@ -1,6 +1,7 @@
 package org.example.licenta.controllers;
 
 import org.example.licenta.dto.UserDto;
+import org.example.licenta.dto.UserFullDto;
 import org.example.licenta.exceptions.TeamNotFoundException;
 import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public List<UserDto> getUsers() throws UserNotFoundException {
+    public List<UserFullDto> getUsers() throws UserNotFoundException {
         return userService.getUsers();
     }
 

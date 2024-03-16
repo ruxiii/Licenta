@@ -8,6 +8,7 @@ import org.example.licenta.db.repositories.AuthenticationRepository;
 import org.example.licenta.db.repositories.TeamRepository;
 import org.example.licenta.db.repositories.UserRepository;
 import org.example.licenta.dto.UserDto;
+import org.example.licenta.dto.UserFullDto;
 import org.example.licenta.exceptions.TeamNotFoundException;
 import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
@@ -29,27 +30,28 @@ public class UserService {
     @Autowired
     private TeamRepository teamRepository;
 
-    public List<UserDto> getUsers() throws UserNotFoundException {
+    public List<UserFullDto> getUsers() throws UserNotFoundException {
         if (userRepository.findAll().isEmpty()) {
             throw new UserNotFoundException("No users found");
         }
         else {
             List<UserEntity> users = userRepository.findAll();
-            List<UserDto> userDtos = new ArrayList<>();
+            List<UserFullDto> fullDtos = new ArrayList<>();
             for (UserEntity userEntity : users) {
                 TeamEntity teamEntity = userEntity.getTeamEntity();
                 String teamId = teamEntity.getTeamId();
 
-                UserDto userDto = new UserDto();
-                userDto.setUserName(userEntity.getUserName());
-                userDto.setUserFirstName(userEntity.getUserFirstName());
-                userDto.setUserEmail(userEntity.getUserEmail());
-                userDto.setUserPassword(userEntity.getUserPassword());
-                userDto.setUserRole(userEntity.getUserRole().toString());
-                userDto.setTeamId(teamId);
-                userDtos.add(userDto);
+                UserFullDto userFullDto = new UserFullDto();
+                userFullDto.setUserId(userEntity.getUserId());
+                userFullDto.setUserName(userEntity.getUserName());
+                userFullDto.setUserFirstName(userEntity.getUserFirstName());
+                userFullDto.setUserEmail(userEntity.getUserEmail());
+                userFullDto.setUserPassword(userEntity.getUserPassword());
+                userFullDto.setUserRole(userEntity.getUserRole().toString());
+                userFullDto.setTeamId(teamId);
+                fullDtos.add(userFullDto);
             }
-            return userDtos;
+            return fullDtos;
         }
     }
 
@@ -140,12 +142,12 @@ public class UserService {
             TeamEntity teamEntity = teamRepository.findById(userDto.getTeamId()).get();
             UserEntity userEntity = new UserEntity();
             userEntity.setUserId(userId);
-            userEntity.setUserName(userDto.getUserName());
-            userEntity.setUserFirstName(userDto.getUserFirstName());
+            userEntity.setUserName(userDto.getUserName().toUpperCase());
+            userEntity.setUserFirstName(userDto.getUserFirstName().toUpperCase());
             userEntity.setUserEmail(userDto.getUserEmail());
             // TODO: Encode the password
             userEntity.setUserPassword(userDto.getUserPassword());
-            userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
+            userEntity.setUserRole(UserRoles.valueOf(UserRoles.USER.toString()));
             userEntity.setTeamEntity(teamEntity);
 
             userRepository.save(userEntity);
@@ -153,7 +155,7 @@ public class UserService {
             AuthenticationEntity authEntity = new AuthenticationEntity();
             authEntity.setUserId(userEntity.getUserId());
             authEntity.setUserPassword(userEntity.getUserPassword());
-            authEntity.setUserRole(userEntity.getUserRole().toString());
+            authEntity.setUserRole(UserRoles.USER.toString());
             authRepository.save(authEntity);
         }
     }
