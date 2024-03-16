@@ -22,13 +22,12 @@ export class UserEditComponent implements OnInit, OnDestroy{
   teams: TeamsComponent[] = [];
   teamsArray: string[] = [];
   userPassword = '';
+  confirmPassword = '';
   passwordVisible = false;
+  confirmPasswordVisible: boolean = false;
+  passwordsMatch: boolean = true;
   isDarkMode: boolean;
   private themeSubscription: Subscription;
-
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible;
-  }
 
   constructor(private usersService: UsersService, 
               private route: ActivatedRoute, 
@@ -80,6 +79,19 @@ export class UserEditComponent implements OnInit, OnDestroy{
     console.log('isDarkMode', this.isDarkMode);
     this.isDarkMode = !this.isDarkMode;
     this.themeService.setDarkMode(this.isDarkMode);
+  }
+
+  
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.confirmPasswordVisible = !this.confirmPasswordVisible;
+  }
+
+  validatePasswords(): void {
+    this.passwordsMatch = this.userPassword === this.confirmPassword;
   }
 
 }

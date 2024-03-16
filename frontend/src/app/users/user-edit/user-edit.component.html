@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">Add a User</h1>
+<h1 style="text-align: center;  font-weight: bold;">Add a User</h1>
 <br/>
 <div class="card my-5">
     <div class="card-body">
@@ -12,9 +12,10 @@
                 name="userName"
                 ngModel
                 required
-                placeholder="Enter your name">
+                #name="ngModel"
+                [placeholder]="name.touched ? 'Please enter your name!' : 'Enter your name'">
         </div>
-        
+        <br/>
          
         <div class="form-group">
             <label for="userFirstName">First Name: </label>
@@ -25,8 +26,24 @@
                 name="userFirstName"
                 ngModel
                 required
-                placeholder="Enter your first name">
+                #firstname="ngModel"
+                [placeholder]="firstname.touched ? 'Please enter your first name!' : 'Enter your first name'">
         </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="teamId">Team: </label>
+            <select 
+                id="teamId" 
+                class="form-control"
+                name="teamId"
+                [(ngModel)]="user.teamId"
+                required
+            >
+                <option *ngFor="let team of teamsArray" [ngValue]="team">{{ team }}</option>
+            </select>
+        </div>
+        <br/>
 
         <div class="form-group">
             <label for="userEmail">Email: </label>
@@ -37,24 +54,45 @@
                 name="userEmail"
                 ngModel
                 required
-                placeholder="Enter your email">
+                #email="ngModel"
+                [placeholder]="email.invalid && email.touched ? 'Please enter a valid email!' : 'Enter your email'">    
         </div>
+        <br/>
 
         <div class="form-group">
             <label for="userPassword">Password: </label>
-            <br/>
-                <input 
-                    type="{{ passwordVisible ? 'text' : 'password' }}" 
-                    class="form-control"
-                    [(ngModel)]="userPassword" 
-                    name="userPassword"
-                    placeholder="Enter your password"
-                    required
-                >
-                <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
-                    {{ passwordVisible ? 'Hide' : 'Show' }}
-                </button>
+            <input 
+                type="{{ passwordVisible ? 'text' : 'password' }}" 
+                class="form-control"
+                [(ngModel)]="userPassword" 
+                name="userPassword"
+                placeholder="Enter your password"
+                required
+                (ngModelChange)="validatePasswords()"
+            >
+            <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                {{ passwordVisible ? 'Hide' : 'Show' }}
+            </button>
         </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm password: </label>
+            <input 
+                type="{{ confirmPasswordVisible ? 'text' : 'password' }}" 
+                class="form-control"
+                [(ngModel)]="confirmPassword" 
+                name="confirmPassword"
+                placeholder="Re-enter your password"
+                required
+                (ngModelChange)="validatePasswords()"
+            >
+            <button type="button" class="toggle-confirm-password" (click)="toggleConfirmPasswordVisibility()">
+                {{ confirmPasswordVisible ? 'Hide' : 'Show' }}
+            </button>
+        </div>
+        <span *ngIf="!passwordsMatch" class="error-message">Passwords do not match!</span>
+        <br/><br/>
         
         <!-- <div class="form-group">
             <label for="userRole">Role: </label>
@@ -69,22 +107,8 @@
             </select>
         </div> -->
 
-        <div class="form-group">
-            <label for="teamId">Team: </label>
-            <select 
-                id="teamId" 
-                class="form-control"
-                name="teamId"
-                [(ngModel)]="user.teamId"
-                required
-                placeholder="Enter your team"
-            >
-                <option *ngFor="let team of teamsArray" [ngValue]="team">{{ team }}</option>
-            </select>
-        </div>
-
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12" style="text-align: center;">
                 <button type="submit" [disabled]="!userForm.form.valid" 
                 class="btn btn-info">Submit</button>
             </div>

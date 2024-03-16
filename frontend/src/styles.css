@@ -5,7 +5,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Dark Theme Styles */
 .dark-theme {
-  background-color: rgba(0, 0, 0, 0.89);
+  background-color: #333;
   color: white;
 
       .navbar-default .navbar-brand {
@@ -16,4 +16,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         color: #ffffff;
       }
 }
+
+.dark-theme{ 
+  .form-group[_ngcontent-ng-c597361932][_ngcontent-ng-c597361932] label[_ngcontent-ng-c597361932][_ngcontent-ng-c597361932]{
+      color: #ffffff;
+  }
+}
+
+.dark-theme{
+  .form-group[_ngcontent-ng-c597361932] label[_ngcontent-ng-c597361932]{
+      color: #ffffff;
+  }
+} 
+
+.dark-theme{
+  .toggle-confirm-password{
+    color: black;
+  }
+}
+
+.dark-theme{
+  .toggle-password{
+    color: black;
+  }
+}
+
 

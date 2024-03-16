@@ -1,6 +1,7 @@
 /* Dark Theme Styles */
 .dark-theme .navbar-collapse {
-    background-color: rgba(0, 0, 0, 0.89); /* Use rgba() for transparent black */
+    background-color: #333; /* Use rgba() for transparent black */
+    color: #ffffff;
     .navbar-nav{
         a{
             color: #ffffff;
@@ -15,3 +16,27 @@
         color: #ffffff;
     }
 }
+
+.dark-theme{ 
+    .form-group[_ngcontent-ng-c597361932][_ngcontent-ng-c597361932] label[_ngcontent-ng-c597361932][_ngcontent-ng-c597361932]{
+        color: #ffffff;
+    }
+}
+
+.dark-theme{
+    .form-group[_ngcontent-ng-c597361932] label[_ngcontent-ng-c597361932]{
+        color: #ffffff;
+    }
+} 
+
+
+
+app-theme-toggle{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+
