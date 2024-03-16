@@ -22,4 +22,6 @@
 
 ***15.03.2024***  - Add a user in the database from frontend + some minor changes in the backend in order to work 
 
+***16.03.2024***  - UserId now generated from backend (make sure there will be a pop up that shows the user his id) + frontend adapted for backend + fields introduced in the database with uppercase + dark mode added (only works for all users and to add a user in the database; others should be made after this example) + confirm password added + password hashed in the database 
+
 
