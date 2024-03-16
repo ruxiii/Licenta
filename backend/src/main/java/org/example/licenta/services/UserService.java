@@ -39,8 +39,8 @@ public class UserService {
             for (UserEntity userEntity : users) {
                 TeamEntity teamEntity = userEntity.getTeamEntity();
                 String teamId = teamEntity.getTeamId();
+
                 UserDto userDto = new UserDto();
-                userDto.setUserId(userEntity.getUserId());
                 userDto.setUserName(userEntity.getUserName());
                 userDto.setUserFirstName(userEntity.getUserFirstName());
                 userDto.setUserEmail(userEntity.getUserEmail());
@@ -62,8 +62,8 @@ public class UserService {
             UserEntity userEntity = user.get();
             TeamEntity teamEntity = userEntity.getTeamEntity();
             String teamId = teamEntity.getTeamId();
+
             UserDto userDto = new UserDto();
-            userDto.setUserId(userEntity.getUserId());
             userDto.setUserName(userEntity.getUserName());
             userDto.setUserFirstName(userEntity.getUserFirstName());
             userDto.setUserEmail(userEntity.getUserEmail());
@@ -84,36 +84,80 @@ public class UserService {
         }
     }
 
-    public void createUser(UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException {
-        if (userRepository.existsById(userDto.getUserId())) {
-            throw new UserAlreadyExistsException("User already exists");
+    private Integer getPosition(String str) {
+        int position = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isDigit(str.charAt(i))) {
+                position = i;
+                break;
+            }
         }
-        else {
-            if (!teamRepository.existsById(userDto.getTeamId())) {
-                throw new TeamNotFoundException("Team not found");
-            }
-            else {
-                TeamEntity teamEntity = teamRepository.findById(userDto.getTeamId()).get();
-                UserEntity userEntity = new UserEntity();
-                userEntity.setUserId(userDto.getUserId());
-                userEntity.setUserName(userDto.getUserName());
-                userEntity.setUserFirstName(userDto.getUserFirstName());
-                userEntity.setUserEmail(userDto.getUserEmail());
-//        TODO: Encode the password
-                userEntity.setUserPassword(userDto.getUserPassword());
-                userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
-                userEntity.setTeamEntity(teamEntity);
+        return position;
+    }
 
-                userRepository.save(userEntity);
-
-                AuthenticationEntity authEntity = new AuthenticationEntity();
-                authEntity.setUserId(userEntity.getUserId());
-                authEntity.setUserPassword(userEntity.getUserPassword());
-                authEntity.setUserRole(userEntity.getUserRole().toString());
-                authRepository.save(authEntity);
+    private ArrayList<Integer> getTheNumber(String str) {
+        int number = 0;
+        int ok = -1;
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isDigit(str.charAt(i))) {
+                if (ok < 0) {
+                    ok = i;
+                    result.add(ok);
+                }
+                number = number * 10 + (str.charAt(i) - '0');
             }
+        }
+        result.add(number);
+        return result;
+    }
+
+    private Integer createId(List<String> userIds) {
+        int max = 0;
+        for (String userId : userIds) {
+            ArrayList<Integer> number = getTheNumber(userId);
+            if (number.get(1) > max) {
+                max = number.get(1);
+            }
+        }
+        return max;
+    }
+
+    public void createUser(UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException {
+        if (!teamRepository.existsById(userDto.getTeamId())) {
+            throw new TeamNotFoundException("Team not found");
+        } else {
+            List<UserEntity> users = userRepository.findAll();
+            List<String> userIds = new ArrayList<>();
+            for (UserEntity user : users) {
+                userIds.add(user.getUserId());
+            }
+            int max = createId(userIds);
+            int position = getPosition(userIds.get(0));
+
+            String userId = userIds.get(0).substring(0, position) + (max + 1);
+
+            TeamEntity teamEntity = teamRepository.findById(userDto.getTeamId()).get();
+            UserEntity userEntity = new UserEntity();
+            userEntity.setUserId(userId);
+            userEntity.setUserName(userDto.getUserName());
+            userEntity.setUserFirstName(userDto.getUserFirstName());
+            userEntity.setUserEmail(userDto.getUserEmail());
+            // TODO: Encode the password
+            userEntity.setUserPassword(userDto.getUserPassword());
+            userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
+            userEntity.setTeamEntity(teamEntity);
+
+            userRepository.save(userEntity);
+
+            AuthenticationEntity authEntity = new AuthenticationEntity();
+            authEntity.setUserId(userEntity.getUserId());
+            authEntity.setUserPassword(userEntity.getUserPassword());
+            authEntity.setUserRole(userEntity.getUserRole().toString());
+            authRepository.save(authEntity);
         }
     }
+
 
     public UserDto updateUser(UserDto userDto, String id) throws UserNotFoundException, TeamNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
@@ -136,7 +180,6 @@ public class UserService {
                 userEntity.setTeamEntity(teamEntity);
 
                 UserDto updatedUser = new UserDto();
-                updatedUser.setUserId(userEntity.getUserId());
                 updatedUser.setUserName(userEntity.getUserName());
                 updatedUser.setUserFirstName(userEntity.getUserFirstName());
                 updatedUser.setUserEmail(userEntity.getUserEmail());
