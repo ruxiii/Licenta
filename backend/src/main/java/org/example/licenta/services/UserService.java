@@ -15,6 +15,8 @@ import org.example.licenta.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -125,7 +127,26 @@ public class UserService {
         return max;
     }
 
-    public void createUser(UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException {
+    private String encryptPassword(String password) throws NoSuchAlgorithmException {
+        String encryptedpassword = "";
+        MessageDigest m = MessageDigest.getInstance("MD5");
+
+        m.update(password.getBytes());
+
+        byte[] bytes = m.digest();
+
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        encryptedpassword = s.toString();
+        return encryptedpassword;
+    }
+
+//    TODO: vezi ce se intampla cu parola aia la login + la login trebuie transformat inputul in aceeasi forma cu parola
+//     din baza de date si sa vad daca hash urile sunt egale
+    public void createUser(UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException, NoSuchAlgorithmException {
         if (!teamRepository.existsById(userDto.getTeamId())) {
             throw new TeamNotFoundException("Team not found");
         } else {
@@ -146,7 +167,7 @@ public class UserService {
             userEntity.setUserFirstName(userDto.getUserFirstName().toUpperCase());
             userEntity.setUserEmail(userDto.getUserEmail());
             // TODO: Encode the password
-            userEntity.setUserPassword(userDto.getUserPassword());
+            userEntity.setUserPassword(encryptPassword(userDto.getUserPassword()));
             userEntity.setUserRole(UserRoles.valueOf(UserRoles.USER.toString()));
             userEntity.setTeamEntity(teamEntity);
 
@@ -160,7 +181,7 @@ public class UserService {
         }
     }
 
-
+//    TODO: vezi ce se intampla cu parola aia
     public UserDto updateUser(UserDto userDto, String id) throws UserNotFoundException, TeamNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {

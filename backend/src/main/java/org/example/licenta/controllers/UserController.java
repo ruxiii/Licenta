@@ -9,6 +9,7 @@ import org.example.licenta.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/users/create")
-    public void createUser(@RequestBody UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException {
+    public void createUser(@RequestBody UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException, NoSuchAlgorithmException {
         userService.createUser(userDto);
     }
     
