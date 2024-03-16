@@ -7,27 +7,39 @@ import { Subscription } from 'rxjs';
 import { UserRolesService } from '../user-roles.service';
 import { TeamsService } from '../../teams/teams.service';
 import { TeamsComponent } from '../../teams/teams.component';
+import { ThemeService } from '../../theme-toggle/theme.service';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrl: './user-edit.component.css'
 })
-export class UserEditComponent implements OnInit{
+export class UserEditComponent implements OnInit, OnDestroy{
   user: UsersComponent;
   @ViewChild('userForm') userForm: NgForm;
   subscription: Subscription;
   userRoles: string[] = [];
   teams: TeamsComponent[] = [];
   teamsArray: string[] = [];
-  
+  userPassword = '';
+  passwordVisible = false;
+  isDarkMode: boolean;
+  private themeSubscription: Subscription;
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
 
   constructor(private usersService: UsersService, 
               private route: ActivatedRoute, 
               private router: Router,
               private userRolesService: UserRolesService,
-              private teamsService: TeamsService) { 
+              private teamsService: TeamsService, private themeService: ThemeService) { 
     this.user = new UsersComponent();
+    this.isDarkMode = this.themeService.isDarkMode();
+    this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
+      this.isDarkMode = isDark;
+    });
   }
 
   ngOnInit(): void {
@@ -56,6 +68,18 @@ export class UserEditComponent implements OnInit{
 
   gotoUserList() {
     this.router.navigate(['/users']);
+  }
+
+  ngOnDestroy() {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
+  }
+
+  toggleDarkTheme(): void {
+    console.log('isDarkMode', this.isDarkMode);
+    this.isDarkMode = !this.isDarkMode;
+    this.themeService.setDarkMode(this.isDarkMode);
   }
 
 }

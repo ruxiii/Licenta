@@ -1,17 +1,36 @@
-.password-input {
-    position: relative;
+.form-control {
+    display: block;
+    margin-bottom: 5px;
+    width: 100%;
+    margin-left: 0px;
+    margin-right: -100px;    
 }
 
-.password-input input {
-    padding-right: 30px; /* Space for the toggle button */
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center; 
 }
 
-.password-input .toggle-password {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    border: none;
-    background: none;
-    cursor: pointer;
+.form-group label {
+    font-weight: bold;
+    width: 100px;
+    margin-right: 20px;
+    color: #333;
+    font-size: 18px;
+}
+
+.form-group input {
+    flex: 10; 
+}
+
+.toggle-password {
+    position: absolute; /* Position button absolute within form-group */
+    top: 231px; /* Adjust top position as needed */
+    right: -84px; /* Adjust right position as needed */
+    padding: 6px 11px; /* Add padding to button */
+    background-color: lightgreen; /* Add background color to button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border-radius */
+    cursor: pointer; /* Change cursor to pointer on hover */
 }

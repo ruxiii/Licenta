@@ -30,6 +30,10 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { FormsModule } from '@angular/forms';
 import { UserRolesService } from './users/user-roles.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
+import { ThemeService } from './theme-toggle/theme.service';
+import { MatIconModule } from '@angular/material/icon';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -54,13 +58,15 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     ReservationListComponent,
     EventListComponent,
     UserEditComponent,
+    ThemeToggleComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
     HttpClientModule ,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
       ],
   providers: [
     provideClientHydration(), 
@@ -72,11 +78,14 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     ReservationsService,
     TeamsService,
     UserRolesService,
+    ThemeService,
+
     {
       provide: HttpClient,
       useFactory: provideCustomHttpClient,
       deps: [HttpBackend]
-    }
+    },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

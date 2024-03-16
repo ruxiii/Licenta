@@ -1,0 +1,17 @@
+/* Dark Theme Styles */
+.dark-theme .navbar-collapse {
+    background-color: rgba(0, 0, 0, 0.89); /* Use rgba() for transparent black */
+    .navbar-nav{
+        a{
+            color: #ffffff;
+        }
+    }
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+        color: #ffffff;
+        background-color: grey;
+    }
+
+    .navbar-default .navbar-brand {
+        color: #ffffff;
+    }
+}

@@ -12,8 +12,8 @@
             <th scope="col">TeamId</th>
           </tr>
         </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
+        <tbody [class.dark-theme]="isDarkMode">
+          <tr *ngFor="let user of users" >
             <td>{{ user.userId }}</td>
             <td>{{ user.userName }}</td>
             <td>{{ user.userFirstName }}</td>
