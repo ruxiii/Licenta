@@ -1,5 +1,5 @@
-<div class="card my-5">
-    <div class="card-body">  
+<div class="card my-5" style="text-align: center;">
+    <div class="card-body" style="text-align: center;">  
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
           <tr>
@@ -12,18 +12,25 @@
             <th scope="col">TeamId</th>
           </tr>
         </thead>
-        <tbody [class.dark-theme]="isDarkMode">
-          <tr *ngFor="let user of users" >
-            <td>{{ user.userId }}</td>
-            <td>{{ user.userName }}</td>
-            <td>{{ user.userFirstName }}</td>
-            <td>{{ user.userEmail }}</td>
-            <td>{{ user.userPassword }}</td>
-            <td>{{ user.userRole }}</td>
-            <td>{{ user.teamId }}</td>
-        </tr>
-        </tbody>
-      </table>
+    
+          <tbody [class.dark-theme]="isDarkMode">
+            <tr *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+              <td>{{ user.userId }}</td>
+              <td>{{ user.userName }}</td>
+              <td>{{ user.userFirstName }}</td>
+              <td>{{ user.userEmail }}</td>
+              <td>{{ user.userPassword }}</td>
+              <td>{{ user.userRole }}</td>
+              <td>{{ user.teamId }}</td>
+            </tr>
+          </tbody>
+          </table>
+          <div style="text-align: center;" [class.dark-theme]="isDarkMode">
+            <pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+          </div>
+          
+          
     </div>
   </div>
   <button 

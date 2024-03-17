@@ -6,7 +6,8 @@ import { UsersComponent } from './users/users.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UsersService } from './users/users.service';
-import { HttpClientModule, HttpClient, HttpBackend } from '@angular/common/http';import 'whatwg-fetch';
+import { HttpClientModule, HttpClient, HttpBackend } from '@angular/common/http';
+import 'whatwg-fetch';
 import { HeaderComponent } from './header/header.component';
 import { DepartmentsComponent } from './departments/departments.component';
 import { TeamsComponent } from './teams/teams.component';
@@ -34,6 +35,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 import { ThemeService } from './theme-toggle/theme.service';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -67,7 +70,8 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-      ],
+    NgxPaginationModule
+    ],
   providers: [
     provideClientHydration(), 
     UsersService,

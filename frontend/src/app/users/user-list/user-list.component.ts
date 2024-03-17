@@ -4,6 +4,7 @@ import { UsersComponent } from '../users.component';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../theme-toggle/theme.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-user-list',
@@ -14,6 +15,11 @@ export class UserListComponent implements OnDestroy {
   users: UsersComponent[];
   isDarkMode: boolean;
   private themeSubscription: Subscription;
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: number[] = [5, 10, 15, 20];
 
   constructor(private usersService: UsersService, private router: Router, private themeService: ThemeService) {
     this.isDarkMode = this.themeService.isDarkMode();
@@ -26,6 +32,7 @@ export class UserListComponent implements OnDestroy {
     this.usersService.getUsers().subscribe(data => {
       this.users = data;
     });
+    this.postList();
   }
 
   onNewUser() {
@@ -42,5 +49,23 @@ export class UserListComponent implements OnDestroy {
     console.log('isDarkMode', this.isDarkMode);
     this.isDarkMode = !this.isDarkMode;
     this.themeService.setDarkMode(this.isDarkMode);
+  }
+
+  postList(): void {
+    this.usersService.getUsers().subscribe(response => {
+      this.POSTS = response;
+      console.log(this.POSTS);
+    });
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.postList();
+  }
+
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.postList();
   }
 }

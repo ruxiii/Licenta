@@ -29,8 +29,6 @@
     }
 } 
 
-
-
 app-theme-toggle{
     position: absolute;
     top: 10px;
@@ -39,4 +37,15 @@ app-theme-toggle{
     font-size: 20px;
 }
 
-
+.dark-theme {
+    .ngx-pagination a, .ngx-pagination button {
+        color: #ffffff;
+        display: block;
+        padding: 0.1875rem 0.625rem;
+        border-radius: 0;
+    }
+  
+    .ngx-pagination a:hover, .dark-theme .ngx-pagination button:hover {
+      color: black; /* Change color on hover */
+    }
+  }
