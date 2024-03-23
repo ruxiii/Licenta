@@ -1,10 +1,10 @@
 <h1 style="text-align: center;  font-weight: bold;">Create an account</h1>
 <br/>
-<div class="card my-5">
-    <div class="card-body">
-      <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
-        <div class="form-group">
-            <label for="userName" class="control-label">Name:</label>
+<div class="card my-5" [class.dark-theme]="isDarkMode">
+    <div class="card-body"[class.dark-theme]="isDarkMode">
+      <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" [class.dark-theme]="isDarkMode">
+        <div class="form-group" [class.dark-theme]="isDarkMode">
+            <label for="userName" class="control-label" [class.dark-theme]="isDarkMode">Name:</label>
             <input 
                 type="text" 
                 id="userName" 
@@ -18,7 +18,7 @@
         <br/>
          
         <div class="form-group">
-            <label for="userFirstName">First Name: </label>
+            <label for="userFirstName" [class.dark-theme]="isDarkMode">First Name: </label>
             <input 
                 type="text" 
                 id="userFirstName" 
@@ -32,7 +32,7 @@
         <br/>
 
         <div class="form-group">
-            <label for="teamId">Team: </label>
+            <label for="teamId" [class.dark-theme]="isDarkMode">Team: </label>
             <select 
                 id="teamId" 
                 class="form-control"
@@ -46,7 +46,7 @@
         <br/>
 
         <div class="form-group">
-            <label for="userEmail">Email: </label>
+            <label for="userEmail" [class.dark-theme]="isDarkMode">Email: </label>
             <input 
                 type="text" 
                 id="userEmail" 
@@ -60,7 +60,7 @@
         <br/>
 
         <div class="form-group">
-            <label for="userPassword">Password: </label>
+            <label for="userPassword" [class.dark-theme]="isDarkMode">Password: </label>
             <input 
                 type="{{ passwordVisible ? 'text' : 'password' }}" 
                 class="form-control"
@@ -77,7 +77,7 @@
         <br/>
 
         <div class="form-group">
-            <label for="confirmPassword">Confirm password: </label>
+            <label for="confirmPassword" [class.dark-theme]="isDarkMode">Confirm password: </label>
             <input 
                 type="{{ confirmPasswordVisible ? 'text' : 'password' }}" 
                 class="form-control"

@@ -46,7 +46,7 @@ export class UserListComponent implements OnDestroy {
   }
 
   toggleDarkTheme(): void {
-    console.log('isDarkMode', this.isDarkMode);
+    // console.log('isDarkMode', this.isDarkMode);
     this.isDarkMode = !this.isDarkMode;
     this.themeService.setDarkMode(this.isDarkMode);
   }
@@ -54,7 +54,7 @@ export class UserListComponent implements OnDestroy {
   postList(): void {
     this.usersService.getUsers().subscribe(response => {
       this.POSTS = response;
-      console.log(this.POSTS);
+      // console.log(this.POSTS);
     });
   }
 

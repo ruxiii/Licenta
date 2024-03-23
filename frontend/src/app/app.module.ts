@@ -36,7 +36,7 @@ import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
 import { ThemeService } from './theme-toggle/theme.service';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { UserDetailPopupComponent } from './users/user-detail-popup/user-detail-popup.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -62,6 +62,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     EventListComponent,
     UserEditComponent,
     ThemeToggleComponent,
+    UserDetailPopupComponent,
   ],
   imports: [
     BrowserModule,

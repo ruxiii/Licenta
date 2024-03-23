@@ -25,7 +25,7 @@ export class HeaderComponent implements OnDestroy {
   }
 
   toggleDarkTheme(): void {
-    console.log('isDarkMode', this.isDarkMode);
+    // console.log('isDarkMode', this.isDarkMode);
     this.isDarkMode = !this.isDarkMode;
     this.themeService.setDarkMode(this.isDarkMode);
   }
