@@ -1,7 +1,6 @@
 //package org.example.licenta.authentication;
 //
 //import org.example.licenta.db.entities.AuthenticationEntity;
-//import org.example.licenta.db.entities.UserEntity;
 //import org.springframework.context.annotation.ComponentScan;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
