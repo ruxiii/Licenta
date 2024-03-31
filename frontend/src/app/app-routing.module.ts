@@ -8,8 +8,10 @@ import { PlaceListComponent } from './places/place-list/place-list.component';
 import { TeamListComponent } from './teams/team-list/team-list.component';
 import { ReservationListComponent } from './reservations/reservation-list/reservation-list.component';
 import { EventListComponent } from './events/event-list/event-list.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
+
     { path: 'departments', component: DepartmentListComponent },
     { path: 'teams', component: TeamListComponent },
     { path: 'users', component: UserListComponent},
@@ -17,8 +19,13 @@ const appRoutes: Routes = [
     { path: 'maps', component: MapListComponent },
     { path: 'places', component: PlaceListComponent },
     { path: 'reservations', component: ReservationListComponent},
-    { path: 'events', component: EventListComponent}
+    { path: 'events', component: EventListComponent},
+    { path: 'home', component: HomeComponent},
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'admin', component: HomeComponent},
+    { path: 'login', component: HomeComponent}
 ];
+
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],

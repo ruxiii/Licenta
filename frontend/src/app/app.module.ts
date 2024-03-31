@@ -37,6 +37,8 @@ import { ThemeService } from './theme-toggle/theme.service';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserDetailPopupComponent } from './users/user-detail-popup/user-detail-popup.component';
+import { HomeComponent } from './home/home.component';
+import { HomeService } from './home/home.service';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -63,6 +65,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     UserEditComponent,
     ThemeToggleComponent,
     UserDetailPopupComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     TeamsService,
     UserRolesService,
     ThemeService,
-
+    HomeService,
     {
       provide: HttpClient,
       useFactory: provideCustomHttpClient,
