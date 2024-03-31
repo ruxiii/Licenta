@@ -28,5 +28,7 @@
 
 ***23.03.2024***  - Popup with the userId when creating an user 
 
+***31.03.2024***  - Home page added, name changed, favicon changed
+
 
 
