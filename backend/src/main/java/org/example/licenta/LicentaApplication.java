@@ -2,8 +2,10 @@ package org.example.licenta;
 
 import org.example.licenta.db.entities.AuthenticationEntity;
 import org.example.licenta.db.entities.RoleEntity;
+import org.example.licenta.db.entities.UserEntity;
 import org.example.licenta.db.repositories.AuthenticationRepository;
 import org.example.licenta.db.repositories.RoleRepository;
+import org.example.licenta.db.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +31,7 @@ public class LicentaApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(RoleRepository roleRepository, AuthenticationRepository authenticationRepository, PasswordEncoder passwordEncoder) {
+	CommandLineRunner run(RoleRepository roleRepository, AuthenticationRepository authenticationRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isPresent()) {
 				return;
@@ -41,6 +43,15 @@ public class LicentaApplication {
 
 			Set<RoleEntity> roles = new HashSet<>();
 			roles.add(adminRole);
+
+			UserEntity user = new UserEntity();
+			user.setUserId("T0");
+			user.setUserFirstName("ADMIN");
+			user.setUserName("");
+			user.setUserEmail("");
+			user.setUserPassword(passwordEncoder.encode("admin"));
+			user.setUserRole("ADMIN");
+			userRepository.save(user);
 
 			AuthenticationEntity admin = new AuthenticationEntity();
 			admin.setUserId("T0");

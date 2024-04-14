@@ -4,7 +4,6 @@ import org.example.licenta.db.entities.AuthenticationEntity;
 import org.example.licenta.db.entities.RoleEntity;
 import org.example.licenta.db.entities.TeamEntity;
 import org.example.licenta.db.entities.UserEntity;
-import org.example.licenta.db.entities.enums.UserRoles;
 import org.example.licenta.db.repositories.AuthenticationRepository;
 import org.example.licenta.db.repositories.TeamRepository;
 import org.example.licenta.db.repositories.UserRepository;
@@ -174,7 +173,7 @@ public class UserService implements UserDetailsService {
             userEntity.setUserEmail(userDto.getUserEmail());
             // TODO: Encode the password
             userEntity.setUserPassword(encryptPassword(userDto.getUserPassword()));
-            userEntity.setUserRole(UserRoles.valueOf(UserRoles.USER.toString()));
+            userEntity.setUserRole("USER");
             userEntity.setTeamEntity(teamEntity);
 
             userRepository.save(userEntity);
@@ -205,7 +204,7 @@ public class UserService implements UserDetailsService {
                 userEntity.setUserFirstName(userDto.getUserFirstName());
                 userEntity.setUserEmail(userDto.getUserEmail());
                 userEntity.setUserPassword(userDto.getUserPassword());
-                userEntity.setUserRole(UserRoles.valueOf(userDto.getUserRole()));
+                userEntity.setUserRole(userDto.getUserRole());
                 userEntity.setTeamEntity(teamEntity);
 
                 UserDto updatedUser = new UserDto();
@@ -229,15 +228,10 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         System.out.println("In the user detail service");
 
-        if(!username.equals("T100")){
-            throw new UsernameNotFoundException("User not found");
-        }
-
-        Set<RoleEntity> roles = new HashSet<>();
-        roles.add(new RoleEntity(1, "USER"));
-        return new AuthenticationEntity("T100", encoder.encode("password"), "Ethan", "Hunt", roles);
+        return authRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
