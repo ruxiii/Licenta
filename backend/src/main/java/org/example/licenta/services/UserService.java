@@ -1,6 +1,7 @@
 package org.example.licenta.services;
 
 import org.example.licenta.db.entities.AuthenticationEntity;
+import org.example.licenta.db.entities.RoleEntity;
 import org.example.licenta.db.entities.TeamEntity;
 import org.example.licenta.db.entities.UserEntity;
 import org.example.licenta.db.entities.enums.UserRoles;
@@ -13,16 +14,18 @@ import org.example.licenta.exceptions.TeamNotFoundException;
 import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -31,6 +34,9 @@ public class UserService {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     public List<UserFullDto> getUsers() throws UserNotFoundException {
         if (userRepository.findAll().isEmpty()) {
@@ -176,7 +182,7 @@ public class UserService {
             AuthenticationEntity authEntity = new AuthenticationEntity();
             authEntity.setUserId(userEntity.getUserId());
             authEntity.setUserPassword(userEntity.getUserPassword());
-            authEntity.setUserRole(UserRoles.USER.toString());
+//            authEntity.setUserRole(UserRoles.USER.toString());
             authRepository.save(authEntity);
         }
     }
@@ -215,10 +221,23 @@ public class UserService {
                 AuthenticationEntity authEntity = new AuthenticationEntity();
                 authEntity.setUserId(userEntity.getUserId());
                 authEntity.setUserPassword(userEntity.getUserPassword());
-                authEntity.setUserRole(userEntity.getUserRole().toString());
+//                authEntity.setUserRole(userEntity.getUserRole().toString());
                 authRepository.save(authEntity);
                 return updatedUser;
             }
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("In the user detail service");
+
+        if(!username.equals("T100")){
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        Set<RoleEntity> roles = new HashSet<>();
+        roles.add(new RoleEntity(1, "USER"));
+        return new AuthenticationEntity("T100", encoder.encode("password"), "Ethan", "Hunt", roles);
     }
 }

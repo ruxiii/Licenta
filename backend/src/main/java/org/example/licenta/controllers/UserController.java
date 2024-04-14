@@ -43,4 +43,14 @@ public class UserController {
     public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable String id) throws UserNotFoundException, TeamNotFoundException {
         return userService.updateUser(userDto, id);
     }
+
+    @GetMapping("/testAdmin")
+    public String helloAdminController() {
+        return "Test admin controller";
+    }
+
+    @GetMapping("/testUser")
+    public String helloUserController() {
+        return "Test user controller";
+    }
 }
