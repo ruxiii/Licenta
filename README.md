@@ -30,5 +30,5 @@
 
 ***31.03.2024***  - Home page added, name changed, favicon changed
 
-
+***14.04.2024***  - Authentication started seriously in the backend, admin added in both authentication and user table, these things tested from postman (min 58 from https://www.youtube.com/watch?v=TeBt0Ike_Tk)
 
