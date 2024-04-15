@@ -1,8 +1,6 @@
 package org.example.licenta;
 
-import org.example.licenta.db.entities.AuthenticationEntity;
-import org.example.licenta.db.entities.RoleEntity;
-import org.example.licenta.db.entities.UserEntity;
+import org.example.licenta.db.entities.*;
 import org.example.licenta.db.repositories.AuthenticationRepository;
 import org.example.licenta.db.repositories.RoleRepository;
 import org.example.licenta.db.repositories.UserRepository;
@@ -12,14 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
+//import com.google.auth.oauth2.GoogleCredentials;
+//import com.google.firebase.FirebaseApp;
+//import com.google.firebase.FirebaseOptions;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
+//import java.io.IOException;
+//import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +35,14 @@ public class LicentaApplication {
 				return;
 			}
 
+			DepartmentEntity departmentEntity = new DepartmentEntity();
+			departmentEntity.setDepartmentId("ADM");
+			departmentEntity.setDepartmentName("Admin");
+
+			TeamEntity teamEntity = new TeamEntity();
+			teamEntity.setTeamId("ADM");
+			teamEntity.setDepartmentEntity(departmentEntity);
+
 			RoleEntity adminRole = roleRepository.save(new RoleEntity("ADMIN"));
 			RoleEntity userRole = new RoleEntity("USER");
 			roleRepository.save(userRole);
@@ -51,6 +57,7 @@ public class LicentaApplication {
 			user.setUserEmail("");
 			user.setUserPassword(passwordEncoder.encode("admin"));
 			user.setUserRole("ADMIN");
+			user.setTeamEntity(teamEntity);
 			userRepository.save(user);
 
 			AuthenticationEntity admin = new AuthenticationEntity();

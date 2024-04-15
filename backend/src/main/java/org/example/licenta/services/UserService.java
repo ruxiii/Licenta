@@ -5,6 +5,7 @@ import org.example.licenta.db.entities.RoleEntity;
 import org.example.licenta.db.entities.TeamEntity;
 import org.example.licenta.db.entities.UserEntity;
 import org.example.licenta.db.repositories.AuthenticationRepository;
+import org.example.licenta.db.repositories.RoleRepository;
 import org.example.licenta.db.repositories.TeamRepository;
 import org.example.licenta.db.repositories.UserRepository;
 import org.example.licenta.dto.UserDto;
@@ -35,7 +36,10 @@ public class UserService implements UserDetailsService {
     private TeamRepository teamRepository;
 
     @Autowired
-    private PasswordEncoder encoder;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<UserFullDto> getUsers() throws UserNotFoundException {
         if (userRepository.findAll().isEmpty()) {
@@ -62,7 +66,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public UserDto getUserById(String id) throws UserNotFoundException {
+    public UserFullDto getUserById(String id) throws UserNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new UserNotFoundException("User not found");
@@ -72,14 +76,15 @@ public class UserService implements UserDetailsService {
             TeamEntity teamEntity = userEntity.getTeamEntity();
             String teamId = teamEntity.getTeamId();
 
-            UserDto userDto = new UserDto();
-            userDto.setUserName(userEntity.getUserName());
-            userDto.setUserFirstName(userEntity.getUserFirstName());
-            userDto.setUserEmail(userEntity.getUserEmail());
-            userDto.setUserPassword(userEntity.getUserPassword());
-            userDto.setUserRole(userEntity.getUserRole().toString());
-            userDto.setTeamId(teamId);
-            return userDto;
+            UserFullDto userFullDto = new UserFullDto();
+            userFullDto.setUserId(userEntity.getUserId());
+            userFullDto.setUserName(userEntity.getUserName());
+            userFullDto.setUserFirstName(userEntity.getUserFirstName());
+            userFullDto.setUserEmail(userEntity.getUserEmail());
+            userFullDto.setUserPassword(userEntity.getUserPassword());
+            userFullDto.setUserRole(userEntity.getUserRole().toString());
+            userFullDto.setTeamId(teamId);
+            return userFullDto;
         }
     }
 
@@ -132,26 +137,26 @@ public class UserService implements UserDetailsService {
         return max;
     }
 
-    private String encryptPassword(String password) throws NoSuchAlgorithmException {
-        String encryptedpassword = "";
-        MessageDigest m = MessageDigest.getInstance("MD5");
-
-        m.update(password.getBytes());
-
-        byte[] bytes = m.digest();
-
-        StringBuilder s = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++) {
-            s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-
-        encryptedpassword = s.toString();
-        return encryptedpassword;
-    }
+//    private String encryptPassword(String password) throws NoSuchAlgorithmException {
+//        String encryptedpassword = "";
+//        MessageDigest m = MessageDigest.getInstance("MD5");
+//
+//        m.update(password.getBytes());
+//
+//        byte[] bytes = m.digest();
+//
+//        StringBuilder s = new StringBuilder();
+//        for (int i = 0; i < bytes.length; i++) {
+//            s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+//        }
+//
+//        encryptedpassword = s.toString();
+//        return encryptedpassword;
+//    }
 
 //    TODO: vezi ce se intampla cu parola aia la login + la login trebuie transformat inputul in aceeasi forma cu parola
 //     din baza de date si sa vad daca hash urile sunt egale
-    public void createUser(UserDto userDto) throws UserAlreadyExistsException, TeamNotFoundException, NoSuchAlgorithmException {
+    public void createUser(UserDto userDto) throws TeamNotFoundException {
         if (!teamRepository.existsById(userDto.getTeamId())) {
             throw new TeamNotFoundException("Team not found");
         } else {
@@ -171,43 +176,45 @@ public class UserService implements UserDetailsService {
             userEntity.setUserName(userDto.getUserName().toUpperCase());
             userEntity.setUserFirstName(userDto.getUserFirstName().toUpperCase());
             userEntity.setUserEmail(userDto.getUserEmail());
-            // TODO: Encode the password
-            userEntity.setUserPassword(encryptPassword(userDto.getUserPassword()));
-            userEntity.setUserRole("USER");
+            userEntity.setUserPassword(passwordEncoder.encode(userDto.getUserPassword()));
+            userEntity.setUserRole(roleRepository.findByAuthority("USER").get().getAuthority());
             userEntity.setTeamEntity(teamEntity);
 
             userRepository.save(userEntity);
 
+            Set<RoleEntity> authorities = new HashSet<>();
+            authorities.add(roleRepository.findByAuthority("USER").get());
+
             AuthenticationEntity authEntity = new AuthenticationEntity();
             authEntity.setUserId(userEntity.getUserId());
             authEntity.setUserPassword(userEntity.getUserPassword());
-//            authEntity.setUserRole(UserRoles.USER.toString());
+            authEntity.setAuthorities(authorities);
             authRepository.save(authEntity);
         }
     }
 
 //    TODO: vezi ce se intampla cu parola aia
-    public UserDto updateUser(UserDto userDto, String id) throws UserNotFoundException, TeamNotFoundException {
+    public UserFullDto updateUser(UserFullDto userFullDto, String id) throws UserNotFoundException, TeamNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new UserNotFoundException("User not found");
         }
         else {
-            if (!teamRepository.existsById(userDto.getTeamId())) {
+            if (!teamRepository.existsById(userFullDto.getTeamId())) {
                 throw new TeamNotFoundException("Team not found");
             }
             else {
-                String teamId = userDto.getTeamId();
+                String teamId = userFullDto.getTeamId();
                 TeamEntity teamEntity = teamRepository.findById(teamId).get();
                 UserEntity userEntity = user.get();
-                userEntity.setUserName(userDto.getUserName());
-                userEntity.setUserFirstName(userDto.getUserFirstName());
-                userEntity.setUserEmail(userDto.getUserEmail());
-                userEntity.setUserPassword(userDto.getUserPassword());
-                userEntity.setUserRole(userDto.getUserRole());
+                userEntity.setUserName(userFullDto.getUserName());
+                userEntity.setUserFirstName(userFullDto.getUserFirstName());
+                userEntity.setUserEmail(userFullDto.getUserEmail());
+                userEntity.setUserPassword(userFullDto.getUserPassword());
+                userEntity.setUserRole(userFullDto.getUserRole());
                 userEntity.setTeamEntity(teamEntity);
 
-                UserDto updatedUser = new UserDto();
+                UserFullDto updatedUser = new UserFullDto();
                 updatedUser.setUserName(userEntity.getUserName());
                 updatedUser.setUserFirstName(userEntity.getUserFirstName());
                 updatedUser.setUserEmail(userEntity.getUserEmail());
@@ -229,7 +236,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        System.out.println("In the user detail service");
 
         return authRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

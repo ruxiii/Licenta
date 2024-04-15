@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public UserDto getUserById(@PathVariable String id) throws UserNotFoundException {
+    public UserFullDto getUserById(@PathVariable String id) throws UserNotFoundException {
         return userService.getUserById(id);
     }
 
@@ -40,8 +40,8 @@ public class UserController {
     }
     
     @PutMapping("/users/{id}/update")
-    public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable String id) throws UserNotFoundException, TeamNotFoundException {
-        return userService.updateUser(userDto, id);
+    public UserFullDto updateUser(@RequestBody UserFullDto userFullDto, @PathVariable String id) throws UserNotFoundException, TeamNotFoundException {
+        return userService.updateUser(userFullDto, id);
     }
 
     @GetMapping("/testAdmin")
