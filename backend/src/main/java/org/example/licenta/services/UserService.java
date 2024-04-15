@@ -1,5 +1,6 @@
 package org.example.licenta.services;
 
+import jakarta.transaction.Transactional;
 import org.example.licenta.db.entities.AuthenticationEntity;
 import org.example.licenta.db.entities.RoleEntity;
 import org.example.licenta.db.entities.TeamEntity;
@@ -8,12 +9,19 @@ import org.example.licenta.db.repositories.AuthenticationRepository;
 import org.example.licenta.db.repositories.RoleRepository;
 import org.example.licenta.db.repositories.TeamRepository;
 import org.example.licenta.db.repositories.UserRepository;
+import org.example.licenta.dto.LoginResponseDto;
 import org.example.licenta.dto.UserDto;
 import org.example.licenta.dto.UserFullDto;
 import org.example.licenta.exceptions.TeamNotFoundException;
 import org.example.licenta.exceptions.UserAlreadyExistsException;
 import org.example.licenta.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +34,7 @@ import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -40,6 +49,13 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    @Lazy
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private TokenService tokenService;
 
     public List<UserFullDto> getUsers() throws UserNotFoundException {
         if (userRepository.findAll().isEmpty()) {
@@ -137,23 +153,6 @@ public class UserService implements UserDetailsService {
         return max;
     }
 
-//    private String encryptPassword(String password) throws NoSuchAlgorithmException {
-//        String encryptedpassword = "";
-//        MessageDigest m = MessageDigest.getInstance("MD5");
-//
-//        m.update(password.getBytes());
-//
-//        byte[] bytes = m.digest();
-//
-//        StringBuilder s = new StringBuilder();
-//        for (int i = 0; i < bytes.length; i++) {
-//            s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-//        }
-//
-//        encryptedpassword = s.toString();
-//        return encryptedpassword;
-//    }
-
 //    TODO: vezi ce se intampla cu parola aia la login + la login trebuie transformat inputul in aceeasi forma cu parola
 //     din baza de date si sa vad daca hash urile sunt egale
     public void createUser(UserDto userDto) throws TeamNotFoundException {
@@ -187,13 +186,11 @@ public class UserService implements UserDetailsService {
 
             AuthenticationEntity authEntity = new AuthenticationEntity();
             authEntity.setUserId(userEntity.getUserId());
-            authEntity.setUserPassword(userEntity.getUserPassword());
+            authEntity.setUserPassword(passwordEncoder.encode(userDto.getUserPassword()));
             authEntity.setAuthorities(authorities);
             authRepository.save(authEntity);
         }
     }
-
-//    TODO: vezi ce se intampla cu parola aia
     public UserFullDto updateUser(UserFullDto userFullDto, String id) throws UserNotFoundException, TeamNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
         if (user.isEmpty()) {
@@ -231,6 +228,25 @@ public class UserService implements UserDetailsService {
                 authRepository.save(authEntity);
                 return updatedUser;
             }
+        }
+    }
+
+    public LoginResponseDto loginUser(String username, String password){
+        try {
+            UserDetails userDetails = loadUserByUsername(username);
+            if (passwordEncoder.matches(password, userDetails.getPassword())) {
+                Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(auth);
+
+                String token = tokenService.generateJwt(auth);
+
+                return new LoginResponseDto(authRepository.findById(username).get(), token);
+            }else {
+                return new LoginResponseDto(null, "");
+            }
+
+        } catch(AuthenticationException e){
+            return new LoginResponseDto(null, "");
         }
     }
 

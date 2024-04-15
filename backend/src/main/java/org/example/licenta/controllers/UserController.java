@@ -1,5 +1,7 @@
 package org.example.licenta.controllers;
 
+import org.example.licenta.dto.AuthenticationDto;
+import org.example.licenta.dto.LoginResponseDto;
 import org.example.licenta.dto.UserDto;
 import org.example.licenta.dto.UserFullDto;
 import org.example.licenta.exceptions.TeamNotFoundException;
@@ -19,6 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+//    TODO: ASTA NU TREBUIE SA FIE LA USER
     @GetMapping("/users")
     public List<UserFullDto> getUsers() throws UserNotFoundException {
         return userService.getUsers();
@@ -44,13 +47,18 @@ public class UserController {
         return userService.updateUser(userFullDto, id);
     }
 
-    @GetMapping("/testAdmin")
-    public String helloAdminController() {
-        return "Test admin controller";
+    @PostMapping("/login")
+    public LoginResponseDto login(@RequestBody AuthenticationDto authenticationDto){
+        return userService.loginUser(authenticationDto.getUserId(), authenticationDto.getUserPassword());
     }
 
-    @GetMapping("/testUser")
-    public String helloUserController() {
-        return "Test user controller";
-    }
+//    @GetMapping("/testAdmin")
+//    public String helloAdminController() {
+//        return "Test admin controller";
+//    }
+//
+//    @GetMapping("/testUser")
+//    public String helloUserController() {
+//        return "Test user controller";
+//    }
 }

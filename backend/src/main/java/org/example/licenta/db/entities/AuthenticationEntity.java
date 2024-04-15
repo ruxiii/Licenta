@@ -18,9 +18,9 @@ public class AuthenticationEntity implements UserDetails {
 
     private String userPassword;
 
-    private String userName;
-
-    private String userFirstName;
+//    private String userName;
+//
+//    private String userFirstName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -35,12 +35,10 @@ public class AuthenticationEntity implements UserDetails {
         this.authorities = new HashSet<RoleEntity>();
     }
 
-    public AuthenticationEntity(String userId, String userPassword, String userName, String userFirstName, Set<RoleEntity> authorities) {
+    public AuthenticationEntity(String userId, String userPassword, Set<RoleEntity> authorities) {
         super();
         this.userId = userId;
         this.userPassword = userPassword;
-        this.userName = userName;
-        this.userFirstName = userFirstName;
         this.authorities = authorities;
     }
 
@@ -56,7 +54,7 @@ public class AuthenticationEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.userFirstName + " " + this.userName;
+        return userId;
     }
 
     @Override

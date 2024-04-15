@@ -63,8 +63,6 @@ public class LicentaApplication {
 			AuthenticationEntity admin = new AuthenticationEntity();
 			admin.setUserId("T0");
 			admin.setUserPassword(passwordEncoder.encode("admin"));
-			admin.setUserFirstName("ADMIN");
-			admin.setUserName("");
 			admin.setAuthorities(roles);
 
 			authenticationRepository.save(admin);
