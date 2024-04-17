@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { UsersComponent } from './users/users.component';
 import { UserListComponent } from './users/user-list/user-list.component';
@@ -39,6 +38,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UserDetailPopupComponent } from './users/user-detail-popup/user-detail-popup.component';
 import { HomeComponent } from './home/home.component';
 import { HomeService } from './home/home.service';
+import { LoginComponent } from './login/login.component';
+import { ContentComponent } from './content/content.component';
+import { LoginService } from './login/login.service';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -66,6 +68,8 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     ThemeToggleComponent,
     UserDetailPopupComponent,
     HomeComponent,
+    LoginComponent,
+    ContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +92,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     UserRolesService,
     ThemeService,
     HomeService,
+    LoginService,
     {
       provide: HttpClient,
       useFactory: provideCustomHttpClient,

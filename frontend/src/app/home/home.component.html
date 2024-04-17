@@ -13,19 +13,17 @@
 <h1>Welcome to OfOps!</h1>
 <br/><br/><br/><br/>
 
+
 <div class="container">
   <div class="column">
     <h2> OfficeOps (OfOps) is a comprehensive booking platform designed to streamline the process of reserving various resources within a workplace environment. Whether you need to secure a parking spot, reserve a desk for the day, or book a meeting room for an important presentation, OfOps has you covered!</h2>
   </div>
   <div class="column">
-    <h2 style="text-align: center;  font-weight: normal; margin-left: 300px;">Do you have an account? Login!</h2>
-    <div class="form-group" style="  margin-left: 200px;">
-      <label for="userId">User Id:</label>
-      <br/>
-      <label for="password">Password:</label>
-    </div>
-    <br/>
-    <h2 style="text-align: center;  font-weight: normal;  margin-left: 300px;">Don't have an account? Register!</h2>
+    <h2 style="text-align: center;  font-weight: normal; margin-left: 300px;">Do you have an account?</h2>
+    <button type="button" class="btn btn-success btn-lg" style="  margin-left: 300px;" (click) = "onLogin()">Login</button>
+    <br/><br/>
+    <h2 style="text-align: center;  font-weight: normal; margin-left: 300px;">Register now!</h2>
+    <button type="button" class="btn btn-info btn-lg" style="  margin-left: 300px;" (click) = "onNewUser()">Create an account</button>
   </div>
 </div>
 

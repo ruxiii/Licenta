@@ -25,5 +25,16 @@ label {
     font-size: 20px;
     margin-right: 10px;
 }
+
+.toggle-password {
+    position: absolute; /* Position button absolute within form-group */
+    top: 365px; /* Adjust top position as needed */
+    right: -84px; /* Adjust right position as needed */
+    padding: 6px 11px; /* Add padding to button */
+    background-color: lightgreen; /* Add background color to button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border-radius */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
   
   
