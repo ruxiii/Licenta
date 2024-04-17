@@ -46,19 +46,4 @@ public class UserController {
     public UserFullDto updateUser(@RequestBody UserFullDto userFullDto, @PathVariable String id) throws UserNotFoundException, TeamNotFoundException {
         return userService.updateUser(userFullDto, id);
     }
-
-    @PostMapping("/login")
-    public LoginResponseDto login(@RequestBody AuthenticationDto authenticationDto){
-        return userService.loginUser(authenticationDto.getUserId(), authenticationDto.getUserPassword());
-    }
-
-//    @GetMapping("/testAdmin")
-//    public String helloAdminController() {
-//        return "Test admin controller";
-//    }
-//
-//    @GetMapping("/testUser")
-//    public String helloUserController() {
-//        return "Test user controller";
-//    }
 }
