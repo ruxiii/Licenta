@@ -33,3 +33,5 @@
 ***14.04.2024***  - Authentication started seriously in the backend, admin added in both authentication and user table, these things tested from postman (min 58 from https://www.youtube.com/watch?v=TeBt0Ike_Tk)
 
 ***15.04.2024***  - UserFullDto and UserDto modified so that it fits to create an user correctly (TBD if so), all things locked if you're not logged in (only works in backend for now), login done in backend but in SecurityConfig the access for the endpoints needs to be modified, see TODO in that file (***TODO: enpoint for admin*** min 1:40:15 from https://www.youtube.com/watch?v=TeBt0Ike_Tk; authentication can only be made withe the token jwt or smth -> this will give the role for the person who is using the app; so if i get a 403 Unauthorized and i didn t logged with the token before it is normal because THE TOKEN GIVES THE ROLE)  
+
+***17.04.2024***  - Login endpoint, admin files created for /admin, home adapted to login endpoint, register -> create an user, login -> /login but the submit button doesn't work, started adapting the frontend to the jwt token from backend (min 23:30 from https://www.youtube.com/watch?v=YUqi1IjLX8I)
