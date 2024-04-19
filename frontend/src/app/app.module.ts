@@ -41,6 +41,7 @@ import { HomeService } from './home/home.service';
 import { LoginComponent } from './login/login.component';
 import { ContentComponent } from './content/content.component';
 import { LoginService } from './login/login.service';
+import { AxiosService } from './axios.service';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -93,6 +94,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     ThemeService,
     HomeService,
     LoginService,
+    AxiosService,
     {
       provide: HttpClient,
       useFactory: provideCustomHttpClient,

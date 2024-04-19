@@ -10,7 +10,9 @@ import { TeamsComponent } from '../../teams/teams.component';
 import { ThemeService } from '../../theme-toggle/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailPopupComponent } from '../user-detail-popup/user-detail-popup.component';
-import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { HttpResponse } from '@angular/common/http';
+import axios from 'axios';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -36,6 +38,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   isDarkMode: boolean;
   private themeSubscription: Subscription;
   letter: string;
+  token: string;
 
 
   constructor(private usersService: UsersService, 
@@ -43,7 +46,8 @@ export class UserEditComponent implements OnInit, OnDestroy{
               private router: Router,
               private userRolesService: UserRolesService,
               private teamsService: TeamsService, private themeService: ThemeService,
-              private dialog: MatDialog) { 
+              private dialog: MatDialog,
+              private axiosService: AxiosService) { 
     this.user = new UsersComponent();
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
@@ -64,13 +68,65 @@ export class UserEditComponent implements OnInit, OnDestroy{
 
   onSubmit(userForm: NgForm) {
     const value = userForm.value; 
-    // console.log(value);
-    this.usersService.createUser(value.userId, value.userName, value.userFirstName, value.userEmail, value.userPassword, value.userRole, value.teamId)
-    .subscribe(result =>{
-      const userId = value.userId; 
-      this.gotoUserList(userId);
-    });
+    // this.usersService.createUser(value.userId, value.userName, value.userFirstName, value.userEmail, value.userPassword, value.userRole, value.teamId)
+    //   .subscribe(
+    //     (response: HttpResponse<any>) => {
+    //       const token = response.headers.get('Authorization');
+    //       console.log('Token:', token);
+    //       const userId = value.userId; 
+    //       this.gotoUserList(userId);
+    //     },
+    //     (error) => {
+    //       console.error('Error creating user:', error);
+    //       // Handle the error, e.g., display an error message to the user
+    //     }
+    //   );
+    this.axiosService.request(
+      "POST",
+      "/users/create",
+      {
+        userId: value.userId, 
+        userName: value.userName, 
+        userFirstName: value.userFirstName, 
+        userEmail: value.userEmail, 
+        userPassword: value.userPassword, 
+        userRole: value.userRole,
+        teamId: value.teamId
+      }).then(
+      response => {
+        console.log('response', response.data.token);
+          this.axiosService.setAuthToken(response.data.token);
+          // this.componentToShow = "messages";
+          const userId = value.userId; 
+          this.gotoUserList(userId);
+      }).catch(
+      error => {
+          this.axiosService.setAuthToken(null);
+          // this.componentToShow = "welcome";
+      }
+  );
   }
+
+  // onLogin(input: any): void {
+	// 	this.axiosService.request(
+	// 	    "POST",
+	// 	    "/login",
+	// 	    {
+	// 	        login: input.login,
+	// 	        password: input.password
+	// 	    }).then(
+	// 	    response => {
+	// 	        this.axiosService.setAuthToken(response.data.token);
+	// 	        // this.componentToShow = "messages";
+	// 	    }).catch(
+	// 	    error => {
+	// 	        this.axiosService.setAuthToken(null);
+	// 	        // this.componentToShow = "welcome";
+	// 	    }
+	// 	);
+
+	// }
+  
 
   gotoUserList(userId: string) {
     this.router.navigate(['/home']);
@@ -133,17 +189,8 @@ export class UserEditComponent implements OnInit, OnDestroy{
   }
 
   patternValidator1(password1: string): void {
-    const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
+    const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+\\-=\\[\\]{};:\'"<>,./?]).{6,}$');   
     this.passwordStrength1 = regex.test(password1);
   }
 
-  patternValidator2(password2: string): void {
-    const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
-    this.passwordStrength2 = regex.test(password2);
-  } 
-
-  // TEMPORAR: TREBUIE ONSUBMIT
-  onSubmitted() {
-    this.router.navigate(['/home']);
-  }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsersComponent } from './users.component';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class UsersService {
@@ -17,7 +18,16 @@ export class UsersService {
     return this.http.get<UsersComponent[]>(this.getAllUsersUrl);
   }  
 
-  public createUser(userId: string, userName: string, userFirstName: string, userEmail: string, userPassword: string, userRole: string, teamId: string) {
-    return this.http.post<UsersComponent>(this.createUserUrl, {userId, userName, userFirstName, userEmail, userPassword, userRole, teamId});
+  createUser(userId: string, userName: string, userFirstName: string, userEmail: string, userPassword: string, userRole: string, teamId: string): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.createUserUrl, {
+      userId,
+      userName,
+      userFirstName,
+      userEmail,
+      userPassword,
+      userRole,
+      teamId
+    }, { headers, responseType: 'text' });
   }
 }

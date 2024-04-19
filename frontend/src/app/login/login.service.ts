@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class LoginService{
 
     private loginUrl : string;
@@ -11,7 +13,17 @@ export class LoginService{
         this.loginUrl = 'http://localhost:8080/login';
     }
 
-    public login(login: string, password: string): Observable<boolean> {
-        return this.http.post<boolean>(this.loginUrl, {login: login, password: password});
+    login(login: string, password: string): Observable<any> {
+        return this.http.post<any>(this.loginUrl, {login: login, password: password});
     }
+
+    logout() {
+        // Clear JWT token from local storage or session storage
+        localStorage.removeItem('jwtToken');
+      }
+    
+      isLoggedIn(): boolean {
+        // Check if JWT token exists in local storage or session storage
+        return !!localStorage.getItem('jwtToken');
+      }
 }
