@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
+import { NgForm } from '@angular/forms';
+import { AxiosService } from '../axios.service';
 
 @Component({
   selector: 'app-login',
@@ -16,26 +18,46 @@ export class LoginComponent {
   passwordVisible = false;
 
   constructor(private router: Router, 
-              private loginService: LoginService
+              private loginService: LoginService,
+              private axiosService: AxiosService
   ) { }
 
-  onSubmitLogin(): void {
-    console.log('Login: ' + this.username + ' Password: ' + this.password);
-    this.onSubmitLoginEvent.emit({username: this.username, password: this.password});
-    this.loginService.login(this.username, this.password).subscribe(
-      data => {
-        // Store JWT token securely (e.g., in local storage)
-        localStorage.setItem('jwtToken', data.jwt);
-        // Redirect or perform actions after successful login
-        // For example:
-        // this.router.navigate(['/dashboard']);
-      },
+  onSubmitLogin(loginForm: NgForm) {
+    const value = loginForm.value; 
+    // this.onSubmitLoginEvent.emit({username: this.username, password: this.password});
+    // this.loginService.login(this.username, this.password).subscribe(
+    //   data => {
+    //     // Store JWT token securely (e.g., in local storage)
+    //     localStorage.setItem('jwtToken', data.jwt);
+    //     // Redirect or perform actions after successful login
+    //     // For example:
+    //     // this.router.navigate(['/dashboard']);
+    //   },
+    //   error => {
+    //     console.error('Error:', error);
+    //     // Handle authentication error (e.g., display error message)
+    //   }
+    // );
+
+    this.axiosService.request(
+      "POST",
+      "/login",
+      {
+        userId: value.username, 
+        userPassword: value.password, 
+      }).then(
+      response => {
+          this.axiosService.setAuthToken(response.data.token);
+          // this.componentToShow = "messages";
+          this.router.navigate(['/home']);
+      }).catch(
       error => {
-        console.error('Error:', error);
-        // Handle authentication error (e.g., display error message)
+        console.log('Error:', error, error.response.data.message);
+          this.axiosService.setAuthToken(null);
+          // this.componentToShow = "welcome";
       }
-    );
-    this.router.navigate(['/home']);
+  );
+    
   }
 
   togglePasswordVisibility() {

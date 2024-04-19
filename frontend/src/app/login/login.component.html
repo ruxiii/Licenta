@@ -4,7 +4,7 @@
     <h1 style="text-align: center; font-size: 50px;">You are one step closer to OfOps!</h1>
     <br/><br/><br/>
   
-    <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
+    <form (ngSubmit)="onSubmitLogin(loginForm)" #loginForm="ngForm">
       <div class="form-group" style="margin-left: 360px;">
         <h3><label class="form-label" for="userId" style="text-align: center;">User Id:
           <input
