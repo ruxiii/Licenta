@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService{
 
     @Autowired
     private UserRepository userRepository;
@@ -219,12 +219,5 @@ public class UserService implements UserDetailsService {
                 return updatedUser;
             }
         }
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-
-        return authRepository.findById(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

@@ -48,17 +48,20 @@ public class SecurityConfiguration {
         return new ProviderManager(daoProvider);
     }
 
-//    TODO: GRIJA CU ENDPOINT URILE IN BACKEND + ROLURILE MORTII LOR (LOGAREA SE FACE DOAR CU TOKEN UL VIETII VEZI
+    //    TODO: GRIJA CU ENDPOINT URILE IN BACKEND + ROLURILE MORTII LOR (LOGAREA SE FACE DOAR CU TOKEN UL VIETII VEZI
 //     FILMULET LA SFARSIT https://www.youtube.com/watch?v=TeBt0Ike_Tk)
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/users/**").hasAnyRole("ADMIN", "USER");
-                    auth.requestMatchers("/departments/create").permitAll();
-                    auth.requestMatchers("/teams/**").permitAll();
+//                    auth.requestMatchers("/users/**").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers("/departments").permitAll();
+                    auth.requestMatchers("/teams").permitAll();
                     auth.requestMatchers("/login").permitAll();
+                    auth.requestMatchers("/users/create").permitAll();
+                    auth.requestMatchers("/users").permitAll();
+                    auth.requestMatchers("/home").permitAll();
 //                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.anyRequest().authenticated();
                 });

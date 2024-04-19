@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface AuthenticationRepository extends JpaRepository<AuthenticationEntity, String> {
-    Optional<AuthenticationEntity> findByUserId(String userId);
 }

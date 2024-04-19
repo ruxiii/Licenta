@@ -18,10 +18,6 @@ public class AuthenticationEntity implements UserDetails {
 
     private String userPassword;
 
-//    private String userName;
-//
-//    private String userFirstName;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
