@@ -52,11 +52,6 @@ export class UserEditComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.userRolesService.getUserRoles().subscribe(userRoles => {
-      this.userRoles = userRoles;
-      // console.log(this.userRoles);
-    });
-
     this.teamsService.getTeamsIds().subscribe(teams => {
       this.teams = teams;
       for (var i = 0; i < this.teams.length; i++) {
@@ -78,7 +73,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   }
 
   gotoUserList(userId: string) {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/home']);
 
     this.usersService.getUsers().subscribe(users => {
       this.users = users;
@@ -146,4 +141,9 @@ export class UserEditComponent implements OnInit, OnDestroy{
     const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
     this.passwordStrength2 = regex.test(password2);
   } 
+
+  // TEMPORAR: TREBUIE ONSUBMIT
+  onSubmitted() {
+    this.router.navigate(['/home']);
+  }
 }
