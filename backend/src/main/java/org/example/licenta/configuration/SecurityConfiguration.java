@@ -6,7 +6,9 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import lombok.RequiredArgsConstructor;
 import org.example.licenta.utils.RSAKeyProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,15 +29,17 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
+@EnableWebSecurity
 public class SecurityConfiguration {
 
     private final RSAKeyProperties keys;
 
-    public SecurityConfiguration(RSAKeyProperties keys) {
-        this.keys = keys;
-    }
+    @Autowired
+    private UserAuthenticationProvider userAuthenticationProvider;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,15 +58,18 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-//                    auth.requestMatchers("/users/**").hasAnyRole("ADMIN", "USER");
-                    auth.requestMatchers("/departments").permitAll();
-                    auth.requestMatchers("/teams").permitAll();
+                    auth.requestMatchers("/home").permitAll();
                     auth.requestMatchers("/login").permitAll();
                     auth.requestMatchers("/users/create").permitAll();
+//                    auth.requestMatchers("/users/**").hasAnyRole("ADMIN", "USER");
+
+                    auth.requestMatchers("/departments").hasRole("USER");
+                    auth.requestMatchers("/teams").permitAll();
+
                     auth.requestMatchers("/users").permitAll();
-                    auth.requestMatchers("/home").permitAll();
 //                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     auth.anyRequest().authenticated();
                 });

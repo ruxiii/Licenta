@@ -11,7 +11,5 @@ public class UserDto {
 
     private String userPassword;
 
-//    private String userRole;
-
     private String teamId;
 }

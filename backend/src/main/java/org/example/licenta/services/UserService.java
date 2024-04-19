@@ -1,5 +1,7 @@
 package org.example.licenta.services;
 
+import lombok.RequiredArgsConstructor;
+import org.example.licenta.UserMapper;
 import org.example.licenta.db.entities.AuthenticationEntity;
 import org.example.licenta.db.entities.RoleEntity;
 import org.example.licenta.db.entities.TeamEntity;
@@ -15,6 +17,8 @@ import org.example.licenta.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +28,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class UserService{
 
     @Autowired
@@ -38,8 +43,7 @@ public class UserService{
     @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     @Lazy
@@ -47,6 +51,8 @@ public class UserService{
 
     @Autowired
     private TokenService tokenService;
+
+    private final UserMapper userMapper;
 
     public List<UserFullDto> getUsers() throws UserNotFoundException {
         if (userRepository.findAll().isEmpty()) {
@@ -146,7 +152,7 @@ public class UserService{
 
 //    TODO: vezi ce se intampla cu parola aia la login + la login trebuie transformat inputul in aceeasi forma cu parola
 //     din baza de date si sa vad daca hash urile sunt egale
-    public void createUser(UserDto userDto) throws TeamNotFoundException {
+    public UserFullDto createUser(UserDto userDto) throws TeamNotFoundException {
         if (!teamRepository.existsById(userDto.getTeamId())) {
             throw new TeamNotFoundException("Team not found");
         } else {
@@ -180,6 +186,11 @@ public class UserService{
             authEntity.setUserPassword(passwordEncoder.encode(userDto.getUserPassword()));
             authEntity.setAuthorities(authorities);
             authRepository.save(authEntity);
+
+            Authentication auth = new UsernamePasswordAuthenticationToken(authEntity, null, authEntity.getAuthorities());
+            String token = tokenService.generateJwt(auth);
+
+            return userMapper.toFullDto(userEntity);
         }
     }
     public UserFullDto updateUser(UserFullDto userFullDto, String id) throws UserNotFoundException, TeamNotFoundException {
