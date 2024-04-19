@@ -1,4 +1,4 @@
-<h1 style="text-align: center;  font-weight: bold;">Create an account</h1>
+<h1 style="text-align: center;  font-weight: bold; font-size: 35px;">Create an account</h1>
 <br/>
 <div class="card my-5" [class.dark-theme]="isDarkMode">
     <div class="card-body"[class.dark-theme]="isDarkMode">
@@ -48,12 +48,13 @@
         <div class="form-group">
             <label for="userEmail" [class.dark-theme]="isDarkMode">Email: </label>
             <input 
-                type="text" 
+                type="email" 
                 id="userEmail" 
                 class="form-control"
                 name="userEmail"
                 ngModel
                 required
+                email
                 #email="ngModel"
                 [placeholder]="email.invalid && email.touched ? 'Please enter a valid email!' : 'Enter your email'">    
         </div>
@@ -68,14 +69,14 @@
                 name="userPassword"
                 placeholder="Enter your password"
                 required
-                (ngModelChange)="validatePasswords()"
+                (ngModelChange)="validatePasswords(); patternValidator1(userPassword)"
             >
             <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
                 {{ passwordVisible ? 'Hide' : 'Show' }}
             </button>
         </div>
         <br/>
-
+        
         <div class="form-group">
             <label for="confirmPassword" [class.dark-theme]="isDarkMode">Confirm password: </label>
             <input 
@@ -85,13 +86,26 @@
                 name="confirmPassword"
                 placeholder="Re-enter your password"
                 required
-                (ngModelChange)="validatePasswords()"
+                (ngModelChange)="validatePasswords()" 
             >
             <button type="button" class="toggle-confirm-password" (click)="toggleConfirmPasswordVisibility()">
                 {{ confirmPasswordVisible ? 'Hide' : 'Show' }}
             </button>
         </div>
-        <span *ngIf="!passwordsMatch" class="error-message">Passwords do not match!</span>
+        
+        <!-- <span *ngIf="passwordsMatch === false" class="error-message">hei</span> -->
+        <span class="warning-message">
+                <b>Requirements:</b> 
+                <em>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> > 6 characters </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> capital letters  </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> lower letters </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> numbers         </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> special characters</div>
+                    <div [ngClass]="{ 'red-text': passwordsMatch === false, 'green-text': passwordsMatch !== false }" *ngIf="passwordsMatch === false"> passwords match</div>
+                </em>
+        </span>
+        
         <br/><br/>
         
         <!-- <div class="form-group">
@@ -108,7 +122,7 @@
         </div> -->
 
         <div class="row">
-            <div class="col-xs-12" style="text-align: center;">
+            <div class="col-xs-12" style="text-align: center">
                 <button type="submit" [disabled]="!userForm.form.valid" 
                 class="btn btn-info">Submit</button>
             </div>

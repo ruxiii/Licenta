@@ -10,6 +10,7 @@ import { TeamsComponent } from '../../teams/teams.component';
 import { ThemeService } from '../../theme-toggle/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailPopupComponent } from '../user-detail-popup/user-detail-popup.component';
+import { ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
@@ -28,7 +29,10 @@ export class UserEditComponent implements OnInit, OnDestroy{
   confirmPassword = '';
   passwordVisible = false;
   confirmPasswordVisible: boolean = false;
-  passwordsMatch: boolean = true;
+  passwordsMatch: boolean = false;
+  passwordStrength: boolean = false;
+  passwordStrength1: boolean = false;
+  passwordStrength2: boolean = false;
   isDarkMode: boolean;
   private themeSubscription: Subscription;
   letter: string;
@@ -133,4 +137,13 @@ export class UserEditComponent implements OnInit, OnDestroy{
     this.passwordsMatch = this.userPassword === this.confirmPassword;
   }
 
+  patternValidator1(password1: string): void {
+    const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
+    this.passwordStrength1 = regex.test(password1);
+  }
+
+  patternValidator2(password2: string): void {
+    const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
+    this.passwordStrength2 = regex.test(password2);
+  } 
 }
