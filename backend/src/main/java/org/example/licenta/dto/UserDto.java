@@ -7,9 +7,9 @@ public class UserDto {
 
     private String userFirstName;
 
+    private String teamId;
+
     private String userEmail;
 
     private String userPassword;
-
-    private String teamId;
 }

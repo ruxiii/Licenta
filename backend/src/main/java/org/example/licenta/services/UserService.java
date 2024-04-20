@@ -1,7 +1,6 @@
 package org.example.licenta.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.licenta.UserMapper;
 import org.example.licenta.db.entities.AuthenticationEntity;
 import org.example.licenta.db.entities.RoleEntity;
 import org.example.licenta.db.entities.TeamEntity;
@@ -19,9 +18,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +47,6 @@ public class UserService{
 
     @Autowired
     private TokenService tokenService;
-
-    private final UserMapper userMapper;
 
     public List<UserFullDto> getUsers() throws UserNotFoundException {
         if (userRepository.findAll().isEmpty()) {
@@ -150,8 +144,6 @@ public class UserService{
         return max;
     }
 
-//    TODO: vezi ce se intampla cu parola aia la login + la login trebuie transformat inputul in aceeasi forma cu parola
-//     din baza de date si sa vad daca hash urile sunt egale
     public UserFullDto createUser(UserDto userDto) throws TeamNotFoundException {
         if (!teamRepository.existsById(userDto.getTeamId())) {
             throw new TeamNotFoundException("Team not found");
@@ -190,7 +182,17 @@ public class UserService{
             Authentication auth = new UsernamePasswordAuthenticationToken(authEntity, null, authEntity.getAuthorities());
             String token = tokenService.generateJwt(auth);
 
-            return userMapper.toFullDto(userEntity);
+            UserFullDto userFullDto = new UserFullDto();
+            userFullDto.setUserId(userEntity.getUserId());
+            userFullDto.setUserName(userEntity.getUserName());
+            userFullDto.setUserFirstName(userEntity.getUserFirstName());
+            userFullDto.setUserEmail(userEntity.getUserEmail());
+            userFullDto.setUserPassword(userEntity.getUserPassword());
+            userFullDto.setUserRole(userEntity.getUserRole());
+            userFullDto.setTeamId(teamEntity.getTeamId());
+            userFullDto.setToken(token);
+
+            return userFullDto;
         }
     }
     public UserFullDto updateUser(UserFullDto userFullDto, String id) throws UserNotFoundException, TeamNotFoundException {

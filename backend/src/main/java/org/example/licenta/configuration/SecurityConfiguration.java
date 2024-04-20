@@ -56,14 +56,15 @@ public class SecurityConfiguration {
     //    TODO: GRIJA CU ENDPOINT URILE IN BACKEND + ROLURILE MORTII LOR (LOGAREA SE FACE DOAR CU TOKEN UL VIETII VEZI
 //     FILMULET LA SFARSIT https://www.youtube.com/watch?v=TeBt0Ike_Tk)
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
+                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/home").permitAll();
                     auth.requestMatchers("/login").permitAll();
                     auth.requestMatchers("/users/create").permitAll();
+//                    auth.requestMatchers("/messages").permitAll();
 //                    auth.requestMatchers("/users/**").hasAnyRole("ADMIN", "USER");
 
                     auth.requestMatchers("/departments").hasRole("USER");
