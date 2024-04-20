@@ -93,6 +93,7 @@
                 {{ confirmPasswordVisible ? 'Hide' : 'Show' }}
             </button>
         </div>
+        <span *ngIf="!passwordsMatch" class="error-message"></span>
         <span class="warning-message">
                 <b>Requirements:</b> 
                 <em>

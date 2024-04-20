@@ -28,21 +28,6 @@ export class LoginComponent implements OnInit{
 
   onSubmitLogin(loginForm: NgForm) {
     const value = loginForm.value; 
-    // this.onSubmitLoginEvent.emit({username: this.username, password: this.password});
-    // this.loginService.login(this.username, this.password).subscribe(
-    //   data => {
-    //     // Store JWT token securely (e.g., in local storage)
-    //     localStorage.setItem('jwtToken', data.jwt);
-    //     // Redirect or perform actions after successful login
-    //     // For example:
-    //     // this.router.navigate(['/dashboard']);
-    //   },
-    //   error => {
-    //     console.error('Error:', error);
-    //     // Handle authentication error (e.g., display error message)
-    //   }
-    // );
-    this.axiosService.setAuthToken(null);
     this.axiosService.request(
       "POST",
       "/login",
@@ -51,16 +36,11 @@ export class LoginComponent implements OnInit{
         userPassword: value.password, 
       }).then(
       response => {
-        console.log('value', value.username, value.password);
-        console.log('response', response.data.token);
           this.axiosService.setAuthToken(response.data.token);
-          // this.componentToShow = "messages";
           this.router.navigate(['/home']);
       }).catch(
       error => {
         console.log('Error:', error, error.response.data.message);
-          this.axiosService.setAuthToken(null);
-          // this.componentToShow = "welcome";
       }
   );
     

@@ -1,4 +1,21 @@
 /* Dark Theme Styles */
+.navbar{
+    background-color: #0066b2
+}
+
+.navbar-header .navbar-brand {
+    color: #ffffff;
+}
+
+
+.nav.navbar-nav a {
+    color: #ffffff;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+    background-color: #2774AE;
+}
+
 .dark-theme .navbar-collapse {
     background-color: #333; /* Use rgba() for transparent black */
     color: #ffffff;

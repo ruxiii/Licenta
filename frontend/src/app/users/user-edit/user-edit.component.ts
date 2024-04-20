@@ -78,20 +78,6 @@ export class UserEditComponent implements OnInit, OnDestroy{
 
   onSubmit(userForm: NgForm) {
     const value = userForm.value; 
-    // this.usersService.createUser(value.userId, value.userName, value.userFirstName, value.userEmail, value.userPassword, value.userRole, value.teamId)
-    //   .subscribe(
-    //     (response: HttpResponse<any>) => {
-    //       const token = response.headers.get('Authorization');
-    //       console.log('Token:', token);
-    //       const userId = value.userId; 
-    //       this.gotoUserList(userId);
-    //     },
-    //     (error) => {
-    //       console.error('Error creating user:', error);
-    //       // Handle the error, e.g., display an error message to the user
-    //     }
-    //   );
-    // this.axiosService.setAuthToken(null);
     this.axiosService.request(
       "POST",
       "/users/create",
@@ -101,18 +87,15 @@ export class UserEditComponent implements OnInit, OnDestroy{
         teamId: value.teamId,
         userEmail: value.userEmail, 
         userPassword: value.userPassword, 
-        // userRole: value.userRole,
       }).then(
       response => {
-        console.log('response', response.data.token);
           this.axiosService.setAuthToken(response.data.token);
-          // this.componentToShow = "messages";
+          console.log(localStorage.getItem('auth_token'));
           const userId = value.userId; 
           this.gotoUserList(userId);
       }).catch(
       error => {
           console.error('Error creating user:', error);
-          // this.componentToShow = "welcome";
       }
   );
   }  
@@ -174,6 +157,10 @@ export class UserEditComponent implements OnInit, OnDestroy{
   }
 
   validatePasswords(): void {
+    if (this.userPassword === '' || this.confirmPassword === '') {
+      this.passwordsMatch = false;
+      return;
+    }
     this.passwordsMatch = this.userPassword === this.confirmPassword;
   }
 
