@@ -39,6 +39,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   private themeSubscription: Subscription;
   letter: string;
   token: string;
+  data: string[] = [];
 
 
   constructor(private usersService: UsersService, 
@@ -53,9 +54,18 @@ export class UserEditComponent implements OnInit, OnDestroy{
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
       this.isDarkMode = isDark;
     });
+
+    // this.axiosService.request(
+    //   "GET",
+    //   "/messages",
+    //   null
+    // ).then(
+    //   (response) => this.data = response.data
+    // );
   }
 
   ngOnInit(): void {
+    window.localStorage.clear();
     this.teamsService.getTeamsIds().subscribe(teams => {
       this.teams = teams;
       for (var i = 0; i < this.teams.length; i++) {
@@ -81,17 +91,17 @@ export class UserEditComponent implements OnInit, OnDestroy{
     //       // Handle the error, e.g., display an error message to the user
     //     }
     //   );
+    // this.axiosService.setAuthToken(null);
     this.axiosService.request(
       "POST",
       "/users/create",
       {
-        userId: value.userId, 
         userName: value.userName, 
         userFirstName: value.userFirstName, 
+        teamId: value.teamId,
         userEmail: value.userEmail, 
         userPassword: value.userPassword, 
-        userRole: value.userRole,
-        teamId: value.teamId
+        // userRole: value.userRole,
       }).then(
       response => {
         console.log('response', response.data.token);
@@ -101,32 +111,11 @@ export class UserEditComponent implements OnInit, OnDestroy{
           this.gotoUserList(userId);
       }).catch(
       error => {
-          this.axiosService.setAuthToken(null);
+          console.error('Error creating user:', error);
           // this.componentToShow = "welcome";
       }
   );
-  }
-
-  // onLogin(input: any): void {
-	// 	this.axiosService.request(
-	// 	    "POST",
-	// 	    "/login",
-	// 	    {
-	// 	        login: input.login,
-	// 	        password: input.password
-	// 	    }).then(
-	// 	    response => {
-	// 	        this.axiosService.setAuthToken(response.data.token);
-	// 	        // this.componentToShow = "messages";
-	// 	    }).catch(
-	// 	    error => {
-	// 	        this.axiosService.setAuthToken(null);
-	// 	        // this.componentToShow = "welcome";
-	// 	    }
-	// 	);
-
-	// }
-  
+  }  
 
   gotoUserList(userId: string) {
     this.router.navigate(['/home']);

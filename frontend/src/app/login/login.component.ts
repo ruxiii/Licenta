@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
@@ -10,7 +10,7 @@ import { AxiosService } from '../axios.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   @Output() onSubmitLoginEvent = new EventEmitter();
 
   username: string = '';
@@ -21,6 +21,10 @@ export class LoginComponent {
               private loginService: LoginService,
               private axiosService: AxiosService
   ) { }
+
+  ngOnInit() {
+    window.localStorage.clear();
+  }
 
   onSubmitLogin(loginForm: NgForm) {
     const value = loginForm.value; 
@@ -38,7 +42,7 @@ export class LoginComponent {
     //     // Handle authentication error (e.g., display error message)
     //   }
     // );
-
+    this.axiosService.setAuthToken(null);
     this.axiosService.request(
       "POST",
       "/login",
@@ -47,6 +51,8 @@ export class LoginComponent {
         userPassword: value.password, 
       }).then(
       response => {
+        console.log('value', value.username, value.password);
+        console.log('response', response.data.token);
           this.axiosService.setAuthToken(response.data.token);
           // this.componentToShow = "messages";
           this.router.navigate(['/home']);

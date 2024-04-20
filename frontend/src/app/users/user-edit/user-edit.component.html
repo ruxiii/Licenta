@@ -1,4 +1,5 @@
 <h1 style="text-align: center;  font-weight: bold; font-size: 35px;">Create an account</h1>
+<div *ngFor="let line of data">{{ line }}</div>
 <br/>
 <div class="card my-5" [class.dark-theme]="isDarkMode">
     <div class="card-body"[class.dark-theme]="isDarkMode">
@@ -92,8 +93,6 @@
                 {{ confirmPasswordVisible ? 'Hide' : 'Show' }}
             </button>
         </div>
-        
-        <!-- <span *ngIf="passwordsMatch === false" class="error-message">hei</span> -->
         <span class="warning-message">
                 <b>Requirements:</b> 
                 <em>
@@ -107,24 +106,9 @@
         </span>
         
         <br/><br/>
-        
-        <!-- <div class="form-group">
-            <label for="userRole">Role: </label>
-            <select 
-                id="userRole" 
-                class="form-control"
-                name="userRole"
-                [(ngModel)]="user.userRole"
-                required 
-                placeholder="Choose your role">
-                <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
-            </select>
-        </div> -->
 
         <div class="row">
             <div class="col-xs-12" style="text-align: center">
-                      <!-- TEMPORAR (CLICK) -->
-
                 <button type="submit" [disabled]="!userForm.form.valid"
                 class="btn btn-info">Submit</button>
             </div>
