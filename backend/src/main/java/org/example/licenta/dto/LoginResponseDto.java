@@ -7,14 +7,14 @@ import org.example.licenta.db.entities.AuthenticationEntity;
 public class LoginResponseDto {
     private AuthenticationEntity authenticationEntity;
 
-    private String jwt;
+    private String token;
 
     public LoginResponseDto() {
         super();
     }
 
-    public LoginResponseDto(AuthenticationEntity authenticationEntity, String jwt) {
+    public LoginResponseDto(AuthenticationEntity authenticationEntity, String token) {
         this.authenticationEntity = authenticationEntity;
-        this.jwt = jwt;
+        this.token = token;
     }
 }

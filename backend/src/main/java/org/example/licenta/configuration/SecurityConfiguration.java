@@ -7,6 +7,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
+import org.example.licenta.services.TokenService;
 import org.example.licenta.utils.RSAKeyProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @Configuration
@@ -39,7 +41,7 @@ public class SecurityConfiguration {
     private final RSAKeyProperties keys;
 
     @Autowired
-    private UserAuthenticationProvider userAuthenticationProvider;
+    private TokenService tokenService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -59,24 +61,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/home").permitAll();
-                    auth.requestMatchers("/login").permitAll();
-                    auth.requestMatchers("/users/create").permitAll();
-//                    auth.requestMatchers("/messages").permitAll();
-//                    auth.requestMatchers("/users/**").hasAnyRole("ADMIN", "USER");
-
-                    auth.requestMatchers("/departments").hasRole("USER");
-                    auth.requestMatchers("/teams").permitAll();
-
-                    auth.requestMatchers("/users").permitAll();
-//                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
-                    auth.anyRequest().authenticated();
+                .addFilterBefore(new JwtAuthFilter(tokenService), BasicAuthenticationFilter.class)
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers(new AntPathRequestMatcher("/home")).permitAll();
+                    authorize.requestMatchers(new AntPathRequestMatcher("/login")).permitAll();
+                    authorize.requestMatchers(new AntPathRequestMatcher("/users/create")).permitAll();
+                    authorize.requestMatchers(new AntPathRequestMatcher("/teams")).permitAll();
+                    authorize.requestMatchers(new AntPathRequestMatcher("/users")).permitAll();
+                    authorize.requestMatchers(new AntPathRequestMatcher("/departments/**")).hasRole("USER");
                 });
-//                .oauth2ResourceServer((oauth2) -> oauth2
-//                        .jwt(Customizer.withDefaults())
-//                )
+
+
         http.oauth2ResourceServer(configurer -> configurer.jwt(
                 jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())));
         http

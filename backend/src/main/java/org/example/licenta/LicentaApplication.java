@@ -55,14 +55,14 @@ public class LicentaApplication {
 			user.setUserFirstName("ADMIN");
 			user.setUserName("");
 			user.setUserEmail("");
-			user.setUserPassword(passwordEncoder.encode("admin"));
+			user.setUserPassword(passwordEncoder.encode("Admin1!"));
 			user.setUserRole("ADMIN");
 			user.setTeamEntity(teamEntity);
 			userRepository.save(user);
 
 			AuthenticationEntity admin = new AuthenticationEntity();
 			admin.setUserId("T0");
-			admin.setUserPassword(passwordEncoder.encode("admin"));
+			admin.setUserPassword(passwordEncoder.encode("Admin1!"));
 			admin.setAuthorities(roles);
 
 			authenticationRepository.save(admin);

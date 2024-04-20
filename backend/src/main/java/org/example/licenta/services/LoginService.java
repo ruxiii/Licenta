@@ -27,29 +27,49 @@ public class LoginService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private TokenService tokenService;
-
-    @Autowired
     private AuthenticationRepository authRepository;
 
     @Autowired
     private UserRepository userRepository;
 
-    public UserFullDto loginUser(String username, String password) throws AuthenticationFailed {
-        UserEntity userEntity = userRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        if (passwordEncoder.matches(password, userEntity.getUserPassword())) {
-            UserFullDto userFullDto = new UserFullDto();
-            userFullDto.setUserId(userEntity.getUserId());
-            userFullDto.setUserName(userEntity.getUserName());
-            userFullDto.setUserFirstName(userEntity.getUserFirstName());
-            userFullDto.setUserEmail(userEntity.getUserEmail());
-            userFullDto.setUserPassword(userEntity.getUserPassword());
-            userFullDto.setUserRole(userEntity.getUserRole());
-            userFullDto.setTeamId(userEntity.getTeamEntity().getTeamId());
-            return userFullDto;
+    @Autowired
+    private TokenService tokenService;
+
+//    public UserFullDto loginUser(String username, String password) throws AuthenticationFailed {
+//        UserEntity userEntity = userRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//        if (passwordEncoder.matches(password, userEntity.getUserPassword())) {
+//            UserFullDto userFullDto = new UserFullDto();
+//            userFullDto.setUserId(userEntity.getUserId());
+//            userFullDto.setUserName(userEntity.getUserName());
+//            userFullDto.setUserFirstName(userEntity.getUserFirstName());
+//            userFullDto.setUserEmail(userEntity.getUserEmail());
+//            userFullDto.setUserPassword(userEntity.getUserPassword());
+//            userFullDto.setUserRole(userEntity.getUserRole());
+//            userFullDto.setTeamId(userEntity.getTeamEntity().getTeamId());
+//            return userFullDto;
+//            }
+//
+//        throw new AuthenticationFailed("Invalid password");
+//    }
+//
+
+    public LoginResponseDto loginUser(String username, String password){
+        try {
+            UserDetails userDetails = loadUserByUsername(username);
+            if (passwordEncoder.matches(password, userDetails.getPassword())) {
+                Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(auth);
+
+                String token = tokenService.generateJwt(auth);
+
+                return new LoginResponseDto(authRepository.findById(username).get(), token);
+            }else {
+                return new LoginResponseDto(null, "");
             }
 
-        throw new AuthenticationFailed("Invalid password");
+        } catch(AuthenticationException e){
+            return new LoginResponseDto(null, "");
+        }
     }
 
     @Override

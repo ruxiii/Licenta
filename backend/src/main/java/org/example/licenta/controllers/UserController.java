@@ -1,6 +1,6 @@
 package org.example.licenta.controllers;
 
-import org.example.licenta.configuration.UserAuthenticationProvider;
+//import org.example.licenta.configuration.UserAuthenticationProvider;
 import org.example.licenta.dto.UserDto;
 import org.example.licenta.dto.UserFullDto;
 import org.example.licenta.exceptions.TeamNotFoundException;
@@ -20,11 +20,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private final UserAuthenticationProvider userAuthenticationProvider;
-
-    public UserController(UserAuthenticationProvider userAuthenticationProvider) {
-        this.userAuthenticationProvider = userAuthenticationProvider;
-    }
+//    private final UserAuthenticationProvider userAuthenticationProvider;
+//
+//    public UserController(UserAuthenticationProvider userAuthenticationProvider) {
+//        this.userAuthenticationProvider = userAuthenticationProvider;
+//    }
 
 
     //    TODO: ASTA NU TREBUIE SA FIE LA USER
@@ -46,7 +46,7 @@ public class UserController {
     @PostMapping("/users/create")
     public ResponseEntity<UserFullDto> createUser(@RequestBody UserDto userDto) throws TeamNotFoundException {
         UserFullDto userFullDto = userService.createUser(userDto);
-        userFullDto.setToken(userAuthenticationProvider.createToken(userFullDto));
+//        userFullDto.setToken(userAuthenticationProvider.createToken(userFullDto));
         return ResponseEntity.ok(userFullDto);
     }
     
