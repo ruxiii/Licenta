@@ -28,7 +28,6 @@ import { ReservationsService } from './reservations/reservations.service';
 import { TeamsService } from './teams/teams.service';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { FormsModule } from '@angular/forms';
-import { UserRolesService } from './users/user-roles.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
@@ -90,7 +89,6 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     PlacesService,
     ReservationsService,
     TeamsService,
-    UserRolesService,
     ThemeService,
     HomeService,
     LoginService,

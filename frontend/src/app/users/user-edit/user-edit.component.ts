@@ -4,7 +4,6 @@ import { UsersComponent } from '../users.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { UserRolesService } from '../user-roles.service';
 import { TeamsService } from '../../teams/teams.service';
 import { TeamsComponent } from '../../teams/teams.component';
 import { ThemeService } from '../../theme-toggle/theme.service';
@@ -45,7 +44,6 @@ export class UserEditComponent implements OnInit, OnDestroy{
   constructor(private usersService: UsersService, 
               private route: ActivatedRoute, 
               private router: Router,
-              private userRolesService: UserRolesService,
               private teamsService: TeamsService, private themeService: ThemeService,
               private dialog: MatDialog,
               private axiosService: AxiosService) { 
@@ -54,14 +52,6 @@ export class UserEditComponent implements OnInit, OnDestroy{
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
       this.isDarkMode = isDark;
     });
-
-    // this.axiosService.request(
-    //   "GET",
-    //   "/messages",
-    //   null
-    // ).then(
-    //   (response) => this.data = response.data
-    // );
   }
 
   ngOnInit(): void {

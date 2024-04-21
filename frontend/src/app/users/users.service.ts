@@ -19,7 +19,7 @@ export class UsersService {
   }  
 
   createUser(userId: string, userName: string, userFirstName: string, userEmail: string, userPassword: string, userRole: string, teamId: string): Observable<any> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    // const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post(this.createUserUrl, {
       userId,
       userName,
@@ -28,6 +28,7 @@ export class UsersService {
       userPassword,
       userRole,
       teamId
-    }, { headers, responseType: 'text' });
+    });
+    // }, { headers, responseType: 'text' });
   }
 }

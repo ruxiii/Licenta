@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit{
         userPassword: value.password, 
       }).then(
       response => {
+          console.log('Response:', response.data.token);
           this.axiosService.setAuthToken(response.data.token);
           this.router.navigate(['/home']);
       }).catch(
