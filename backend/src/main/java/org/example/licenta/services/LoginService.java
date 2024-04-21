@@ -35,24 +35,6 @@ public class LoginService implements UserDetailsService {
     @Autowired
     private TokenService tokenService;
 
-//    public UserFullDto loginUser(String username, String password) throws AuthenticationFailed {
-//        UserEntity userEntity = userRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//        if (passwordEncoder.matches(password, userEntity.getUserPassword())) {
-//            UserFullDto userFullDto = new UserFullDto();
-//            userFullDto.setUserId(userEntity.getUserId());
-//            userFullDto.setUserName(userEntity.getUserName());
-//            userFullDto.setUserFirstName(userEntity.getUserFirstName());
-//            userFullDto.setUserEmail(userEntity.getUserEmail());
-//            userFullDto.setUserPassword(userEntity.getUserPassword());
-//            userFullDto.setUserRole(userEntity.getUserRole());
-//            userFullDto.setTeamId(userEntity.getTeamEntity().getTeamId());
-//            return userFullDto;
-//            }
-//
-//        throw new AuthenticationFailed("Invalid password");
-//    }
-//
-
     public LoginResponseDto loginUser(String username, String password){
         try {
             UserDetails userDetails = loadUserByUsername(username);

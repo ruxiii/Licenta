@@ -50,19 +50,21 @@ public class LicentaApplication {
 			Set<RoleEntity> roles = new HashSet<>();
 			roles.add(adminRole);
 
+			String password = passwordEncoder.encode("Admin1!");
+
 			UserEntity user = new UserEntity();
 			user.setUserId("T0");
 			user.setUserFirstName("ADMIN");
 			user.setUserName("");
 			user.setUserEmail("");
-			user.setUserPassword(passwordEncoder.encode("Admin1!"));
+			user.setUserPassword(password);
 			user.setUserRole("ADMIN");
 			user.setTeamEntity(teamEntity);
 			userRepository.save(user);
 
 			AuthenticationEntity admin = new AuthenticationEntity();
 			admin.setUserId("T0");
-			admin.setUserPassword(passwordEncoder.encode("Admin1!"));
+			admin.setUserPassword(password);
 			admin.setAuthorities(roles);
 
 			authenticationRepository.save(admin);

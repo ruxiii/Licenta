@@ -61,7 +61,6 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .addFilterBefore(new JwtAuthFilter(tokenService), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers(new AntPathRequestMatcher("/home")).permitAll();
                     authorize.requestMatchers(new AntPathRequestMatcher("/login")).permitAll();

@@ -44,10 +44,8 @@ public class UserController {
     }
 
     @PostMapping("/users/create")
-    public ResponseEntity<UserFullDto> createUser(@RequestBody UserDto userDto) throws TeamNotFoundException {
-        UserFullDto userFullDto = userService.createUser(userDto);
-//        userFullDto.setToken(userAuthenticationProvider.createToken(userFullDto));
-        return ResponseEntity.ok(userFullDto);
+    public UserFullDto createUser(@RequestBody UserDto userDto) throws TeamNotFoundException {
+        return userService.createUser(userDto);
     }
     
     @PutMapping("/users/{id}/update")

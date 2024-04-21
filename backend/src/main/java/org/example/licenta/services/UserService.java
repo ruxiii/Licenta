@@ -158,13 +158,15 @@ public class UserService{
 
             String userId = userIds.get(0).substring(0, position) + (max + 1);
 
+            String password = passwordEncoder.encode(userDto.getUserPassword());
+
             TeamEntity teamEntity = teamRepository.findById(userDto.getTeamId()).get();
             UserEntity userEntity = new UserEntity();
             userEntity.setUserId(userId);
             userEntity.setUserName(userDto.getUserName().toUpperCase());
             userEntity.setUserFirstName(userDto.getUserFirstName().toUpperCase());
             userEntity.setUserEmail(userDto.getUserEmail());
-            userEntity.setUserPassword(passwordEncoder.encode(userDto.getUserPassword()));
+            userEntity.setUserPassword(password);
             userEntity.setUserRole(roleRepository.findByAuthority("USER").get().getAuthority());
             userEntity.setTeamEntity(teamEntity);
 
@@ -175,7 +177,7 @@ public class UserService{
 
             AuthenticationEntity authEntity = new AuthenticationEntity();
             authEntity.setUserId(userEntity.getUserId());
-            authEntity.setUserPassword(passwordEncoder.encode(userDto.getUserPassword()));
+            authEntity.setUserPassword(password);
             authEntity.setAuthorities(authorities);
             authRepository.save(authEntity);
 
