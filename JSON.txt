@@ -14,12 +14,10 @@
 	
 -------------------------JSON USER-------------------------
     {
-        "userId": "T1",
         "userName": "iftimi",
         "userFirstName": "ruxi",
         "userEmail": "@ruxi",
-        "userPassword": "hello",
-        "userRole": "USER",
+        "userPassword": "Admin1!",
         "teamId": "CAL"
     }
 	
@@ -56,3 +54,20 @@
 		"eventName": "vizita PCM"
     }
 	
+
+
+
+
+
+.dark-theme-table .table-striped > tbody > tr:nth-child(odd) {
+    background-color: red; /* Use rgba() for transparent black */    
+    color: #ffffff; /* White text color */
+}
+
+/* .dark-theme-table[_ngcontent-ng-c3063190348] {
+    background-color:red; /* Use rgba() for transparent black */    
+    color: #ffffff;
+}
+		
+		
+		
