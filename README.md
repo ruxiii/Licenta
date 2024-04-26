@@ -40,4 +40,6 @@
 
 ***20.04.2024***  - Authentication and authorization work in the backend (tested from postman), but the Bearer token doesn't want to be included in the header, create an account and login work without an error, correction when creating an account (the submit became active even if the passwords weren't the same), color changes on the app, pop-up updated   
 
-***21.04.2024***  -  Authentication and authorization work in both backend and frontend!!!!!!!!!!!!!!!!!!!
+***21.04.2024***  - Authentication and authorization work in both backend and frontend!!!!!!!!!!!!!!!!!!!
+
+***26.04.2024***  - Authentication and authorization work pretty good in both backend and frontend, Hello {{user}}, constraint so that only the users from the database can be logged, logout button, some authorizations added (have a look later)  
