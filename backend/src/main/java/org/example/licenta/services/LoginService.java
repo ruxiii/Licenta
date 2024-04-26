@@ -7,6 +7,8 @@ import org.example.licenta.dto.LoginResponseDto;
 import org.example.licenta.dto.UserFullDto;
 import org.example.licenta.exceptions.AuthenticationFailed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -35,7 +37,7 @@ public class LoginService implements UserDetailsService {
     @Autowired
     private TokenService tokenService;
 
-    public LoginResponseDto loginUser(String username, String password){
+    public ResponseEntity<LoginResponseDto> loginUser(String username, String password){
         try {
             UserDetails userDetails = loadUserByUsername(username);
             if (passwordEncoder.matches(password, userDetails.getPassword())) {
@@ -44,13 +46,13 @@ public class LoginService implements UserDetailsService {
 
                 String token = tokenService.generateJwt(auth);
 
-                return new LoginResponseDto(authRepository.findById(username).get(), token);
+                return new ResponseEntity<>(new LoginResponseDto(authRepository.findById(username).get(), token), HttpStatus.OK);
             }else {
-                return new LoginResponseDto(null, "");
+                return new ResponseEntity<>(new LoginResponseDto(null, ""), HttpStatus.UNAUTHORIZED);
             }
 
         } catch(AuthenticationException e){
-            return new LoginResponseDto(null, "");
+            return new ResponseEntity<>(new LoginResponseDto(null, ""), HttpStatus.UNAUTHORIZED);
         }
     }
 

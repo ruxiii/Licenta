@@ -22,4 +22,9 @@ public class HomeController {
     public String login() {
         return "Welcome to the login page!";
     }
+
+    @GetMapping("/welcome")
+    public String welcome() {
+        return "Welcome to the welcome page!";
+    }
 }
