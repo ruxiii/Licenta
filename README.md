@@ -36,8 +36,8 @@
 
 ***17.04.2024***  - Login endpoint, admin files created for /admin, home adapted to login endpoint, register -> create an user, login -> /login but the submit button doesn't work, started adapting the frontend to the jwt token from backend (min 23:30 from https://www.youtube.com/watch?v=YUqi1IjLX8I)
 
-***18.04.2024***  - Validators for email, password and confirm password (dynamic), token exposed in the frontend but for some reason when i submit the loginform first in console appears 401, then it works BUT when i try to access an endpoint that only an user can access, it doesn't work (i have to finish the last part of this https://www.youtube.com/watch?v=YUqi1IjLX8I)
+***19.04.2024***  - Validators for email, password and confirm password (dynamic), token exposed in the frontend but for some reason when i submit the loginform first in console appears 401, then it works BUT when i try to access an endpoint that only an user can access, it doesn't work (i have to finish the last part of this https://www.youtube.com/watch?v=YUqi1IjLX8I)
 
-***19.04.2024***  - Authentication and authorization work in the backend (tested from postman), but the Bearer token doesn't want to be included in the header, create an account and login work without an error, correction when creating an account (the submit became active even if the passwords weren't the same), color changes on the app, pop-up updated   
+***20.04.2024***  - Authentication and authorization work in the backend (tested from postman), but the Bearer token doesn't want to be included in the header, create an account and login work without an error, correction when creating an account (the submit became active even if the passwords weren't the same), color changes on the app, pop-up updated   
 
-***20.04.2024***  -  Authentication and authorization work in both backend and frontend!!!!!!!!!!!!!!!!!!!
+***21.04.2024***  -  Authentication and authorization work in both backend and frontend!!!!!!!!!!!!!!!!!!!
