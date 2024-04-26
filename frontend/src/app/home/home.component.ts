@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +15,11 @@ export class HomeComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   constructor(private homeService: HomeService,
-              private router: Router,
-              private authService: AuthenticationService) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.homeService.home().subscribe(response => {
       this.homeMessage = response;
-    });
-    this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn;
     });
   }
 

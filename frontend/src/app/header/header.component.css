@@ -51,6 +51,8 @@ nav{
     background-color: #0066b2; 
     color: #ffffff; 
     border: none;
+    position: relative;
+    z-index: 1;
 }
 
 

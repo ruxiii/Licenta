@@ -15,8 +15,10 @@ export class DepartmentsService {
     }
     public getDepartments(): Observable<DepartmentsComponent[]> {
         const url = '/login';
-        const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
-        const headers = { headers: header };
-        return this.http.get<DepartmentsComponent[]>(this.departmentUrl, headers);
+        if (typeof window !== "undefined") {  
+            const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+            const headers = { headers: header };
+            return this.http.get<DepartmentsComponent[]>(this.departmentUrl, headers);
+        }
     }  
 }

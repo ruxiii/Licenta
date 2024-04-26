@@ -40,7 +40,6 @@ import { HomeService } from './home/home.service';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { AxiosService } from './axios.service';
-import { AuthenticationService } from './authentication.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
@@ -94,7 +93,6 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     HomeService,
     LoginService,
     AxiosService,
-    AuthenticationService,
     {
       provide: HttpClient,
       useFactory: provideCustomHttpClient,

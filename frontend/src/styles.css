@@ -7,6 +7,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #E0FFFF;
 }
 
+.dropdown-item {
+  position: relative;
+  z-index: 1;
+}
+
 /* Dark Theme Styles */
 .dark-theme {
   background-color: #333;

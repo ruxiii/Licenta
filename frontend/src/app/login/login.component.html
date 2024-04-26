@@ -27,9 +27,9 @@
             name="password" 
             [(ngModel)]="password"></label></h3>
             
-        <br/>
-      </div> 
-      <button type="submit" class="btn btn-primary byn-block mb-4" style="margin-left: 415px;">Sign in</button>
+        <div *ngIf="somethingWrong" style="color: red; margin-left: -80px; font-weight: bold; font-size: 20px;">Username or password incorrect! Try again!</div>
+        </div> 
+      <button type="submit" class="btn btn-primary byn-block mb-4" style="margin-left: 425px;">Sign in</button>
     </form>
   </div>
   

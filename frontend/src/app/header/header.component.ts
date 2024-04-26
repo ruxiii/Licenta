@@ -1,14 +1,16 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../theme-toggle/theme.service';
-import { AuthenticationService } from '../authentication.service'; // Import AuthenticationService
+import { Router } from '@angular/router'; // Import Router
+import { LoginService } from '../login/login.service';
+import { UsersService } from '../users/users.service'; // Import UsersService
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent implements OnDestroy, OnInit {
   isDarkMode: boolean;
   private themeSubscription: Subscription;
   loggedInUserName: string; // Add property for logged-in user's name
@@ -16,16 +18,17 @@ export class HeaderComponent implements OnDestroy {
 
   constructor(
     private themeService: ThemeService,
-    private authService: AuthenticationService // Inject AuthenticationService
+    private userService: UsersService // Inject UsersService
   ) {
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
       this.isDarkMode = isDark;
     });
+  }
 
-    // Subscribe to changes in logged-in user's name
-    this.authService.getUserName().subscribe(userName => {
-      this.loggedInUserName = userName;
+  ngOnInit(): void {
+    this.userService.username$.subscribe(username => {
+      this.loggedInUserName = username;
     });
   }
 
@@ -44,7 +47,7 @@ export class HeaderComponent implements OnDestroy {
     this.showSubMenu = !this.showSubMenu; 
   }
 
-  onLogout() {
-    this.authService.logout(); 
+  onLogout(event: any) {
+    this.userService.logout();
   }
 }

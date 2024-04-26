@@ -3,14 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsersComponent } from './users.component';
 import { HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UsersService {
   private createUserUrl : string;
   private getAllUsersUrl : string;
   tokenType = 'Bearer ';
+  private usernameSubject = new BehaviorSubject<string>(null);
+  username$ = this.usernameSubject.asObservable();
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router) { 
     this.getAllUsersUrl = 'http://localhost:8080/users';
     this.createUserUrl = 'http://localhost:8080/users/create';
   }
@@ -21,7 +25,7 @@ export class UsersService {
       const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
       const headers = { headers: header };
       return this.http.get<UsersComponent[]>(this.getAllUsersUrl, headers);
-  }
+    }
   }  
 
   createUser(userId: string, userName: string, userFirstName: string, userEmail: string, userPassword: string, userRole: string, teamId: string): Observable<any> {
@@ -34,5 +38,21 @@ export class UsersService {
       userRole,
       teamId
     });
+  }
+
+  setUsername(username: string): void {
+    this.usernameSubject.next(username);
+  }
+
+  getUsername(): string {
+    return this.usernameSubject.value;
+  }
+
+  logout(): void {
+    if (typeof window !== "undefined") {  
+      window.localStorage.clear();
+      this.setUsername(null); 
+      this.router.navigate(['/home']);
+    }
   }
 }
