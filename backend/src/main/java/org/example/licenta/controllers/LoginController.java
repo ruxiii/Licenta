@@ -33,6 +33,17 @@ public class LoginController {
 //        return ResponseEntity.ok(userFullDto);
 //    }
 
+//    @PostMapping("/login")
+//    public LoginResponseDto login(@RequestBody AuthenticationDto authenticationDto){
+//        ResponseEntity<LoginResponseDto> loginUser = loginService.loginUser(authenticationDto.getUserId(),
+//                authenticationDto.getUserPassword());
+//        if (loginUser.getStatusCode().is2xxSuccessful()) {
+//            return loginUser.getBody();
+//        } else {
+//            return new LoginResponseDto(null, "");
+//        }
+//    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody AuthenticationDto authenticationDto){
         return loginService.loginUser(authenticationDto.getUserId(),
