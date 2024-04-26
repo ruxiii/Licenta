@@ -62,12 +62,34 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> {
+//                    toate permisiunile
                     authorize.requestMatchers(new AntPathRequestMatcher("/home")).permitAll();
                     authorize.requestMatchers(new AntPathRequestMatcher("/login")).permitAll();
                     authorize.requestMatchers(new AntPathRequestMatcher("/users/create")).permitAll();
-                    authorize.requestMatchers(new AntPathRequestMatcher("/teams")).permitAll();
-                    authorize.requestMatchers(new AntPathRequestMatcher("/users")).permitAll();
-                    authorize.requestMatchers(new AntPathRequestMatcher("/departments/**")).hasRole("USER");
+
+//                    permisiuni admin
+                    authorize.requestMatchers(new AntPathRequestMatcher("/users")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/teams")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/teams/{id}")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/teams/{id}/delete")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/teams/create")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/reservations")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/departments")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/departments/{id}")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/departments/{id}/delete")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/departments/create")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/departments/{id}/update")).hasRole("ADMIN");
+
+
+
+//                    permisiuni user si admin
+                    authorize.requestMatchers(new AntPathRequestMatcher("/users/{id}")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/users/{id}/delete")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/users/{id}/update")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/reservations/{id}")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/reservations/{id}/delete")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/reservations/{id}/update")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/reservations/create")).hasAnyRole("USER", "ADMIN");
                 });
 
 
