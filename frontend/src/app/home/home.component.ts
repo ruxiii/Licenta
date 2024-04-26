@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -12,23 +13,20 @@ export class HomeComponent implements OnInit {
   adminMessage: string;
   showHomeMessage: boolean = false;
   showAdminMessage: boolean = false;
+  isLoggedIn: boolean = false;
 
-  constructor(private homeService: HomeService, private router: Router) { }
+  constructor(private homeService: HomeService,
+              private router: Router,
+              private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.homeService.home().subscribe(response => {
-      this.homeMessage = response; // Store the home page message
-      // this.showHomeMessage = true; // Display home message
-      // this.showAdminMessage = false; // Hide admin message
+      this.homeMessage = response;
+    });
+    this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
+      this.isLoggedIn = loggedIn;
     });
   }
-
-  //   this.homeService.admin().subscribe(response => {
-  //     this.adminMessage = response; // Store the admin page message
-  //     this.showAdminMessage = true; // Display admin message
-  //     this.showHomeMessage = false; // Hide home message
-  //   });
-  // }
 
   onNewUser() {
     this.router.navigate(['/users/create']);
@@ -36,5 +34,9 @@ export class HomeComponent implements OnInit {
 
   onLogin() {
     this.router.navigate(['/login']);
+  }
+
+  onStart() {
+    // this.router.navigate(['/start']);
   }
 }

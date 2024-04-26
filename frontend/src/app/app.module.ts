@@ -41,6 +41,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { AxiosService } from './axios.service';
 import { AuthenticationService } from './authentication.service';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -69,6 +70,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     UserDetailPopupComponent,
     HomeComponent,
     LoginComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -17,9 +17,11 @@ export class UsersService {
 
   public getUsers(): Observable<UsersComponent[]> {
     const url = '/login';
-    const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
-    const headers = { headers: header };
-    return this.http.get<UsersComponent[]>(this.getAllUsersUrl);
+    if (typeof window !== "undefined") {  
+      const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+      const headers = { headers: header };
+      return this.http.get<UsersComponent[]>(this.getAllUsersUrl, headers);
+  }
   }  
 
   createUser(userId: string, userName: string, userFirstName: string, userEmail: string, userPassword: string, userRole: string, teamId: string): Observable<any> {

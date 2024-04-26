@@ -7,19 +7,19 @@
             <ul class="nav navbar-nav">
                 <li routerLinkActive="active"><a routerLink="/departments">Departments</a></li>
                 <li routerLinkActive="active"><a routerLink="/teams">Teams</a></li>
-                <!-- <li routerLinkActive="active"><a routerLink="/users">Users</a></li> -->
+                <li routerLinkActive="active"><a routerLink="/users">Users</a></li>
                 <li routerLinkActive="active"><a routerLink="/maps">Maps</a></li>
                 <li routerLinkActive="active"><a routerLink="/places">Places</a></li>
                 <li routerLinkActive="active"><a routerLink="/reservations">Reservations</a></li>
                 <li routerLinkActive="active"><a routerLink="/events">Events</a></li>
             </ul>
         </div>
-        <!-- <div class="user-info" > -->
             <ul class="menu" *ngIf="loggedInUserName">
                 <div class="btn-link" (click)="toggleSubMenu()">
                     Hello, {{ loggedInUserName }}
                     <ul class="submenu" *ngIf="showSubMenu" [class.dark-theme]="isDarkMode">
-                        <li><button class="dropdown-item" [class.dark-theme]="isDarkMode" (click)="onLogout($event)">Logout</button></li>                    </ul>                    
+                        <li><button class="dropdown-item" [class.dark-theme]="isDarkMode" (click)="onLogout($event)">Logout</button></li>                    
+                    </ul>                    
                 </div>
             </ul>
             

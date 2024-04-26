@@ -10,6 +10,7 @@ import { ReservationListComponent } from './reservations/reservation-list/reserv
 import { EventListComponent } from './events/event-list/event-list.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const appRoutes: Routes = [
     { path: 'departments', component: DepartmentListComponent },
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent},
+    { path: 'welcome', component: WelcomeComponent}
 ];
 
 

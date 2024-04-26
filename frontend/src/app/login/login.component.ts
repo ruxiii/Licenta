@@ -4,6 +4,7 @@ import { LoginService } from './login.service';
 import { NgForm } from '@angular/forms';
 import { AxiosService } from '../axios.service';
 import { AuthenticationService } from '../authentication.service'; // Import AuthenticationService
+import { UsersService } from '../users/users.service'; // Import UsersService
 
 @Component({
   selector: 'app-login',
@@ -16,38 +17,36 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   passwordVisible = false;
+  showPasswordMismatchWarning = false;
 
   constructor(private router: Router,
               private loginService: LoginService,
               private axiosService: AxiosService,
-              private authService: AuthenticationService // Inject AuthenticationService
-  ) { }
+              private authService: AuthenticationService  
+            ) { }
 
   ngOnInit() {
     window.localStorage.clear();
   }
 
-  onSubmitLogin(loginForm: NgForm) {
-    const value = loginForm.value;
-    this.axiosService.request(
-      "POST",
-      "/login",
-      {
-        userId: value.username,
-        userPassword: value.password,
-      }).then(
-      response => {
-        console.log('Response:', response.data.token);
-        this.axiosService.setAuthToken(response.data.token);
-        this.authService.login(value.username); // Update AuthenticationService with logged in user's name
-        this.router.navigate(['/home']);
-      }).catch(
-      error => {
-        console.log('Error:', error, error.response.data.message);
-      }
-      );
+  
+onSubmitLogin(loginForm: NgForm) {
+  const value = loginForm.value;
+  console.log('Form Value:', value);
 
-  }
+  this.loginService.verifyCredentials(value.username, value.password).subscribe(
+    (response) => {
+      this.authService.login(value.username, value.password);
+      this.router.navigate(['/welcome']);
+    },
+    (error) => {
+      console.log('Error:', error);
+      if (error.status === 401) {
+        this.showPasswordMismatchWarning = true;
+      }
+    }
+  );
+}
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
