@@ -8,6 +8,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class UsersService {
   private createUserUrl : string;
   private getAllUsersUrl : string;
+  tokenType = 'Bearer ';
 
   constructor(private http: HttpClient) { 
     this.getAllUsersUrl = 'http://localhost:8080/users';
@@ -15,11 +16,13 @@ export class UsersService {
   }
 
   public getUsers(): Observable<UsersComponent[]> {
+    const url = '/login';
+    const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+    const headers = { headers: header };
     return this.http.get<UsersComponent[]>(this.getAllUsersUrl);
   }  
 
   createUser(userId: string, userName: string, userFirstName: string, userEmail: string, userPassword: string, userRole: string, teamId: string): Observable<any> {
-    // const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post(this.createUserUrl, {
       userId,
       userName,
@@ -29,6 +32,5 @@ export class UsersService {
       userRole,
       teamId
     });
-    // }, { headers, responseType: 'text' });
   }
 }

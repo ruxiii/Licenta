@@ -38,9 +38,9 @@ import { UserDetailPopupComponent } from './users/user-detail-popup/user-detail-
 import { HomeComponent } from './home/home.component';
 import { HomeService } from './home/home.service';
 import { LoginComponent } from './login/login.component';
-import { ContentComponent } from './content/content.component';
 import { LoginService } from './login/login.service';
 import { AxiosService } from './axios.service';
+import { AuthenticationService } from './authentication.service';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -69,7 +69,6 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     UserDetailPopupComponent,
     HomeComponent,
     LoginComponent,
-    ContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +92,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     HomeService,
     LoginService,
     AxiosService,
+    AuthenticationService,
     {
       provide: HttpClient,
       useFactory: provideCustomHttpClient,

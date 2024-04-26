@@ -17,13 +17,4 @@ export class LoginService{
         return this.http.post<any>(this.loginUrl, {login: login, password: password});
     }
 
-    // logout() {
-    //     // Clear JWT token from local storage or session storage
-    //     localStorage.removeItem('jwtToken');
-    //   }
-    
-    //   isLoggedIn(): boolean {
-    //     // Check if JWT token exists in local storage or session storage
-    //     return !!localStorage.getItem('jwtToken');
-    //   }
 }

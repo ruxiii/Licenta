@@ -14,7 +14,16 @@
                 <li routerLinkActive="active"><a routerLink="/events">Events</a></li>
             </ul>
         </div>
+        <!-- <div class="user-info" > -->
+            <ul class="menu" *ngIf="loggedInUserName">
+                <div class="btn-link" (click)="toggleSubMenu()">
+                    Hello, {{ loggedInUserName }}
+                    <ul class="submenu" *ngIf="showSubMenu" [class.dark-theme]="isDarkMode">
+                        <li><button class="dropdown-item" [class.dark-theme]="isDarkMode" (click)="onLogout($event)">Logout</button></li>                    </ul>                    
+                </div>
+            </ul>
+            
+            
         <app-theme-toggle></app-theme-toggle>
     </div>
 </nav>
-
