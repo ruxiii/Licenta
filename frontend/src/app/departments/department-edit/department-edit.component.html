@@ -1,0 +1,45 @@
+<h1 style="text-align: center;  font-weight: bold; font-size: 35px;">Create a department</h1>
+<!-- <div *ngFor="let line of data">{{ line }}</div> -->
+<br/>
+<div class="card my-5" [class.dark-theme]="isDarkMode">
+    <div class="card-body"[class.dark-theme]="isDarkMode">
+      <form (ngSubmit)="onSubmit(departmentForm)" #departmentForm="ngForm" [class.dark-theme]="isDarkMode">
+        <div class="form-group" [class.dark-theme]="isDarkMode">
+            <label for="departmentId" class="control-label" [class.dark-theme]="isDarkMode">Department Id:</label>
+            <input 
+                type="text" 
+                id="departmentId" 
+                class="form-control"
+                name="departmentId"
+                ngModel
+                required
+                #name="ngModel"
+                [placeholder]="name.touched ? 'Please enter the department id!' : 'Enter department id'">
+        </div>
+        <br/>
+         
+        <div class="form-group">
+            <label for="departmentName" [class.dark-theme]="isDarkMode">Department Name: </label>
+            <input 
+                type="text" 
+                id="departmentName" 
+                class="form-control"
+                name="departmentName"
+                ngModel
+                required
+                #firstname="ngModel"
+                [placeholder]="firstname.touched ? 'Please enterthe department name!' : 'Enter the department name'">
+        </div>
+
+        <br/>
+        <div *ngIf="somethingWrong" style="color: red; margin-left: 420px; font-weight: bold; font-size: 20px;">This department already exists! </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12" style="text-align: center">
+                <button type="submit" [disabled]="!departmentForm.form.valid"
+                class="btn btn-info">Submit</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>

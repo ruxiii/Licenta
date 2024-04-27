@@ -14,9 +14,9 @@ export class LoginService{
         this.loginUrl = 'http://localhost:8080/login';
     }
 
-    verifyCredentials(username: string, password: string): Observable<any> {
-        return this.http.post<any>(this.loginUrl, {userId: username, userPassword: password});
-    }
+    // verifyCredentials(username: string, password: string): Observable<any> {
+    //     return this.http.post<any>(this.loginUrl, {userId: username, userPassword: password});
+    // }
 
     login(login: string, password: string): Observable<any> {
         return this.http.post<any>(this.loginUrl, {login: login, password: password});

@@ -1,19 +1,35 @@
 <br/>
-<div class="card my-5">
-    <div class="card-body">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">DepartmentId</th>
-            <th scope="col">DepartmentName</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let dep of departments">
-            <td>{{ dep.departmentId }}</td>
-            <td>{{ dep.departmentName }}</td>
-        </tr>
-        </tbody>
-      </table>
+<div class="card my-5"  style="text-align: center;">
+    <div class="card-body "  style="text-align: center;">
+      <div class="table-container">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" style="text-align: center;">Department Id</th>
+              <th scope="col" style="text-align: center;">Department Name</th>
+              <th scope="col" style="text-align: center;">Actions</th> <!-- New column for actions -->
+            </tr>
+          </thead>
+          <tbody [class.dark-theme]="isDarkMode">
+            <tr *ngFor="let dep of departments">
+              <td>{{ dep.departmentId }}</td>
+              <td>{{ dep.departmentName }}</td>
+              <td style="text-align: center;">
+                <button class="btn btn-primary" (click)="updateDepartment(dep)">Update</button> <!-- Update button -->
+                <button class="btn btn-danger" (click)="deleteDepartment(dep)">Delete</button> 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div style="text-align: center;" [class.dark-theme]="isDarkMode">
+          <pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
+        </div>
+       </div> 
     </div>
   </div>
+  <button 
+  class="btn btn-success" 
+  style="margin-left: 10%;"
+  (click) = "onNewDepartment()">New department</button>

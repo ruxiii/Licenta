@@ -11,19 +11,33 @@ import { EventListComponent } from './events/event-list/event-list.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { DepartmentEditComponent } from './departments/department-edit/department-edit.component';
+import { DepartmentUpdateComponent } from './departments/department-update/department-update.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
+
     { path: 'departments', component: DepartmentListComponent },
+    { path: 'departments/create', component: DepartmentEditComponent},
+    { path: 'departments/:id/update', component: DepartmentUpdateComponent },
+
     { path: 'teams', component: TeamListComponent },
+
     { path: 'users', component: UserListComponent},
     { path: 'users/create', component: UserEditComponent},
+    
     { path: 'maps', component: MapListComponent },
+    
     { path: 'places', component: PlaceListComponent },
+    
     { path: 'reservations', component: ReservationListComponent},
+    
     { path: 'events', component: EventListComponent},
+    
     { path: 'home', component: HomeComponent},
+    
     { path: 'login', component: LoginComponent},
+    
     { path: 'welcome', component: WelcomeComponent}
 ];
 

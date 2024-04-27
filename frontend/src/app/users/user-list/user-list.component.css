@@ -1,6 +1,21 @@
+td {
+  background-color: #ffffff;
+}
+
+.ngx-pagination {
+  margin-left: 0;
+  margin-bottom: 1rem;
+  color: black;
+}
+
 .dark-theme tr {
     background-color: grey ;
     color: #ffffff; /* White text color */
+}
+
+.dark-theme td {
+  background-color: grey ;
+  color: #ffffff; /* White text color */
 }
 
 .dark-theme {

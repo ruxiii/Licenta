@@ -43,3 +43,5 @@
 ***21.04.2024***  - Authentication and authorization work in both backend and frontend!!!!!!!!!!!!!!!!!!!
 
 ***26.04.2024***  - Authentication and authorization work pretty good in both backend and frontend, Hello {{user}}, constraint so that only the users from the database can be logged, logout button, some authorizations added (have a look later)  
+
+***27.04.2024***  - Buttons appear based on the roles, problem done with /home and /welcome, dep id added with uppercase in the database, AS AN ADMIN: add a new department from frontend, constaint so that there aren't two departments with the same id, delete a department, update endpoint added, but the update doesn't work yet
