@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 const appRoutes: Routes = [
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'departments', component: DepartmentListComponent },
     { path: 'teams', component: TeamListComponent },
     { path: 'users', component: UserListComponent},
@@ -22,7 +23,6 @@ const appRoutes: Routes = [
     { path: 'reservations', component: ReservationListComponent},
     { path: 'events', component: EventListComponent},
     { path: 'home', component: HomeComponent},
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent},
     { path: 'welcome', component: WelcomeComponent}
 ];

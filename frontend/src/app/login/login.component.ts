@@ -41,11 +41,13 @@ export class LoginComponent implements OnInit {
       }
     ).then(
       response => {
-        console.log('Response:', response.data.token);
         this.axiosService.setAuthToken(response.data.token);
         
         const username =value.username;
-        this.userService.setUsername(username);        
+        this.userService.setUsername(username);   
+
+        const userRole = response.data.authenticationEntity.authorities[0].authority;
+        this.userService.setUserRole(userRole);
 
         this.router.navigate(['/welcome']);
       }

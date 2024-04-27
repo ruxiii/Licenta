@@ -1,17 +1,25 @@
 <nav class="navbar navbar-default" [class.dark-theme]="isDarkMode">
-    <div class="navbar-header">
+    <div class="navbar-header" *ngIf="!loggedInUserName; else welcomeRedirect">
         <a class="navbar-brand" routerLink="/home">OfOps</a>
     </div>
+
+    <ng-template #welcomeRedirect>
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/welcome">OfOps</a>
+        </div>
+    </ng-template>
+    
+    
     <div class="navbar-collapse" [class.custom-class]="isDarkMode">
         <div class="navbar-default">
             <ul class="nav navbar-nav">
-                <li routerLinkActive="active"><a routerLink="/departments">Departments</a></li>
-                <li routerLinkActive="active"><a routerLink="/teams">Teams</a></li>
-                <li routerLinkActive="active"><a routerLink="/users">Users</a></li>
-                <li routerLinkActive="active"><a routerLink="/maps">Maps</a></li>
-                <li routerLinkActive="active"><a routerLink="/places">Places</a></li>
-                <li routerLinkActive="active"><a routerLink="/reservations">Reservations</a></li>
-                <li routerLinkActive="active"><a routerLink="/events">Events</a></li>
+                <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/departments">Departments</a></li>
+                <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/teams">Teams</a></li>
+                <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/users">Users</a></li>
+                <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/maps">Maps</a></li>
+                <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/places">Places</a></li>
+                <li routerLinkActive="active" *ngIf="loggedInUserName && (userRole === 'ADMIN' || userRole === 'USER')"><a routerLink="/reservations">Reservations</a></li>
+                <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/events">Events</a></li>
             </ul>
         </div>
         <ul class="menu" *ngIf="loggedInUserName">

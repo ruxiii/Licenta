@@ -13,12 +13,13 @@ import { UsersService } from '../users/users.service'; // Import UsersService
 export class HeaderComponent implements OnDestroy, OnInit {
   isDarkMode: boolean;
   private themeSubscription: Subscription;
-  loggedInUserName: string; // Add property for logged-in user's name
+  loggedInUserName: string; 
   showSubMenu: boolean = false;
+  userRole: string; 
 
   constructor(
     private themeService: ThemeService,
-    private userService: UsersService // Inject UsersService
+    private userService: UsersService 
   ) {
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
@@ -29,6 +30,9 @@ export class HeaderComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.userService.username$.subscribe(username => {
       this.loggedInUserName = username;
+    });
+    this.userService.userRole$.subscribe(userRole => {
+      this.userRole = userRole;
     });
   }
 

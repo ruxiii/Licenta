@@ -12,7 +12,9 @@ export class UsersService {
   private getAllUsersUrl : string;
   tokenType = 'Bearer ';
   private usernameSubject = new BehaviorSubject<string>(null);
+  private userRoleSubject = new BehaviorSubject<string>(null);
   username$ = this.usernameSubject.asObservable();
+  userRole$ = this.userRoleSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { 
     this.getAllUsersUrl = 'http://localhost:8080/users';
@@ -46,6 +48,14 @@ export class UsersService {
 
   getUsername(): string {
     return this.usernameSubject.value;
+  }
+
+  setUserRole(userRole: string): void {
+    this.userRoleSubject.next(userRole);
+  }
+
+  getUserRole(): string {
+    return this.userRoleSubject.value;
   }
 
   logout(): void {
