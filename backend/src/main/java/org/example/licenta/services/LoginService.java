@@ -37,25 +37,6 @@ public class LoginService implements UserDetailsService {
     @Autowired
     private TokenService tokenService;
 
-//    public ResponseEntity<LoginResponseDto> loginUser(String username, String password){
-//        try {
-//            UserDetails userDetails = loadUserByUsername(username);
-//            if (passwordEncoder.matches(password, userDetails.getPassword())) {
-//                Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//                SecurityContextHolder.getContext().setAuthentication(auth);
-//
-//                String token = tokenService.generateJwt(auth);
-//
-//                return new ResponseEntity<>(new LoginResponseDto(authRepository.findById(username).get(), token), HttpStatus.OK);
-//            }else {
-//                return new ResponseEntity<>(new LoginResponseDto(null, ""), HttpStatus.UNAUTHORIZED);
-//            }
-//
-//        } catch(AuthenticationException e){
-//            return new ResponseEntity<>(new LoginResponseDto(null, ""), HttpStatus.UNAUTHORIZED);
-//        }
-//    }
-
     public ResponseEntity<LoginResponseDto> loginUser(String username, String password){
         try {
             UserDetails userDetails = loadUserByUsername(username);

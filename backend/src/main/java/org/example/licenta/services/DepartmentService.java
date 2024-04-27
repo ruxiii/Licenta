@@ -58,13 +58,12 @@ public class DepartmentService {
     }
 
     public void createDepartment(DepartmentDto departmentDto) throws DepartmentAlreadyExistsException {
-        System.out.println("hei!");
         if (departmentRepository.existsById(departmentDto.getDepartmentId())) {
             throw new DepartmentAlreadyExistsException("Department already exists");
         }
         else {
             DepartmentEntity departmentEntity = new DepartmentEntity();
-            departmentEntity.setDepartmentId(departmentDto.getDepartmentId());
+            departmentEntity.setDepartmentId(departmentDto.getDepartmentId().toUpperCase());
             departmentEntity.setDepartmentName(departmentDto.getDepartmentName());
             departmentRepository.save(departmentEntity);
         }
