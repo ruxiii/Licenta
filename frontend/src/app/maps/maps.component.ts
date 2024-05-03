@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FileHandle } from 'fs/promises';
 
 @Component({
   selector: 'app-maps',
@@ -7,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class MapsComponent {
   mapNameId: string;
-  mapImage: string;
-  departmentId: string;
+  mapName: string;
+  mapImage: FileHandle;
 }

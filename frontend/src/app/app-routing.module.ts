@@ -15,6 +15,7 @@ import { DepartmentEditComponent } from './departments/department-edit/departmen
 import { DepartmentUpdateComponent } from './departments/department-update/department-update.component';
 import { TeamEditComponent } from './teams/team-edit/team-edit.component';
 import { TeamUpdateComponent } from './teams/team-update/team-update.component';
+import { MapEditComponent } from './maps/map-edit/map-edit.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     { path: 'users/create', component: UserEditComponent},
     
     { path: 'maps', component: MapListComponent },
+    { path: 'maps/create', component: MapEditComponent},
     
     { path: 'places', component: PlaceListComponent },
     

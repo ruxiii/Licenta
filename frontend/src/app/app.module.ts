@@ -45,6 +45,7 @@ import { DepartmentEditComponent } from './departments/department-edit/departmen
 import { DepartmentUpdateComponent } from './departments/department-update/department-update.component';
 import { TeamEditComponent } from './teams/team-edit/team-edit.component';
 import { TeamUpdateComponent } from './teams/team-update/team-update.component';
+import { MapEditComponent } from './maps/map-edit/map-edit.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -78,6 +79,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     DepartmentUpdateComponent,
     TeamEditComponent,
     TeamUpdateComponent,
+    MapEditComponent,
   ],
   imports: [
     BrowserModule,

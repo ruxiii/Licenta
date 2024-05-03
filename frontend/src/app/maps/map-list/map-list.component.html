@@ -1,15 +1,16 @@
 <br/>
-<div class="card my-5">
-    <div class="card-body">
+<div class="card my-5"  style="text-align: center;">
+  <div class="card-body "  style="text-align: center;">
+    <div class="table-container">
       <table class="table table-bordered table-striped">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">MapNameId</th>
-            <th scope="col">MapImage</th>
-            <th scope="col">DepartmentId</th>
+            <th scope="col" style="text-align: center;">MapNameId</th>
+            <th scope="col" style="text-align: center;">MapImage</th>
+            <th scope="col" style="text-align: center;">DepartmentId</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody [class.dark-theme]="isDarkMode">
           <tr *ngFor="let map of maps">
             <td>{{ map.mapNameId }}</td>
             <td>{{ map.mapImage }}</td>
@@ -19,3 +20,8 @@
       </table>
     </div>
   </div>
+</div>
+  <button 
+  class="btn btn-success" 
+  style="margin-left: 10%;"
+  (click) = "onNewMap()">New map</button>
