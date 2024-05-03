@@ -1,23 +1,13 @@
 package org.example.licenta;
 
 import org.example.licenta.db.entities.*;
-import org.example.licenta.db.repositories.AuthenticationRepository;
-import org.example.licenta.db.repositories.RoleRepository;
-import org.example.licenta.db.repositories.UserRepository;
+import org.example.licenta.db.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//import com.google.auth.oauth2.GoogleCredentials;
-//import com.google.firebase.FirebaseApp;
-//import com.google.firebase.FirebaseOptions;
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
-//import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +19,12 @@ public class LicentaApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(RoleRepository roleRepository, AuthenticationRepository authenticationRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+	CommandLineRunner run(RoleRepository roleRepository,
+						  AuthenticationRepository authenticationRepository,
+						  UserRepository userRepository,
+						  PasswordEncoder passwordEncoder,
+						  DepartmentRepository departmentRepository,
+						  TeamRepository teamRepository) {
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isPresent()) {
 				return;
@@ -38,10 +33,13 @@ public class LicentaApplication {
 			DepartmentEntity departmentEntity = new DepartmentEntity();
 			departmentEntity.setDepartmentId("ADM");
 			departmentEntity.setDepartmentName("Admin");
+			departmentRepository.save(departmentEntity);
 
 			TeamEntity teamEntity = new TeamEntity();
 			teamEntity.setTeamId("ADM");
+			teamEntity.setTeamName("Admin");
 			teamEntity.setDepartmentEntity(departmentEntity);
+			teamRepository.save(teamEntity);
 
 			RoleEntity adminRole = roleRepository.save(new RoleEntity("ADMIN"));
 			RoleEntity userRole = new RoleEntity("USER");
@@ -70,36 +68,4 @@ public class LicentaApplication {
 			authenticationRepository.save(admin);
 		};
 	}
-
-
-
-
-
-//public static void main(String[] args) {
-//		ClassLoader classLoader = LicentaApplication.class.getClassLoader();
-//
-//		URL resourceUrl = classLoader.getResource("config/gestionare-spatii-comune-firebase-adminsdk-7bv6v-fb71d4cd97.json");
-//		if (resourceUrl != null) {
-//			File resourceFile = new File(resourceUrl.getFile());
-//			try {
-//				FileInputStream serviceAccount = new FileInputStream(resourceFile);
-//
-//				FirebaseOptions options = new FirebaseOptions.Builder()
-//						.setCredentials(GoogleCredentials.fromStream(serviceAccount))
-//						.build();
-//
-//				if(FirebaseApp.getApps().isEmpty()) {
-//					FirebaseApp.initializeApp(options);
-//				}
-//
-//				SpringApplication.run(LicentaApplication.class, args);
-//			} catch (FileNotFoundException e) {
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		} else {
-//			System.err.println("Resource not found!");
-//		}
-//	}
 }

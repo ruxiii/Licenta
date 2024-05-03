@@ -36,6 +36,7 @@ public class TeamService {
                 String departmentId = departmentEntity.getDepartmentId();
                 TeamDto teamDto = new TeamDto();
                 teamDto.setTeamId(teamEntity.getTeamId());
+                teamDto.setTeamName(teamEntity.getTeamName());
                 teamDto.setDepartmentId(departmentId);
                 teamDtos.add(teamDto);
             }
@@ -54,6 +55,7 @@ public class TeamService {
             String departmentId = departmentEntity.getDepartmentId();
             TeamDto teamDto = new TeamDto();
             teamDto.setTeamId(teamEntity.getTeamId());
+            teamDto.setTeamName(teamEntity.getTeamName());
             teamDto.setDepartmentId(departmentId);
             return teamDto;
         }
@@ -79,9 +81,33 @@ public class TeamService {
             else {
                 DepartmentEntity departmentEntity = departmentRepository.findById(teamDto.getDepartmentId()).get();
                 TeamEntity teamEntity = new TeamEntity();
-                teamEntity.setTeamId(teamDto.getTeamId());
+                teamEntity.setTeamId(teamDto.getTeamId().toUpperCase());
+                teamEntity.setTeamName(teamDto.getTeamName());
                 teamEntity.setDepartmentEntity(departmentEntity);
                 teamRepository.save(teamEntity);
+            }
+        }
+    }
+
+    public TeamDto updateTeam(String id, TeamDto teamDto) throws TeamNotFoundException, DepartmentNotFoundException {
+        if (!teamRepository.existsById(id)) {
+            throw new TeamNotFoundException("Team not found");
+        } else {
+            if (!departmentRepository.existsById(teamDto.getDepartmentId())) {
+                throw new DepartmentNotFoundException("Department not found");
+            } else {
+                DepartmentEntity departmentEntity = departmentRepository.findById(teamDto.getDepartmentId()).get();
+                TeamEntity teamEntity = teamRepository.findById(id).get();
+                teamEntity.setTeamName(teamDto.getTeamName());
+                teamEntity.setTeamName(teamDto.getTeamName());
+                teamEntity.setDepartmentEntity(departmentEntity);
+                teamRepository.save(teamEntity);
+
+                TeamDto updatedTeamDto = new TeamDto();
+                updatedTeamDto.setTeamId(teamEntity.getTeamId());
+                updatedTeamDto.setTeamName(teamEntity.getTeamName());
+                updatedTeamDto.setDepartmentId(departmentEntity.getDepartmentId());
+                return updatedTeamDto;
             }
         }
     }

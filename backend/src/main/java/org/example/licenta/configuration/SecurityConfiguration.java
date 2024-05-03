@@ -71,7 +71,7 @@ public class SecurityConfiguration {
 
 //                    permisiuni admin
                     authorize.requestMatchers(new AntPathRequestMatcher("/users")).hasRole("ADMIN");
-                    authorize.requestMatchers(new AntPathRequestMatcher("/teams/{id}")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/teams/{id}/update")).hasRole("ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/teams/{id}/delete")).hasRole("ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/teams/create")).hasRole("ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/reservations")).hasRole("ADMIN");

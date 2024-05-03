@@ -36,4 +36,9 @@ public class TeamController {
     public void createTeam(@RequestBody TeamDto teamDto) throws TeamAlreadyExistsException, DepartmentNotFoundException {
         teamService.createTeam(teamDto);
     }
+
+    @PutMapping("/teams/{id}/update")
+    public TeamDto updateTeam(@PathVariable String id, @RequestBody TeamDto teamDto) throws TeamNotFoundException, DepartmentNotFoundException {
+        return teamService.updateTeam(id, teamDto);
+    }
 }

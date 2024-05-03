@@ -12,7 +12,9 @@ public class TeamEntity {
     @Id
     private String teamId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    private String teamName;
+
+    @ManyToOne
     @JoinColumn(name = "departmentId", referencedColumnName = "departmentId")
     private DepartmentEntity departmentEntity;
 
