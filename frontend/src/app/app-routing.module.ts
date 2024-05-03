@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DepartmentEditComponent } from './departments/department-edit/department-edit.component';
 import { DepartmentUpdateComponent } from './departments/department-update/department-update.component';
+import { TeamEditComponent } from './teams/team-edit/team-edit.component';
+import { TeamUpdateComponent } from './teams/team-update/team-update.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +24,8 @@ const appRoutes: Routes = [
     { path: 'departments/:id/update', component: DepartmentUpdateComponent },
 
     { path: 'teams', component: TeamListComponent },
+    { path: 'teams/create', component: TeamEditComponent},
+    { path: 'teams/:id/update', component: TeamUpdateComponent},
 
     { path: 'users', component: UserListComponent},
     { path: 'users/create', component: UserEditComponent},

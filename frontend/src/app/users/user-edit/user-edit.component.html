@@ -41,10 +41,13 @@
                 [(ngModel)]="user.teamId"
                 required
             >
-                <option *ngFor="let team of teamsArray" [ngValue]="team">{{ team }}</option>
+                <option *ngFor="let team of teamsArray" [ngValue]="team">
+                    {{ team.teamId }} - {{ team.departmentId }}
+                </option>
             </select>
         </div>
         <br/>
+        
 
         <div class="form-group">
             <label for="userEmail" [class.dark-theme]="isDarkMode">Email: </label>

@@ -9,9 +9,8 @@ import { TeamsComponent } from '../../teams/teams.component';
 import { ThemeService } from '../../theme-toggle/theme.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDetailPopupComponent } from '../user-detail-popup/user-detail-popup.component';
-import { HttpResponse } from '@angular/common/http';
-import axios from 'axios';
 import { AxiosService } from '../../axios.service';
+import { DepartmentsService } from '../../departments/departments.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -25,7 +24,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   subscription: Subscription;
   userRoles: string[] = [];
   teams: TeamsComponent[] = [];
-  teamsArray: string[] = [];
+  teamsArray: TeamsComponent[] = [];
   userPassword = '';
   confirmPassword = '';
   passwordVisible = false;
@@ -39,6 +38,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   letter: string;
   token: string;
   data: string[] = [];
+  departments: any[] = [];
 
 
   constructor(private usersService: UsersService, 
@@ -46,7 +46,8 @@ export class UserEditComponent implements OnInit, OnDestroy{
               private router: Router,
               private teamsService: TeamsService, private themeService: ThemeService,
               private dialog: MatDialog,
-              private axiosService: AxiosService) { 
+              private axiosService: AxiosService,
+              private departmentsService: DepartmentsService) { 
     this.user = new UsersComponent();
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
@@ -55,15 +56,16 @@ export class UserEditComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    window.localStorage.clear();
     this.teamsService.getTeamsIds().subscribe(teams => {
       this.teams = teams;
-      for (var i = 0; i < this.teams.length; i++) {
-        this.teamsArray.push(this.teams[i].teamId);
+      for (var i = 1; i < this.teams.length; i++) {
+        this.teamsArray.push(this.teams[i]);
       }
-      // console.log(this.teamsArray);
     });
-    
+    this.departmentsService.getDepartmentsIds().subscribe(departments => {
+      this.departments = departments;
+      console.log('departments', this.departments);
+    });
   }
 
   onSubmit(userForm: NgForm) {
@@ -158,5 +160,4 @@ export class UserEditComponent implements OnInit, OnDestroy{
     const regex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*()_+\\-=\\[\\]{};:\'"<>,./?]).{6,}$');   
     this.passwordStrength1 = regex.test(password1);
   }
-
 }

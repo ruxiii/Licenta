@@ -1,0 +1,46 @@
+<h1 style="text-align: center;  font-weight: bold; font-size: 35px;">Create a team</h1>
+<br/>
+<div class="card my-5" [class.dark-theme]="isDarkMode">
+    <div class="card-body"[class.dark-theme]="isDarkMode">
+      <form (ngSubmit)="onSubmit(teamForm)" #teamForm="ngForm" [class.dark-theme]="isDarkMode">
+        <div class="form-group" [class.dark-theme]="isDarkMode">
+            <label for="teamId" class="control-label" [class.dark-theme]="isDarkMode">Team Id:</label>
+            <input 
+                type="text" 
+                id="teamId" 
+                class="form-control"
+                name="teamId"
+                ngModel
+                required
+                #name="ngModel"
+                [placeholder]="name.touched ? 'Please enter the team id!' : 'Enter team id'">
+        </div>
+        <br/>
+         
+        <div class="form-group">
+            <label for="departmentId" [class.dark-theme]="isDarkMode">Department: </label>
+            <select 
+                id="departmentId" 
+                class="form-control"
+                name="departmentId"
+                [(ngModel)]="team.departmentId"
+                required
+            >
+            <option value="" disabled selected style="text-align: center;">Select Department: </option> <!-- Placeholder option -->
+                <option style="text-align: center;" *ngFor="let dep of departmentsArray" [ngValue]="dep">{{ dep }}</option>
+            </select>
+        </div>
+        <br/>        
+
+        <br/>
+        <div *ngIf="somethingWrong" style="color: red; margin-left: 420px; font-weight: bold; font-size: 20px;">This department already exists! </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12" style="text-align: center">
+                <button type="submit" [disabled]="!teamForm.form.valid"
+                class="btn btn-info">Submit</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>

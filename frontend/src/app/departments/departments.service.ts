@@ -27,6 +27,10 @@ export class DepartmentsService {
         }
     }  
 
+    public getDepartmentsIds(): Observable<DepartmentsComponent[]> {
+        return this.http.get<DepartmentsComponent[]>('http://localhost:8080/departments');
+    }
+
     createDepartment(departmentId: string, departmentName: string): Observable<any> {
         const url = '/login';
         if (typeof window !== "undefined") {  

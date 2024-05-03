@@ -43,6 +43,8 @@ import { AxiosService } from './axios.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DepartmentEditComponent } from './departments/department-edit/department-edit.component';
 import { DepartmentUpdateComponent } from './departments/department-update/department-update.component';
+import { TeamEditComponent } from './teams/team-edit/team-edit.component';
+import { TeamUpdateComponent } from './teams/team-update/team-update.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -74,6 +76,8 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     WelcomeComponent,
     DepartmentEditComponent,
     DepartmentUpdateComponent,
+    TeamEditComponent,
+    TeamUpdateComponent,
   ],
   imports: [
     BrowserModule,
