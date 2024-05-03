@@ -1,6 +1,7 @@
 package org.example.licenta.db.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -13,15 +14,22 @@ public class MapEntity {
     @Id
     private String mapNameId;
 
-//    TODO: implement mapImage (nu cred ca poate fi facuta pana la frontend)
-    @Lob
-    @Column(columnDefinition="MEDIUMBLOB")
-    private String mapImage;
+    private String mapName;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "departmentId", referencedColumnName = "departmentId")
-    private DepartmentEntity departmentEntity;
+    private String mapType;
+
+    @Column(length = 50000000)
+    private byte[] mapImage;
 
     @OneToMany(mappedBy = "mapEntity")
     private List<PlaceEntity> places;
+
+    public MapEntity() {
+    }
+
+    public MapEntity(String mapName, String mapType, byte[] mapImage) {
+        this.mapName = mapName;
+        this.mapType = mapType;
+        this.mapImage = mapImage;
+    }
 }

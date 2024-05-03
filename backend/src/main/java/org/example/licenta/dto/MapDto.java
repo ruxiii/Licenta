@@ -7,7 +7,7 @@ public class MapDto {
 
     private String mapNameId;
 
-    private String mapImage;
+    private String mapName;
 
-    private String departmentId;
+    private byte[] mapImage;
 }

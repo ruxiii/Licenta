@@ -16,9 +16,6 @@ public class DepartmentEntity {
 
     private String departmentName;
 
-    @OneToOne(mappedBy = "departmentEntity")
-    private MapEntity mapEntity;
-
     @OneToMany(mappedBy = "departmentEntity")
     private List<TeamEntity> teams;
 }

@@ -1,8 +1,6 @@
 package org.example.licenta.services;
 
-import org.example.licenta.db.entities.DepartmentEntity;
 import org.example.licenta.db.entities.MapEntity;
-import org.example.licenta.db.repositories.DepartmentRepository;
 import org.example.licenta.db.repositories.MapRepository;
 import org.example.licenta.dto.MapDto;
 import org.example.licenta.exceptions.DepartmentNotFoundException;
@@ -20,9 +18,6 @@ public class MapService {
 
     @Autowired
     private MapRepository mapRepository;
-
-    @Autowired
-    private DepartmentRepository departmentRepository;
 
     // TODO: implement this method
 //    public void saveMap(MultipartFile file, String denumireHarta, Long idDepartament) {
@@ -56,7 +51,6 @@ public class MapService {
                 MapDto mapDto = new MapDto();
                 mapDto.setMapNameId(map.getMapNameId());
                 mapDto.setMapImage(map.getMapImage());
-                mapDto.setDepartmentId(map.getDepartmentEntity().getDepartmentId());
                 mapDtos.add(mapDto);
             }
             return mapDtos;
@@ -72,7 +66,6 @@ public class MapService {
             MapDto mapDto = new MapDto();
             mapDto.setMapNameId(map.get().getMapNameId());
             mapDto.setMapImage(map.get().getMapImage());
-            mapDto.setDepartmentId(map.get().getDepartmentEntity().getDepartmentId());
             return mapDto;
         }
     }
@@ -86,47 +79,33 @@ public class MapService {
         }
     }
 
-    public void createMap(MapDto mapDto) throws DepartmentNotFoundException, MapAlreadyExistsException {
-        if (!departmentRepository.existsById(mapDto.getDepartmentId())) {
-            throw new DepartmentNotFoundException("Department not found");
-        }
-        else{
-            if (mapRepository.existsById(mapDto.getMapNameId())) {
+    public MapEntity createMap(MapDto mapDto) throws MapAlreadyExistsException {
+        if (mapRepository.existsById(mapDto.getMapNameId())) {
                 throw new MapAlreadyExistsException("Map already exists");
-            }
-            else {
-                DepartmentEntity departmentEntity = departmentRepository.findById(mapDto.getDepartmentId()).get();
-                MapEntity mapEntity = new MapEntity();
-                mapEntity.setMapNameId(mapDto.getMapNameId());
-                mapEntity.setMapImage(mapDto.getMapImage());
-                mapEntity.setDepartmentEntity(departmentEntity);
-                mapRepository.save(mapEntity);
-            }
+        }
+        else {
+            MapEntity mapEntity = new MapEntity();
+            mapEntity.setMapNameId(mapDto.getMapNameId());
+            mapEntity.setMapImage(mapDto.getMapImage());
+            mapRepository.save(mapEntity);
+            return mapEntity;
         }
     }
 
-    public MapDto updateMap(MapDto mapDto, String id) throws MapNotFoundException, DepartmentNotFoundException {
+    public MapDto updateMap(MapDto mapDto, String id) throws MapNotFoundException {
         if (!mapRepository.existsById(id)) {
             throw new MapNotFoundException("Map not found");
         }
         else {
-            if (!departmentRepository.existsById(mapDto.getDepartmentId())) {
-                throw new DepartmentNotFoundException("Department not found");
-            }
-            else {
-                MapEntity mapEntity = mapRepository.findById(id).get();
-                mapEntity.setMapNameId(mapDto.getMapNameId());
-                mapEntity.setMapImage(mapDto.getMapImage());
-                DepartmentEntity departmentEntity = departmentRepository.findById(mapDto.getDepartmentId()).get();
-                mapEntity.setDepartmentEntity(departmentEntity);
-                mapRepository.save(mapEntity);
+            MapEntity mapEntity = mapRepository.findById(id).get();
+            mapEntity.setMapNameId(mapDto.getMapNameId());
+            mapEntity.setMapImage(mapDto.getMapImage());
+            mapRepository.save(mapEntity);
 
-                MapDto mapDto1 = new MapDto();
-                mapDto1.setMapNameId(mapEntity.getMapNameId());
-                mapDto1.setMapImage(mapEntity.getMapImage());
-                mapDto1.setDepartmentId(mapEntity.getDepartmentEntity().getDepartmentId());
-                return mapDto1;
-            }
+            MapDto mapDto1 = new MapDto();
+            mapDto1.setMapNameId(mapEntity.getMapNameId());
+            mapDto1.setMapImage(mapEntity.getMapImage());
+            return mapDto1;
         }
     }
 }
