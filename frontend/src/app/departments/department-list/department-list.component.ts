@@ -79,15 +79,7 @@ export class DepartmentListComponent {
   }
 
   updateDepartment(dep: DepartmentsComponent) {
-    console.log('Updating department:', dep);
-    const updateUrl = '/departments/' + dep.departmentId + '/update'; // Adjust the URL as needed
-    this.axiosService.request('PUT', updateUrl, null)
-      .then(() => {
-        console.log('Department updated successfully');
-      })
-      .catch(error => {
-        console.error('Error updating department:', error);
-      });
+    this.router.navigate(['/departments/' + dep.departmentId + '/update']);
   }
   
 }
