@@ -64,7 +64,6 @@ export class UserEditComponent implements OnInit, OnDestroy{
     });
     this.departmentsService.getDepartmentsIds().subscribe(departments => {
       this.departments = departments;
-      console.log('departments', this.departments);
     });
   }
 
@@ -82,7 +81,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
       }).then(
       response => {
           this.axiosService.setAuthToken(response.data.token);
-          console.log(localStorage.getItem('auth_token'));
+          // console.log(localStorage.getItem('auth_token'));
           const userId = value.userId; 
           this.gotoUserList(userId);
       }).catch(

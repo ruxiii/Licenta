@@ -6,6 +6,7 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col" style="text-align: center;">Team Id</th>
+              <th scope="col" style="text-align: center;">Team Name</th>
               <th scope="col" style="text-align: center;">Department Id</th>
               <th scope="col" style="text-align: center;">Actions</th> 
             </tr>
@@ -13,10 +14,11 @@
           <tbody [class.dark-theme]="isDarkMode">
             <tr *ngFor="let team of teams">
               <td>{{ team.teamId }}</td>
+              <td>{{ team.teamName }}</td>
               <td>{{ team.departmentId }}</td>
               <td style="text-align: center;">
-                <button class="btn btn-primary" (click)="updateDepartment(team)">Update</button> <!-- Update button -->
-                <button class="btn btn-danger" (click)="deleteDepartment(team)">Delete</button> 
+                <button class="btn btn-primary" (click)="updateTeam(team)">Update</button> <!-- Update button -->
+                <button class="btn btn-danger" (click)="deleteTeam(team)">Delete</button> 
               </td>
             </tr>
           </tbody>

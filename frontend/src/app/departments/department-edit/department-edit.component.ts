@@ -18,7 +18,7 @@ export class DepartmentEditComponent {
 
   onSubmit(departmentForm: NgForm) {
     const value = departmentForm.value; 
-    console.log(value);
+    // console.log(value);
     this.axiosService.request(
       "POST",
       "/departments/create",

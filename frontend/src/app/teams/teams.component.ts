@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 export class TeamsComponent {
   teamId: string;
+  teamName: string;
   departmentId: string;
 }

@@ -3,6 +3,8 @@ import { TeamsService } from '../teams.service';
 import { TeamsComponent } from '../teams.component';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ThemeService } from '../../theme-toggle/theme.service';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-team-list',
@@ -21,7 +23,13 @@ export class TeamListComponent {
 
   constructor(private teamsService: TeamsService,
             private router: Router,
+            private themeService: ThemeService,
+            private axiosService: AxiosService
   ) {
+    this.isDarkMode = this.themeService.isDarkMode();
+    this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
+      this.isDarkMode = isDark;
+    });
   }
 
   ngOnInit() {
@@ -48,11 +56,29 @@ export class TeamListComponent {
     this.postList();
   }
 
-  // ngOnDestroy() {
-  //   this.themeSubscription.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.themeSubscription.unsubscribe();
+  }
 
   onNewTeam() {
     this.router.navigate(['/teams/create']);
   }
+
+  deleteTeam(team: TeamsComponent) {
+    if (confirm('Are you sure you want to delete this team?')) {
+      const deleteUrl = '/teams/' + team.teamId +'/delete'; // Adjust the URL as needed
+      this.axiosService.request('DELETE', deleteUrl, null)
+        .then(() => {
+          this.teams = this.teams.filter(t => t !== team);
+        })
+        .catch(error => {
+          console.error('Error deleting team:', error);
+        });
+    }
+  }
+
+  updateTeam(team: TeamsComponent) {
+    this.router.navigate(['/teams/' + team.teamId + '/update']);
+  }
+
 }

@@ -49,8 +49,8 @@ export class DepartmentUpdateComponent implements OnInit{
         departmentName: value.departmentName // Assuming departmentName is the field name
       };
 
-      console.log('Updating department:', requestData);
-      console.log(this.departments)
+      // console.log('Updating department:', requestData);
+      // console.log(this.departments)
 
       this.axiosService.request(
         'PUT', 

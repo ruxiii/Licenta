@@ -33,12 +33,13 @@ export class TeamEditComponent implements OnInit {
 
   onSubmit(teamForm: NgForm) {
     const value = teamForm.value; 
-    console.log(value);
+    // console.log(value);
     this.axiosService.request(
       "POST",
       "/teams/create",
       {
         teamId: value.teamId, 
+        teamName: value.teamName,
         departmentId: value.departmentId 
       }
     ).then(() => {

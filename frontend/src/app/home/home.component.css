@@ -3,6 +3,16 @@ h1{
     text-align: center;
 }
 
+.btn-success{
+    background-color: #009E60;
+    border-color: #009E60;
+}
+
+.btn-info{
+    background-color: #e1ad01;
+    border-color: #e1ad01;
+}
+
 h2{
     font-size: 25px;
     margin-bottom: 10px;

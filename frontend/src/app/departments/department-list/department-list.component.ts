@@ -66,7 +66,6 @@ export class DepartmentListComponent {
 
   deleteDepartment(dep: DepartmentsComponent) {
     if (confirm('Are you sure you want to delete this department?')) {
-      console.log('Deleting department:', dep);
       const deleteUrl = '/departments/' + dep.departmentId +'/delete'; // Adjust the URL as needed
       this.axiosService.request('DELETE', deleteUrl, null)
         .then(() => {

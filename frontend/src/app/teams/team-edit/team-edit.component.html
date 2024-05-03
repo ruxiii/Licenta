@@ -16,6 +16,20 @@
                 [placeholder]="name.touched ? 'Please enter the team id!' : 'Enter team id'">
         </div>
         <br/>
+
+        <div class="form-group" [class.dark-theme]="isDarkMode">
+            <label for="teamName" class="control-label" [class.dark-theme]="isDarkMode">Team Name:</label>
+            <input 
+                type="text" 
+                id="teamName" 
+                class="form-control"
+                name="teamName"
+                ngModel
+                required
+                #name="ngModel"
+                [placeholder]="name.touched ? 'Please enter the team name!' : 'Enter team name'">
+        </div>
+        <br/>
          
         <div class="form-group">
             <label for="departmentId" [class.dark-theme]="isDarkMode">Department: </label>
