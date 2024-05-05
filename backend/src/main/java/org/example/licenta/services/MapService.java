@@ -52,6 +52,7 @@ public class MapService {
             for (MapEntity map : maps) {
                 MapDto mapDto = new MapDto();
                 mapDto.setMapNameId(map.getMapNameId());
+                mapDto.setMapName(map.getMapName());
 //                mapDto.setMapImage(map.getMapImage());
                 mapDtos.add(mapDto);
             }
@@ -81,13 +82,13 @@ public class MapService {
         }
     }
 
-    public MapEntity createMap(MapDto mapDto, MultipartFile file) throws MapAlreadyExistsException, IOException {
-        if (mapRepository.existsById(mapDto.getMapNameId())) {
+    public MapEntity createMap(String id, MultipartFile file) throws MapAlreadyExistsException, IOException {
+        if (mapRepository.existsById(id)) {
                 throw new MapAlreadyExistsException("Map already exists");
         }
         else {
             MapEntity mapEntity = new MapEntity();
-            mapEntity.setMapNameId(mapDto.getMapNameId());
+            mapEntity.setMapNameId(id);
             mapEntity.setMapName(file.getOriginalFilename());
             mapEntity.setMapType(file.getContentType());
             mapEntity.setMapImage(file.getBytes());

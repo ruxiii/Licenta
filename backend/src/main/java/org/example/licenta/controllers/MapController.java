@@ -53,10 +53,12 @@ public class MapController {
     }
 
     @PostMapping(value = "/maps/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public void createMap(@RequestPart("map") MapDto mapDto,
+    public void createMap(String id,
                           @RequestPart("file") MultipartFile file) throws MapAlreadyExistsException {
         try {
-            mapService.createMap(mapDto, file);
+            System.out.println(id);
+            System.out.println(file.getOriginalFilename());
+            mapService.createMap(id, file);
         } catch (IOException e) {
             e.printStackTrace();
         }
