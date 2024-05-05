@@ -4,6 +4,7 @@ import { MapsComponent } from '../maps.component';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../theme-toggle/theme.service';
+import { UsersService } from '../../users/users.service';
 
 @Component({
   selector: 'app-map-list',
@@ -14,10 +15,14 @@ export class MapListComponent {
   maps: MapsComponent[];
   isDarkMode: boolean;
   private themeSubscription: Subscription;
+  userRole: string; 
+  selectedMap: string; // Assuming mapNameId is of string type
+
 
   constructor(private mapsService: MapsService,
               private router: Router,
-              private themeService: ThemeService
+              private themeService: ThemeService,
+              private userService: UsersService
   ) {
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
@@ -28,6 +33,9 @@ export class MapListComponent {
   ngOnInit() {
     this.mapsService.getMaps().subscribe(data => {
       this.maps = data;
+    });
+    this.userService.userRole$.subscribe(userRole => {
+      this.userRole = userRole;
     });
   }
 

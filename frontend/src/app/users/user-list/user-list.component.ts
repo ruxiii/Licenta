@@ -4,7 +4,7 @@ import { UsersComponent } from '../users.component';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../theme-toggle/theme.service';
-import { response } from 'express';
+import { AxiosService } from '../../axios.service';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +21,10 @@ export class UserListComponent implements OnDestroy {
   tableSize: number = 10;
   tableSizes: number[] = [5, 10, 15, 20];
 
-  constructor(private usersService: UsersService, private router: Router, private themeService: ThemeService) {
+  constructor(  private usersService: UsersService, 
+                private router: Router, 
+                private themeService: ThemeService,
+                private axiosService: AxiosService) {
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
       this.isDarkMode = isDark;
@@ -67,5 +70,18 @@ export class UserListComponent implements OnDestroy {
     this.tableSize = event.target.value;
     this.page = 1;
     this.postList();
+  }
+
+  deleteUser(user: UsersComponent) {
+    if (confirm('Are you sure you want to delete this user?')) {
+      const deleteUrl = '/users/' + user.userId +'/delete'; // Adjust the URL as needed
+      this.axiosService.request('DELETE', deleteUrl, null)
+        .then(() => {
+          this.users = this.users.filter(u => u !== user);
+        })
+        .catch(error => {
+          console.error('Error deleting department:', error);
+        });
+    }
   }
 }

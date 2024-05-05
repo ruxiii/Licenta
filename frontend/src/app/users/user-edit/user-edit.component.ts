@@ -41,7 +41,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   departments: any[] = [];
 
 
-  constructor(private usersService: UsersService, 
+  constructor(private userService: UsersService, 
               private route: ActivatedRoute, 
               private router: Router,
               private teamsService: TeamsService, private themeService: ThemeService,
@@ -69,19 +69,19 @@ export class UserEditComponent implements OnInit, OnDestroy{
 
   onSubmit(userForm: NgForm) {
     const value = userForm.value; 
+    console.log('value', value.teamId.teamId);
     this.axiosService.request(
       "POST",
       "/users/create",
       {
         userName: value.userName, 
         userFirstName: value.userFirstName, 
-        teamId: value.teamId,
+        teamId: value.teamId.teamId,
         userEmail: value.userEmail, 
         userPassword: value.userPassword, 
       }).then(
       response => {
           this.axiosService.setAuthToken(response.data.token);
-          // console.log(localStorage.getItem('auth_token'));
           const userId = value.userId; 
           this.gotoUserList(userId);
       }).catch(
@@ -92,9 +92,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   }  
 
   gotoUserList(userId: string) {
-    this.router.navigate(['/home']);
-
-    this.usersService.getUsers().subscribe(users => {
+    this.userService.getUsers().subscribe(users => {
       this.users = users;
 
       let maxNumericValue = 0;
@@ -103,9 +101,9 @@ export class UserEditComponent implements OnInit, OnDestroy{
 
       for (let i = 0; i < this.users.length; i++) {
         const userId = this.users[i].userId;
-        
+
         const numericValue = parseInt(userId.substring(1));
-        
+
         if (!isNaN(numericValue) && numericValue > maxNumericValue) {
           maxNumericValue = numericValue;
         }
@@ -115,9 +113,10 @@ export class UserEditComponent implements OnInit, OnDestroy{
 
       // console.log(lastUserId);
       // console.log('userId', userId);
-  
+
       this.showUserDetailPopup(lastUserId);
     });
+    this.router.navigate(['/login']);
   }
 
   showUserDetailPopup(userId: string) {
@@ -125,6 +124,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
       data: { userId: userId }
     });
   }
+  
 
   ngOnDestroy() {
     if (this.themeSubscription) {

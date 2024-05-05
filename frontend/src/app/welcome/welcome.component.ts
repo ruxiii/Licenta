@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -6,9 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './welcome.component.css'
 })
 export class WelcomeComponent {
-  constructor() { }
+  constructor(private router: Router) { }
 
   onStart() {
-    
+    this.router.navigate(['/maps']);
   }
 }

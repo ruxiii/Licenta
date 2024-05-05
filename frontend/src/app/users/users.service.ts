@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class UsersService {
   private createUserUrl : string;
   private getAllUsersUrl : string;
+  private deleteUserUrl : string;
+  private updateUserUrl : string; 
   tokenType = 'Bearer ';
   private usernameSubject = new BehaviorSubject<string>(null);
   private userRoleSubject = new BehaviorSubject<string>(null);
@@ -19,6 +21,8 @@ export class UsersService {
   constructor(private http: HttpClient, private router: Router) { 
     this.getAllUsersUrl = 'http://localhost:8080/users';
     this.createUserUrl = 'http://localhost:8080/users/create';
+    this.deleteUserUrl = 'http://localhost:8080/users/';
+    this.updateUserUrl = 'http://localhost:8080/users/';
   }
 
   public getUsers(): Observable<UsersComponent[]> {
@@ -65,4 +69,24 @@ export class UsersService {
       this.router.navigate(['/home']);
     }
   }
+
+  deleteDepartment(userId: string): Observable<any> {
+    const url = '/login';
+    if (typeof window !== "undefined") {  
+        const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+        const headers = { headers: header };
+        const deleteUrl = this.deleteUserUrl + userId + '/delete';
+        return this.http.delete(deleteUrl, headers);
+    }
+}
+
+updateDepartment(userId: string): Observable<any> {
+    const url = '/login';
+    if (typeof window !== "undefined") {  
+        const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+        const headers = { headers: header };
+        const updateUrl = this.updateUserUrl + userId + '/update';
+        return this.http.put(updateUrl, headers);
+    }
+}
 }

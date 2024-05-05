@@ -1,25 +1,28 @@
+<br/><br/><br/><br/>
 <br/>
-<div class="card my-5"  style="text-align: center;">
-  <div class="card-body "  style="text-align: center;">
-    <div class="table-container">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col" style="text-align: center;">Map Id</th>
-            <th scope="col" style="text-align: center;">Map Name</th>
-          </tr>
-        </thead>
-        <tbody [class.dark-theme]="isDarkMode">
-          <tr *ngFor="let map of maps">
-            <td>{{ map.mapNameId }}</td>
-            <td>{{ refactor(map.mapName) }}</td>
-        </tr>
-        </tbody>
-      </table>
+<br/><br/>
+
+<div style="border: 8px solid #ddd; border-radius: 10px; padding: 50px; width: 90%; margin: 0 auto;">
+  <h1 style="text-align: center; font-size: 50px;">First step: select a map</h1>
+
+  <button 
+  class="btn btn-success" 
+  style="margin-left: 44%;"
+  (click) = "onNewMap()"
+  *ngIf="userRole === 'ADMIN'"
+
+  >New map</button>
+  <br/><br/><br/>
+
+  <div class="card my-5" style="text-align: center;">
+    <div class="card-body" style="text-align: center;">
+      <div class="form-group">
+        <select class="form-control" id="mapSelection" [(ngModel)]="selectedMap">
+          <option *ngFor="let map of maps" 
+            [value]="map.mapNameId" 
+            style="font-size: 18px; text-align: center;">{{ refactor(map.mapName) }}</option>
+        </select>
+      </div>
     </div>
   </div>
 </div>
-  <button 
-  class="btn btn-success" 
-  style="margin-left: 10%;"
-  (click) = "onNewMap()">New map</button>
