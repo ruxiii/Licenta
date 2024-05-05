@@ -23,7 +23,7 @@ public class UserEntity {
 
     private String userRole;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "teamId", referencedColumnName = "teamId")
     private TeamEntity teamEntity;
 
