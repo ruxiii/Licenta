@@ -38,4 +38,13 @@ export class MapListComponent {
   onNewMap(){
     this.router.navigate(['/maps/create']);
   }
+
+  refactor(name: string): string{
+    console.log('name', name);
+    for (let i = 0; i < name.length; i++) {
+      if (name.charAt(i) === '.') {
+        name = name.substring(0, i);}
+    }
+    return name;
+  }
 }

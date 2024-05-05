@@ -7,6 +7,8 @@ import { NgForm } from '@angular/forms';
 import { FileHandle } from '../../model/file-handle.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MapsService } from '../maps.service';
+import { map } from 'rxjs';
+import * as fs from 'fs';
 
 @Component({
   selector: 'app-map-edit',
@@ -37,11 +39,14 @@ export class MapEditComponent {
 
   onSubmit(mapForm: NgForm) {
     const formData = this.prepareFormData(mapForm);
-    const { mapNameId, mapName } = mapForm.value;
-    const mapDto = { mapNameId, mapName, mapImage: formData.get('mapFile') as File }; // Adjust this according to your actual mapDto structure
-    const mapFile = formData.get('mapFile') as File;
-  
-    this.mapService.createMap(mapDto, mapFile).subscribe(
+
+    const file = formData.get('file') as File;
+    const id = formData.get('id') as string; 
+
+    console.log('map file', file);
+    console.log('id', id);
+
+    this.mapService.createMap(id, file).subscribe(
       () => {
         this.router.navigate(['/maps']);
       },
@@ -51,25 +56,33 @@ export class MapEditComponent {
         }
       }
     );
-  }
-
-  // const mapFormData = this.prepareFormData(mapForm); ?? nsh daca e bn mapForm
+}
 
   prepareFormData(mapForm: NgForm) {
     const formData = new FormData();
-    const value = mapForm.value;
+    const map = mapForm.value;
+    console.log('map', map);
+
+    const mapNameId = map.MapNameId;
+    console.log('mapNameId', mapNameId);
+
+    // const jsonString = JSON.stringify(map, null, 2);
+
+    // const jsonBlob = new Blob([jsonString], { type: 'application/json' });
+
+    // formData.append('map', jsonBlob, 'map.json');
+
+    formData.append('id', mapNameId)
 
     formData.append(
-      'mapDto',
-      new Blob([JSON.stringify('mapDto')], {type: 'application/json'})
+        'file',
+        this.mapImage[0].file,
+        this.mapImage[0].file.name
     );
-    formData.append(
-      'mapFile',
-      this.mapImage[0].file,
-      this.mapImage[0].file.name
-    );
+
     return formData;
-  }
+}
+  
 
   onFileSelected(event) {
     if(event.target.files) {

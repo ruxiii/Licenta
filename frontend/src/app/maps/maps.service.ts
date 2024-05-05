@@ -25,14 +25,16 @@ export class MapsService {
         }
     }
 
-    createMap(mapDto: any, mapFile: File): Observable<any> {
+    createMap(id: string, file: File): Observable<any> {
         const formData = new FormData();
-        formData.append('map', JSON.stringify(mapDto));
-        formData.append('mapFile', mapFile);
+        formData.append('file', file);
+        formData.append('id', id); // Append the ID to FormData
     
-        const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem('auth_token'));
-        const headers = { headers: header };
+        // Set the headers including Authorization
+        const headers = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem('auth_token'));
     
-        return this.http.post(this.createMapUrl, formData, headers);
-      }
+        // Make the HTTP POST request with formData and headers
+        return this.http.post(this.createMapUrl, formData, { headers, reportProgress: true, observe: 'events' });
+    }
+    
 }
