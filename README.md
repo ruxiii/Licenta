@@ -47,3 +47,5 @@
 ***27.04.2024***  - Buttons appear based on the roles, problem done with /home and /welcome, dep id added with uppercase in the database, AS AN ADMIN: add a new department from frontend, constaint so that there aren't two departments with the same id, delete a department, update endpoint added, but the update doesn't work yet
 
 ***03.05.2024***  - (!have a look for the cascade delete!) CRUD on departments and teams done, when creating an account you can see teams - departments, started the implementation for adding images in the database (stuck when sending the image from frontend to the backend; tutorial: https://www.youtube.com/watch?v=oXeg_q2lKGg&list=PLZTETldyguF2bRz-ypCa3a8gumxeXB4pu&index)
+
+***05.05.2024***  - Problems fixed with the maps, now they can be added from both backend and frontend, in the frontend it is shown a preview of the map and you can delete it if you selected the wrong one, actions buttons for users (only the delete button works for the moment), mistake fixed when creating an account (now after creating an account you are redirected to the login endpoint and the popup appears right) + backend adapted to frontend
