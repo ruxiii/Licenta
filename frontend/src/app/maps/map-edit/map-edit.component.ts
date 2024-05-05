@@ -22,6 +22,7 @@ export class MapEditComponent {
   departments: DepartmentsComponent[] = [];
   departmentsArray: string[] = [];
   mapImage: FileHandle[] = [];
+  buttonDisabled: boolean;
 
   constructor(
     private router: Router,
@@ -56,6 +57,7 @@ export class MapEditComponent {
         }
       }
     );
+    this.buttonDisabled = true;
 }
 
   prepareFormData(mapForm: NgForm) {
@@ -97,6 +99,14 @@ export class MapEditComponent {
 
       this.mapImage.push(fileHandle);
     }
+  }
 
+  removeImage(i: number, mapForm: NgForm){
+    // this.buttonDisabled = true;
+    this.mapImage.splice(i, 1);
+    // mapForm.controls['file'].reset();
+    mapForm.resetForm();
+    this.buttonDisabled = false;
+    window.location.reload();
   }
 }

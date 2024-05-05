@@ -46,6 +46,7 @@ import { DepartmentUpdateComponent } from './departments/department-update/depar
 import { TeamEditComponent } from './teams/team-edit/team-edit.component';
 import { TeamUpdateComponent } from './teams/team-update/team-update.component';
 import { MapEditComponent } from './maps/map-edit/map-edit.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -88,7 +89,8 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatGridListModule
     ],
   providers: [
     provideClientHydration(), 

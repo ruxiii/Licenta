@@ -17,38 +17,39 @@
         </div>
         <br/>
 
-        <!-- <div class="form-group" [class.dark-theme]="isDarkMode">
-            <label for="MapName" class="control-label" [class.dark-theme]="isDarkMode">Map Name:</label>
-            <input 
-                type="text" 
-                id="MapName" 
-                class="form-control"
-                name="MapName"
-                ngModel
-                required
-                #name="ngModel"
-                [placeholder]="name.touched ? 'Please enter the map name!' : 'Enter map name'">
-        </div>
-        <br/> -->
-
         <div class="col-6">
-            <input type="file" multiple value="select" #selectFile 
-                (change)="onFileSelected($event)"    
-            >
-        
-        </div>
-        
-        
-
-        <br/>
-        <div *ngIf="somethingWrong" style="color: red; margin-left: 420px; font-weight: bold; font-size: 20px;">This department already exists! </div>
-        <br/>
-        <div class="row">
-            <div class="col-xs-12" style="text-align: center">
-                <button type="submit" [disabled]="!mapForm.form.valid"
-                class="btn btn-info">Submit</button>
+            <div>
+                <input  
+                    type="file" 
+                    multiple value="select" 
+                    #selectFile
+                    required 
+                    (change)="onFileSelected($event)">
             </div>
+            <div>
+                <div class="mt-5">
+                    <div class="row">
+                        <mat-grid-list cols="1" rowHeight="1:1" style="margin-top: -250px; margin-bottom: -250px;">
+                            <mat-grid-tile *ngFor="let file of mapImage; let i = index;">
+                                <div>
+                                    <img [src]="file.url" style="width: 1300px; height: 600px;"/>
+                                    <span class="btn-remove-image" (click)="removeImage(i, mapForm)">X</span>
+                                </div>
+                            </mat-grid-tile>
+                        </mat-grid-list>
+                    </div>    
+                </div>
+            </div>        
         </div>
+
       </form>
+      <div *ngIf="somethingWrong" style="color: red; margin-left: 420px; font-weight: bold; font-size: 20px;">This map already exists! </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button type="submit" [disabled]="!mapForm.form.valid"
+                    class="btn btn-info">Submit</button>
+                </div>
+            </div>
     </div> 
   </div>
