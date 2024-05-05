@@ -8,7 +8,9 @@ import org.example.licenta.exceptions.MapAlreadyExistsException;
 import org.example.licenta.exceptions.MapNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +52,7 @@ public class MapService {
             for (MapEntity map : maps) {
                 MapDto mapDto = new MapDto();
                 mapDto.setMapNameId(map.getMapNameId());
-                mapDto.setMapImage(map.getMapImage());
+//                mapDto.setMapImage(map.getMapImage());
                 mapDtos.add(mapDto);
             }
             return mapDtos;
@@ -65,7 +67,7 @@ public class MapService {
         else {
             MapDto mapDto = new MapDto();
             mapDto.setMapNameId(map.get().getMapNameId());
-            mapDto.setMapImage(map.get().getMapImage());
+//            mapDto.setMapImage(map.get().getMapImage());
             return mapDto;
         }
     }
@@ -79,33 +81,41 @@ public class MapService {
         }
     }
 
-    public MapEntity createMap(MapDto mapDto) throws MapAlreadyExistsException {
+    public MapEntity createMap(MapDto mapDto, MultipartFile file) throws MapAlreadyExistsException, IOException {
         if (mapRepository.existsById(mapDto.getMapNameId())) {
                 throw new MapAlreadyExistsException("Map already exists");
         }
         else {
             MapEntity mapEntity = new MapEntity();
             mapEntity.setMapNameId(mapDto.getMapNameId());
-            mapEntity.setMapImage(mapDto.getMapImage());
+            mapEntity.setMapName(file.getOriginalFilename());
+            mapEntity.setMapType(file.getContentType());
+            mapEntity.setMapImage(file.getBytes());
+
             mapRepository.save(mapEntity);
             return mapEntity;
         }
     }
 
-    public MapDto updateMap(MapDto mapDto, String id) throws MapNotFoundException {
-        if (!mapRepository.existsById(id)) {
-            throw new MapNotFoundException("Map not found");
-        }
-        else {
-            MapEntity mapEntity = mapRepository.findById(id).get();
-            mapEntity.setMapNameId(mapDto.getMapNameId());
-            mapEntity.setMapImage(mapDto.getMapImage());
-            mapRepository.save(mapEntity);
+//    public MapEntity updateMapImage(MultipartFile multipartFile) throws IOException {
+//        return new MapEntity(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes());
+//    }
 
-            MapDto mapDto1 = new MapDto();
-            mapDto1.setMapNameId(mapEntity.getMapNameId());
-            mapDto1.setMapImage(mapEntity.getMapImage());
-            return mapDto1;
-        }
+    public MapDto updateMap(MapDto mapDto, String id) throws MapNotFoundException {
+//        if (!mapRepository.existsById(id)) {
+//            throw new MapNotFoundException("Map not found");
+//        }
+//        else {
+//            MapEntity mapEntity = mapRepository.findById(id).get();
+//            mapEntity.setMapNameId(mapDto.getMapNameId());
+//            mapEntity.setMapImage(mapDto.getMapImage());
+//            mapRepository.save(mapEntity);
+//
+//            MapDto mapDto1 = new MapDto();
+//            mapDto1.setMapNameId(mapEntity.getMapNameId());
+//            mapDto1.setMapImage(mapEntity.getMapImage());
+//            return mapDto1;
+//        }
+        return null;
     }
 }

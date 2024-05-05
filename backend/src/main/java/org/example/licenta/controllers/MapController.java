@@ -53,15 +53,12 @@ public class MapController {
     }
 
     @PostMapping(value = "/maps/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public MapEntity createMap(@RequestPart("map") MapDto mapDto,
-                          @RequestPart("mapFile") MultipartFile file) throws MapAlreadyExistsException {
+    public void createMap(@RequestPart("map") MapDto mapDto,
+                          @RequestPart("file") MultipartFile file) throws MapAlreadyExistsException {
         try {
-            MapEntity mapEntity = updateMapImage(file);
-            mapDto.setMapImage(mapEntity.getMapImage());
-            return mapService.createMap(mapDto);
+            mapService.createMap(mapDto, file);
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         }
     }
 
@@ -69,10 +66,4 @@ public class MapController {
     public MapDto updateMap(@RequestBody MapDto mapDto, @PathVariable String id) throws MapNotFoundException {
         return mapService.updateMap(mapDto, id);
     }
-
-    public MapEntity updateMapImage(MultipartFile multipartFile) throws IOException {
-        return new MapEntity(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes());
-    }
-
-
 }
