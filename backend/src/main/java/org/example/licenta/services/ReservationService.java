@@ -149,4 +149,30 @@ public class ReservationService {
             }
         }
     }
+
+    public List<ReservationDto> getMyReservations(String id) throws ReservationNotFoundException {
+        if (userRepository.findById(id).isEmpty()) {
+            throw new ReservationNotFoundException("User not found");
+        } else {
+            UserEntity userEntity = userRepository.findById(id).get();
+            List<ReservationEntity> reservations = userEntity.getReservations();
+            List<ReservationDto> reservationDtos = new ArrayList<>();
+            for (ReservationEntity reservationEntity : reservations) {
+                if(reservationEntity.getUserEntity().getUserId() == id) {
+                    String userId = reservationEntity.getUserEntity().getUserId();
+                    String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
+                    String eventName = reservationEntity.getEventEntity().getEventName();
+                    ReservationDto reservationDto = new ReservationDto();
+                    reservationDto.setEventStartDate(reservationEntity.getReservationStartDate());
+                    reservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
+                    reservationDto.setUserId(userId);
+//                place id cred ca trebuie sa dispara
+                    reservationDto.setPlaceNameId(placeId);
+                    reservationDto.setEventName(eventName);
+                    reservationDtos.add(reservationDto);
+                }
+            }
+            return reservationDtos;
+        }
+    }
 }

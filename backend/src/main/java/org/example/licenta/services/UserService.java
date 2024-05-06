@@ -199,6 +199,7 @@ public class UserService{
     }
     public UserFullDto updateUser(UserFullDto userFullDto, String id) throws UserNotFoundException, TeamNotFoundException {
         Optional<UserEntity> user = userRepository.findById(id);
+        AuthenticationEntity auth = authRepository.findById(id).get();
         if (user.isEmpty()) {
             throw new UserNotFoundException("User not found");
         }
@@ -210,11 +211,11 @@ public class UserService{
                 String teamId = userFullDto.getTeamId();
                 TeamEntity teamEntity = teamRepository.findById(teamId).get();
                 UserEntity userEntity = user.get();
-                userEntity.setUserName(userFullDto.getUserName());
-                userEntity.setUserFirstName(userFullDto.getUserFirstName());
+                userEntity.setUserName(userFullDto.getUserName().toUpperCase());
+                userEntity.setUserFirstName(userFullDto.getUserFirstName().toUpperCase());
                 userEntity.setUserEmail(userFullDto.getUserEmail());
                 userEntity.setUserPassword(userFullDto.getUserPassword());
-                userEntity.setUserRole(userFullDto.getUserRole());
+                userEntity.setUserRole(roleRepository.findByAuthority("USER").get().getAuthority());
                 userEntity.setTeamEntity(teamEntity);
 
                 UserFullDto updatedUser = new UserFullDto();
@@ -227,10 +228,13 @@ public class UserService{
 
                 userRepository.save(userEntity);
 
-                AuthenticationEntity authEntity = new AuthenticationEntity();
-                authEntity.setUserId(userEntity.getUserId());
-                authEntity.setUserPassword(userEntity.getUserPassword());
-                authRepository.save(authEntity);
+                Set<RoleEntity> authorities = new HashSet<>();
+                authorities.add(roleRepository.findByAuthority("USER").get());
+
+                auth.setUserId(userEntity.getUserId());
+                auth.setUserPassword(userEntity.getUserPassword());
+                auth.setAuthorities(authorities);
+                authRepository.save(auth);
                 return updatedUser;
             }
         }

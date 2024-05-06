@@ -23,14 +23,6 @@ public class MapController {
     @Autowired
     private MapService mapService;
 
-//    TODO: implement this method
-//    @PostMapping("/uploadMap")
-//    public String uploadMap(@RequestParam("file") MultipartFile file, @RequestParam("mapName") String mapName,
-//                            @RequestParam("departmentId") Long departmentId) {
-//        mapService.saveMap(file, mapName, departmentId);
-//        return "Map uploaded successfully";
-//    }
-
     @GetMapping("/maps")
     public List<MapDto> getMaps() throws MapNotFoundException {
         return mapService.getMaps();
@@ -41,12 +33,6 @@ public class MapController {
         return mapService.getMapById(id);
     }
 
-//    TODO: implement this method
-//    @GetMapping("/getMapImage")
-//    public String getMapImage() {
-//        return "Map Image";
-//    }
-
     @DeleteMapping("/maps/{id}/delete")
     public void deleteMap(@PathVariable String id) throws MapNotFoundException {
         mapService.deleteMap(id);
@@ -56,8 +42,6 @@ public class MapController {
     public void createMap(String id,
                           @RequestPart("file") MultipartFile file) throws MapAlreadyExistsException {
         try {
-            System.out.println(id);
-            System.out.println(file.getOriginalFilename());
             mapService.createMap(id, file);
         } catch (IOException e) {
             e.printStackTrace();
