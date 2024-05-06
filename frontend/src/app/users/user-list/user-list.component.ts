@@ -84,4 +84,8 @@ export class UserListComponent implements OnDestroy {
         });
     }
   }
+
+  updateUser(user: UsersComponent) {
+    this.router.navigate(['/users/' + user.userId + '/update']);
+  }
 }

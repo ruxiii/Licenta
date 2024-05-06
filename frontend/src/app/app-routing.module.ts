@@ -16,6 +16,9 @@ import { DepartmentUpdateComponent } from './departments/department-update/depar
 import { TeamEditComponent } from './teams/team-edit/team-edit.component';
 import { TeamUpdateComponent } from './teams/team-update/team-update.component';
 import { MapEditComponent } from './maps/map-edit/map-edit.component';
+import { UserUpdateComponent } from './users/user-update/user-update.component';
+import { MapForReservationComponent } from './maps/map-for-reservation/map-for-reservation.component';
+import { ReservationsMadeComponent } from './reservations/reservations-made/reservation-made.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,13 +33,16 @@ const appRoutes: Routes = [
 
     { path: 'users', component: UserListComponent},
     { path: 'users/create', component: UserEditComponent},
+    { path: 'users/:id/update', component: UserUpdateComponent},
     
     { path: 'maps', component: MapListComponent },
     { path: 'maps/create', component: MapEditComponent},
+    { path: 'maps/:id/', component: MapForReservationComponent},
     
     { path: 'places', component: PlaceListComponent },
     
     { path: 'reservations', component: ReservationListComponent},
+    { path: 'my/reservations/:id', component: ReservationsMadeComponent},
     
     { path: 'events', component: EventListComponent},
     

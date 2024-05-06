@@ -1,26 +1,24 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UsersService } from '../users.service';
-import { UsersComponent } from '../users.component';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TeamsService } from '../../teams/teams.service';
-import { TeamsComponent } from '../../teams/teams.component';
 import { ThemeService } from '../../theme-toggle/theme.service';
-import { MatDialog } from '@angular/material/dialog';
-import { UserDetailPopupComponent } from '../user-detail-popup/user-detail-popup.component';
+import { UsersComponent } from '../users.component';
+import { TeamsComponent } from '../../teams/teams.component';
+import { NgForm } from '@angular/forms';
+import { UsersService } from '../users.service';
+import { ActivatedRoute } from '@angular/router';
 import { AxiosService } from '../../axios.service';
+import { Router } from '@angular/router';
+import { TeamsService } from '../../teams/teams.service';
 import { DepartmentsService } from '../../departments/departments.service';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrl: './user-edit.component.css'
+  selector: 'app-user-update',
+  templateUrl: './user-update.component.html',
+  styleUrl: './user-update.component.css'
 })
-export class UserEditComponent implements OnInit, OnDestroy{
+export class UserUpdateComponent implements OnInit{
   user: UsersComponent;
   users: UsersComponent[] = [];
-  @ViewChild('userForm') userForm: NgForm;
   subscription: Subscription;
   userRoles: string[] = [];
   teams: TeamsComponent[] = [];
@@ -39,13 +37,14 @@ export class UserEditComponent implements OnInit, OnDestroy{
   token: string;
   data: string[] = [];
   departments: any[] = [];
-  everythingOK: boolean = false;
+  userId: string;
+
 
   constructor(private userService: UsersService, 
               private route: ActivatedRoute, 
               private router: Router,
-              private teamsService: TeamsService, private themeService: ThemeService,
-              private dialog: MatDialog,
+              private teamsService: TeamsService, 
+              private themeService: ThemeService,
               private axiosService: AxiosService,
               private departmentsService: DepartmentsService) { 
     this.user = new UsersComponent();
@@ -65,65 +64,42 @@ export class UserEditComponent implements OnInit, OnDestroy{
     this.departmentsService.getDepartmentsIds().subscribe(departments => {
       this.departments = departments;
     });
+    this.route.params.subscribe(params => {
+      this.userId = params['id']; 
+    });
+    this.loadUsers();
   }
 
   onSubmit(userForm: NgForm) {
-    const value = userForm.value; 
-    console.log('value', value.teamId.teamId);
-    this.axiosService.request(
-      "POST",
-      "/users/create",
-      {
+    const value = userForm.value;
+
+    if (confirm('Are you sure you want to update this user?')) {
+      const updateUrl = `/users/${this.userId}/update`; 
+      const requestData = {
+        userId: this.userId,
         userName: value.userName, 
         userFirstName: value.userFirstName, 
         teamId: value.teamId.teamId,
         userEmail: value.userEmail, 
         userPassword: value.userPassword, 
-      }).then(
-      response => {
-          this.axiosService.setAuthToken(response.data.token);
-          const userId = value.userId; 
-          this.gotoUserList(userId);
-      }).catch(
-      error => {
-          console.error('Error creating user:', error);
-      }
-  );
+        userRole: value.userRole
+      };
+
+      this.axiosService.request(
+        'PUT', 
+        updateUrl, 
+        requestData  
+      ).then(() => {
+          this.users = this.users.map(u => {
+            if (u.userId === value.userId) {
+              return {...u, ...value}; 
+            }
+            return u;
+          });
+          this.router.navigate(['/users']);
+        })
+    }
   }  
-
-  gotoUserList(userId: string) {
-    this.userService.getUsers().subscribe(users => {
-      this.users = users;
-
-      let maxNumericValue = 0;
-
-      this.letter = this.users[0].userId.charAt(0);
-
-      for (let i = 0; i < this.users.length; i++) {
-        const userId = this.users[i].userId;
-
-        const numericValue = parseInt(userId.substring(1));
-
-        if (!isNaN(numericValue) && numericValue > maxNumericValue) {
-          maxNumericValue = numericValue;
-        }
-      }
-
-      const lastUserId = this.letter + maxNumericValue;
-
-      // console.log(lastUserId);
-      // console.log('userId', userId);
-
-      this.showUserDetailPopup(lastUserId);
-    });
-    this.router.navigate(['/login']);
-  }
-
-  showUserDetailPopup(userId: string) {
-    this.dialog.open(UserDetailPopupComponent, {
-      data: { userId: userId }
-    });
-  }
   
 
   ngOnDestroy() {
@@ -160,7 +136,15 @@ export class UserEditComponent implements OnInit, OnDestroy{
     this.passwordStrength1 = regex.test(password1);
   }
 
-  validator(userForm: NgForm): boolean {
-    return userForm.form.valid && this.passwordsMatch && this.passwordStrength1;
-  }
+  loadUsers() {
+    this.userService.getUsers()
+      .subscribe(users => {
+        this.users = users;
+      }, error => {
+        console.error('Error fetching users:', error);
+      });
+    }
+    validator(userForm: NgForm): boolean {
+      return userForm.form.valid && this.passwordsMatch && this.passwordStrength1;
+    }
 }

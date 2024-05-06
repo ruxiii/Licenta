@@ -1,7 +1,7 @@
 .toggle-password {
     position: absolute; /* Position button absolute within form-group */
     font-size: 11px;
-    top: 335px; /* Adjust top position as needed */
+    top: 374px; /* Adjust top position as needed */
     right: 440px; /* Adjust right position as needed */
     padding: 6px 10px; /* Add padding to button */
     background-color: lightgreen; /* Add background color to button */

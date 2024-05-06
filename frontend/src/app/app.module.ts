@@ -47,6 +47,9 @@ import { TeamEditComponent } from './teams/team-edit/team-edit.component';
 import { TeamUpdateComponent } from './teams/team-update/team-update.component';
 import { MapEditComponent } from './maps/map-edit/map-edit.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { UserUpdateComponent } from './users/user-update/user-update.component';
+import { MapForReservationComponent } from './maps/map-for-reservation/map-for-reservation.component';
+import { ReservationsMadeComponent } from './reservations/reservations-made/reservation-made.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -81,6 +84,9 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     TeamEditComponent,
     TeamUpdateComponent,
     MapEditComponent,
+    UserUpdateComponent,
+    ReservationsMadeComponent,
+    MapForReservationComponent,
   ],
   imports: [
     BrowserModule,
