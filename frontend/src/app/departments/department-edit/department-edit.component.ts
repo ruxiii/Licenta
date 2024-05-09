@@ -27,7 +27,6 @@ export class DepartmentEditComponent {
         departmentName: value.departmentName 
       }
     ).then(() => {
-      // Redirect to '/welcome' route upon successful creation
       this.router.navigate(['/departments']);
     }).catch(
       error => {

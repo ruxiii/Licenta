@@ -9,11 +9,13 @@ export class MapsService {
 
     private mapUrl : string;
     private createMapUrl : string;
+    private getMapByIdUrl : string;
     tokenType = 'Bearer ';
 
     constructor(private http: HttpClient) { 
         this.mapUrl = 'http://localhost:8080/maps';
         this.createMapUrl = 'http://localhost:8080/maps/create';
+        this.getMapByIdUrl = 'http://localhost:8080/maps/';
     }
 
     public getMaps(): Observable<MapsComponent[]> {
@@ -35,6 +37,16 @@ export class MapsService {
     
         // Make the HTTP POST request with formData and headers
         return this.http.post(this.createMapUrl, formData, { headers, reportProgress: true, observe: 'events' });
+    }
+
+    getMapById(id: string): Observable<any> {
+        const url = '/login';
+        if (typeof window !== "undefined") {  
+            const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+            const headers = { headers: header };
+            const getUrl = this.getMapByIdUrl + id;
+            return this.http.get<MapsComponent>(getUrl, headers);
+        }
     }
     
 }

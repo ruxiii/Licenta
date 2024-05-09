@@ -16,7 +16,7 @@ export class MapListComponent {
   isDarkMode: boolean;
   private themeSubscription: Subscription;
   userRole: string; 
-  selectedMap: string; // Assuming mapNameId is of string type
+  selectedMap: string; 
 
 
   constructor(private mapsService: MapsService,
@@ -48,11 +48,16 @@ export class MapListComponent {
   }
 
   refactor(name: string): string{
-    console.log('name', name);
+    // console.log('name', name);
     for (let i = 0; i < name.length; i++) {
       if (name.charAt(i) === '.') {
         name = name.substring(0, i);}
     }
     return name;
+  }
+
+  onMapSelectionChange($event){
+    this.selectedMap = $event.target.value;
+    this.router.navigate(['/maps/' + this.selectedMap]);
   }
 }

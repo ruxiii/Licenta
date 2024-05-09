@@ -9,3 +9,9 @@
     border-radius: 30%; 
     cursor: pointer;
 }
+
+input[type="file"] {
+    display: block;
+    margin-top: 10px; /* Adjust as needed */
+  }
+  

@@ -17,11 +17,12 @@
   <div class="card my-5" style="text-align: center;">
     <div class="card-body" style="text-align: center;">
       <div class="form-group">
-        <select class="form-control" id="mapSelection" [(ngModel)]="selectedMap">
-          <option *ngFor="let map of maps" 
-            [value]="map.mapNameId" 
-            style="font-size: 18px; text-align: center;">{{ refactor(map.mapName) }}</option>
-        </select>
+        <select class="form-control" id="mapSelection" [(ngModel)]="selectedMap" (change)="onMapSelectionChange($event)">
+          <option *ngFor="let map of maps" [value]="map.mapNameId" style="font-size: 18px; text-align: center;">
+              {{ refactor(map.mapName) }}
+          </option>
+      </select>
+      
       </div>
     </div>
   </div>

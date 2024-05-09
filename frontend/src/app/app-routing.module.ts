@@ -37,7 +37,7 @@ const appRoutes: Routes = [
     
     { path: 'maps', component: MapListComponent },
     { path: 'maps/create', component: MapEditComponent},
-    { path: 'maps/:id/', component: MapForReservationComponent},
+    { path: 'maps/:id', component: MapForReservationComponent},
     
     { path: 'places', component: PlaceListComponent },
     

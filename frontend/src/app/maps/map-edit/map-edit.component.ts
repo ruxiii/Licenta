@@ -7,8 +7,6 @@ import { NgForm } from '@angular/forms';
 import { FileHandle } from '../../model/file-handle.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MapsService } from '../maps.service';
-import { map } from 'rxjs';
-import * as fs from 'fs';
 
 @Component({
   selector: 'app-map-edit',
@@ -44,16 +42,12 @@ export class MapEditComponent {
     const file = formData.get('file') as File;
     const id = formData.get('id') as string; 
 
-    console.log('map file', file);
-    console.log('id', id);
-
     this.mapService.createMap(id, file).subscribe(
       () => {
         this.router.navigate(['/maps']);
       },
       error => {
         if (error.status === 403) {
-          // Handle 403 error
         }
       }
     );
@@ -63,16 +57,8 @@ export class MapEditComponent {
   prepareFormData(mapForm: NgForm) {
     const formData = new FormData();
     const map = mapForm.value;
-    console.log('map', map);
 
     const mapNameId = map.MapNameId;
-    console.log('mapNameId', mapNameId);
-
-    // const jsonString = JSON.stringify(map, null, 2);
-
-    // const jsonBlob = new Blob([jsonString], { type: 'application/json' });
-
-    // formData.append('map', jsonBlob, 'map.json');
 
     formData.append('id', mapNameId)
 
@@ -101,12 +87,13 @@ export class MapEditComponent {
     }
   }
 
-  removeImage(i: number, mapForm: NgForm){
-    // this.buttonDisabled = true;
-    this.mapImage.splice(i, 1);
-    // mapForm.controls['file'].reset();
-    mapForm.resetForm();
-    this.buttonDisabled = false;
-    window.location.reload();
-  }
+  // removeImage(i: number, mapForm: NgForm){
+  //   // this.buttonDisabled = true;
+  //   console.log(mapForm)
+  //   this.mapImage.splice(i, 1);
+  //   mapForm.controls['file'].reset();
+  //   mapForm.resetForm();
+  //   this.buttonDisabled = false;
+  //   // window.location.reload();
+  // }
 }
