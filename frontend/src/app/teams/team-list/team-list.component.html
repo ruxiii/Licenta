@@ -12,7 +12,7 @@
             </tr>
           </thead>
           <tbody [class.dark-theme]="isDarkMode">
-            <tr *ngFor="let team of teams">
+            <tr *ngFor="let team of teams  | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
               <td>{{ team.teamId }}</td>
               <td>{{ team.teamName }}</td>
               <td>{{ team.departmentId }}</td>

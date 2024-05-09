@@ -1,10 +1,696 @@
+
+<h1 style="text-align: center;  font-weight: bold; font-size: 35px;">Map {{imgId}}</h1>
 <br/>
 <br/>
-<div class="container row">
+<div class="container row" *ngIf="imgId === '6S'">
+    <div class="col-md-12">
+        <div *ngIf=retrievedImage>
+            <img [src]="retrievedImage">
+            <!-- DE FACUT CLICK UL -->
+            <!-- D1_6S -->
+            <button style=" position: absolute;
+                            top: 381px; 
+                            left: 181px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D1_6S')"></button>
+            <!-- D2_6S -->
+            <button style=" position: absolute;
+                            top: 364px; 
+                            left: 177px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D2_6S')"></button>
+            <!-- D3_6S -->
+            <button style=" position: absolute;
+                            top: 345px; 
+                            left: 171px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D3_6S')"></button>
+            <!-- D4_6S -->
+            <button style=" position: absolute;
+                            top: 378px; 
+                            left: 200px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D4_6S')"></button>
+            <!-- D5_6S -->
+            <button style=" position: absolute;
+                            top: 360px; 
+                            left: 195px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D5_6S')"></button>
+            <!-- D6_6S -->
+            <button style=" position: absolute;
+                            top: 340px; 
+                            left: 192px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D6_6S')"></button>
+            <!-- D7_6S -->
+            <button style=" position: absolute;
+                            top: 374px; 
+                            left: 220px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D7_6S')"></button>
+            <!-- D8_6S -->
+            <button style=" position: absolute;
+                            top: 355px; 
+                            left: 216px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D8_6S')"></button>
+            <!-- D9_6S -->
+            <button style=" position: absolute;
+                            top: 335px; 
+                            left: 212px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D9_6S')"></button>
+            <!-- D10_6S -->
+            <button style=" position: absolute;
+                            top: 369px; 
+                            left: 240px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D10_6S')"></button>
+            <!-- D11_6S -->
+            <button style=" position: absolute;
+                            top: 349px; 
+                            left: 236px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D11_6S')"></button>
+            <!-- D12_6S -->
+            <button style=" position: absolute;
+                            top: 330px; 
+                            left: 232px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D12_6S')"></button>
+            <!-- D13_6S -->
+            <button style=" position: absolute;
+                            top: 364px; 
+                            left: 260px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D13_6S')"></button>
+            <!-- D14_6S -->
+            <button style=" position: absolute;
+                            top: 345px; 
+                            left: 256px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D14_6S')"></button>
+            <!-- D15_6S -->
+            <button style=" position: absolute;
+                            top: 325px; 
+                            left: 252px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D15_6S')"></button>
+            <!-- D16_6S -->
+            <button style=" position: absolute;
+                            top: 359px; 
+                            left: 280px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D16_6S')"></button>
+            <!-- D17_6S -->
+            <button style=" position: absolute;
+                            top: 340px; 
+                            left: 276px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D17_6S')"></button>
+            <!-- D18_6S -->
+            <button style=" position: absolute;
+                            top: 320px; 
+                            left: 272px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D18_6S')"></button>
+            <!-- D19_6S -->
+            <button style=" position: absolute;
+                            top: 352px; 
+                            left: 310px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D19_6S')"></button>
+            <!-- D20_6S -->
+            <button style=" position: absolute;
+                            top: 333px; 
+                            left: 306px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D20_6S')"></button>
+            <!-- D21_6S --> 
+            <button style=" position: absolute;
+                            top: 313px; 
+                            left: 301px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D21_6S')"></button>
+            <!-- D22_6S -->
+            <button style=" position: absolute;
+                            top: 347px; 
+                            left: 330px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D22_6S')"></button>
+            <!-- D23_6S -->
+            <button style=" position: absolute;
+                            top: 327px; 
+                            left: 326px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D23_6S')"></button>
+            <!-- D24_6S -->
+            <button style=" position: absolute;
+                            top: 307px; 
+                            left: 322px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D24_6S')"></button>
+            <!-- D25_6S -->
+            <button style=" position: absolute;
+                            top: 340px; 
+                            left: 351px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D25_6S')"></button>
+            <!-- D26_6S -->
+            <button style=" position: absolute;
+                            top: 321px; 
+                            left: 345px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D26_6S')"></button>
+            <!-- D27_6S -->
+            <button style=" position: absolute;
+                            top: 302px; 
+                            left: 341px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D27_6S')"></button>
+            <!-- D28_6S -->
+            <button style=" position: absolute;
+                            top: 336px; 
+                            left: 370px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D28_6S')"></button>
+            <!-- D29_6S -->
+            <button style=" position: absolute;
+                            top: 316px; 
+                            left: 364px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D29_6S')"></button>
+            <!-- D30_6S -->
+            <button style=" position: absolute;
+                            top: 297px; 
+                            left: 360px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D30_6S')"></button>
+            <!-- D31_6S -->
+            <button style=" position: absolute;
+                            top: 331px; 
+                            left: 390px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D31_6S')"></button>
+            <!-- D32_6S -->
+            <button style=" position: absolute;
+                            top: 311px; 
+                            left: 384px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D32_6S')"></button>
+            <!-- D33_6S -->
+            <button style=" position: absolute;
+                            top: 292px; 
+                            left: 380px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D33_6S')"></button>
+            <!-- D34_6S -->
+            <button style=" position: absolute;
+                            top: 326px; 
+                            left: 410px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D34_6S')"></button>
+            <!-- D35_6S -->
+            <button style=" position: absolute;
+                            top: 306px; 
+                            left: 404px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D35_6S')"></button>
+            <!-- D36_6S -->
+            <button style=" position: absolute;
+                            top: 287px; 
+                            left: 400px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D36_6S')"></button>
+            <!-- D37_6S -->
+            <button style=" position: absolute;
+                            top: 314px; 
+                            left: 629px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D37_6S')"></button>
+            <!-- D38_6S -->
+            <button style=" position: absolute;
+                            top: 294px; 
+                            left: 629px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D38_6S')"></button>
+            <!-- D39_6S -->
+            <button style=" position: absolute;
+                            top: 272px; 
+                            left: 630px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D39_6S')"></button>
+            <!-- D40_6S -->
+            <button style=" position: absolute;
+                            top: 314px; 
+                            left: 651px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D40_6S')"></button>
+            <!-- D41_6S -->
+            <button style=" position: absolute;
+                            top: 294px; 
+                            left: 651px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D41_6S')"></button>
+            <!-- D42_6S -->
+            <button style=" position: absolute;
+                            top: 273px; 
+                            left: 652px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D42_6S')"></button>
+            <!-- D43_6S -->
+            <button style=" position: absolute;
+                            top: 314px; 
+                            left: 672px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D43_6S')"></button>
+            <!-- D44_6S -->
+            <button style=" position: absolute;
+                            top: 294px; 
+                            left: 672px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D44_6S')"></button>
+            <!-- D45_6S -->
+            <button style=" position: absolute;
+                            top: 274px; 
+                            left: 673px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D45_6S')"></button>
+            <!-- D46_6S -->
+            <button style=" position: absolute;
+                            top: 314px; 
+                            left: 692px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D46_6S')"></button>
+            <!-- D47_6S -->
+            <button style=" position: absolute;
+                            top: 294px; 
+                            left: 692px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D47_6S')"></button>
+            <!-- D48_6S -->
+            <button style=" position: absolute;
+                            top: 274px; 
+                            left: 693px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D48_6S')"></button>
+            <!-- D49_6S -->
+            <button style=" position: absolute;
+                            top: 314px; 
+                            left: 713px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D49_6S')"></button>
+            <!-- D50_6S -->
+            <button style=" position: absolute;
+                            top: 294px; 
+                            left: 713px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D50_6S')"></button>
+            <!-- D51_6S -->
+            <button style=" position: absolute;
+                            top: 274px; 
+                            left: 714px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D51_6S')"></button>
+            <!-- D52_6S -->
+            <button style=" position: absolute;
+                            top: 316px; 
+                            left: 733px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D52_6S')"></button>
+            <!-- D53_6S -->
+            <button style=" position: absolute;
+                            top: 296px; 
+                            left: 733px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D53_6S')"></button>
+            <!-- D54_6S -->
+            <button style=" position: absolute;
+                            top: 276px; 
+                            left: 734px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D54_6S')"></button>
+            <!-- D55_6S -->
+            <button style=" position: absolute;
+                            top: 316px; 
+                            left: 763px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D55_6S')"></button>
+            <!-- D56_6S -->
+            <button style=" position: absolute;
+                            top: 296px; 
+                            left: 763px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D56_6S')"></button>
+            <!-- D57_6S -->
+            <button style=" position: absolute;
+                            top: 276px; 
+                            left: 764px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D57_6S')"></button>
+            <!-- D58_6S -->
+            <button style=" position: absolute;
+                            top: 316px; 
+                            left: 783px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D58_6S')"></button>
+            <!-- D59_6S -->
+            <button style=" position: absolute;
+                            top: 296px; 
+                            left: 783px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D59_6S')"></button>
+            <!-- D60_6S -->
+            <button style=" position: absolute;
+                            top: 276px; 
+                            left: 784px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D60_6S')"></button>
+            <!-- D61_6S -->
+            <button style=" position: absolute;
+                            top: 316px; 
+                            left: 803px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D61_6S')"></button>
+            <!-- D62_6S -->
+            <button style=" position: absolute;
+                            top: 296px; 
+                            left: 803px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D62_6S')"></button>
+            <!-- D63_6S -->
+            <button style=" position: absolute;
+                            top: 277px; 
+                            left: 804px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D63_6S')"></button>
+            <!-- D64_6S -->
+            <button style=" position: absolute;
+                            top: 316px; 
+                            left: 823px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D64_6S')"></button>
+            <!-- D65_6S -->
+            <button style=" position: absolute;
+                            top: 297px; 
+                            left: 823px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D65_6S')"></button>
+            <!-- D66_6S -->
+            <button style=" position: absolute;
+                            top: 278px; 
+                            left: 824px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D66_6S')"></button>
+            <!-- D67_6S -->
+            <button style=" position: absolute;
+                            top: 318px; 
+                            left: 844px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D67_6S')"></button>
+            <!-- D68_6S -->
+            <button style=" position: absolute;
+                            top: 298px; 
+                            left: 844px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D68_6S')"></button>
+            <!-- D69_6S -->
+            <button style=" position: absolute;
+                            top: 279px; 
+                            left: 845px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D69_6S')"></button>
+            <!-- D70_6S -->
+            <button style=" position: absolute;
+                            top: 319px; 
+                            left: 864px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D70_6S')"></button>
+            <!-- D71_6S -->
+            <button style=" position: absolute;
+                            top: 300px; 
+                            left: 864px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D71_6S')"></button>
+            <!-- D72_6S -->
+            <button style=" position: absolute;
+                            top: 280px; 
+                            left: 865px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D72_6S')"></button>
+            <!-- D73_6S -->
+            <button style=" position: absolute;
+                            top: 320px; 
+                            left: 895px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D73_6S')"></button>
+            <!-- D74_6S -->
+            <button style=" position: absolute;
+                            top: 300px; 
+                            left: 895px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D74_6S')"></button>
+            <!-- D75_6S -->
+            <button style=" position: absolute;
+                            top: 281px; 
+                            left: 896px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D75_6S')"></button>
+            <!-- D76_6S -->
+            <button style=" position: absolute;
+                            top: 320px; 
+                            left: 915px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D76_6S')"></button>
+            <!-- D77_6S -->
+            <button style=" position: absolute;
+                            top: 301px; 
+                            left: 915px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D77_6S')"></button>
+            <!-- D78_6S -->
+            <button style=" position: absolute;
+                            top: 282px; 
+                            left: 916px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D78_6S')"></button>
+            <!-- D79_6S -->
+            <button style=" position: absolute;
+                            top: 322px; 
+                            left: 936px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D79_6S')"></button>
+            <!-- D80_6S -->
+            <button style=" position: absolute;
+                            top: 302px; 
+                            left: 936px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D80_6S')"></button>
+            <!-- D81_6S -->
+            <button style=" position: absolute;
+                            top: 283px; 
+                            left: 937px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D81_6S')"></button>
+            <!-- D82_6S -->
+            <button style=" position: absolute;
+                            top: 322px; 
+                            left: 956px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D82_6S')"></button>
+            <!-- D83_6S -->
+            <button style=" position: absolute;
+                            top: 303px; 
+                            left: 956px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D83_6S')"></button>
+            <!-- D84_6S -->
+            <button style=" position: absolute;
+                            top: 284px; 
+                            left: 957px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D84_6S')"></button>
+            <!-- D85_6S -->
+            <button style=" position: absolute;
+                            top: 323px; 
+                            left: 977px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D85_6S')"></button>
+            <!-- D86_6S -->
+            <button style=" position: absolute;
+                            top: 303px; 
+                            left: 977px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D86_6S')"></button>
+            <!-- D87_6S -->
+            <button style=" position: absolute;
+                            top: 284px; 
+                            left: 978px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D87_6S')"></button>
+            <!-- D88_6S -->
+            <button style=" position: absolute;
+                            top: 323px; 
+                            left: 997px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D88_6S')"></button>
+            <!-- D89_6S -->
+            <button style=" position: absolute;
+                            top: 304px; 
+                            left: 997px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D89_6S')"></button>
+            <!-- D90_6S -->
+            <button style=" position: absolute;
+                            top: 285px; 
+                            left: 998px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D90_6S')"></button>
+            <!-- D91_6S -->
+            <button style=" position: absolute;
+                            top: 155px; 
+                            left: 617px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D91_6S')"></button>
+            <!-- D92_6S -->
+            <button style=" position: absolute;
+                            top: 135px; 
+                            left: 620px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D92_6S')"></button>
+            <!-- D93_6S -->
+            <button style=" position: absolute;
+                            top: 157px; 
+                            left: 641px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D93_6S')"></button>
+            <!-- D94_6S -->
+            <button style=" position: absolute;
+                            top: 137px; 
+                            left: 642px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D94_6S')"></button>
+            <!-- D95_6S -->
+            <button style=" position: absolute;
+                            top: 159px; 
+                            left: 663px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D95_6S')"></button>
+            <!-- D96_6S -->
+            <button style=" position: absolute;
+                            top: 140px; 
+                            left: 664px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D96_6S')"></button>
+            <!-- D97_6S -->
+            <button style=" position: absolute;
+                            top: 163px; 
+                            left: 684px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D97_6S')"></button>
+            <!-- D98_6S -->
+            <button style=" position: absolute;
+                            top: 143px; 
+                            left: 685px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D98_6S')"></button>
+            <!-- D99_6S -->
+            <button style=" position: absolute;
+                            top: 167px; 
+                            left: 719px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D99_6S')"></button>
+            <!-- D100_6S -->
+            <button style=" position: absolute;
+                            top: 147px; 
+                            left: 722px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D100_6S')"></button>
+            <!-- D101_6S -->
+            <button style=" position: absolute;
+                            top: 170px; 
+                            left: 740px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D101_6S')"></button>
+            <!-- D102_6S -->
+            <button style=" position: absolute;
+                            top: 150px; 
+                            left: 743px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D102_6S')"></button>
+            <!-- D103_6S -->
+            <button style=" position: absolute;
+                            top: 173px; 
+                            left: 762px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D103_6S')"></button>
+            <!-- D104_6S -->
+            <button style=" position: absolute;
+                            top: 153px; 
+                            left: 765px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D104_6S')"></button>
+            <!-- D105_6S -->
+            <button style=" position: absolute;
+                            top: 176px; 
+                            left: 784px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D105_6S')"></button>
+            <!-- D106_6S -->
+            <button style=" position: absolute;
+                            top: 156px; 
+                            left: 787px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D106_6S')"></button>
+            <!-- D107_6S -->
+            <button style=" position: absolute;
+                            top: 179px; 
+                            left: 806px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D107_6S')"></button>
+            <!-- D108_6S -->
+            <button style=" position: absolute;
+                            top: 159px; 
+                            left: 809px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D108_6S')"></button>
+            <!-- D109_6S -->
+            <button style=" position: absolute;
+                            top: 182px; 
+                            left: 827px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D109_6S')"></button>
+            <!-- D110_6S -->
+            <button style=" position: absolute;
+                            top: 162px; 
+                            left: 830px;
+                            z-index: 999;"
+                            (click) = "onSeatClick('D110_6S')"></button>
+    <!-- TODO => PENTRU SALI -->
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container row" *ngIf="imgId === '6N'">
     <div class="col-md-12">
         <div *ngIf=retrievedImage>
             <img [src]="retrievedImage">
         </div>
     </div>
 </div>
-  
+
+
+
+
+<div class="container row" *ngIf="imgId === '5N'">
+    <div class="col-md-12">
+        <div *ngIf=retrievedImage>
+            <img [src]="retrievedImage">
+        </div>
+    </div>
+</div>

@@ -5,3 +5,13 @@ img{
     justify-content: center; 
     align-items: center; 
 }
+
+button{
+    border-radius: 5px;
+    background-color: green;
+    border: none;
+    border-radius: 50%; /* Make the button a circle */
+    width: 13px; /* Set the width to control the size of the circle */
+    height: 13px; /* Set the height to control the size of the circle */
+    border: 0px solid green;
+}

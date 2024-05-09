@@ -25,7 +25,6 @@ export class MapForReservationComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.imgId = params['id']; 
     });
-    console.log('Image ID:', this.imgId);
     this.fetchImage();
   }
 
@@ -37,5 +36,8 @@ export class MapForReservationComponent implements OnInit{
         this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
       }
     );
+  }
+
+  onSeatClick(seatId: string) {
   }
 }
