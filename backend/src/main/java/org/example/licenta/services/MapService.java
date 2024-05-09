@@ -7,40 +7,27 @@ import org.example.licenta.exceptions.DepartmentNotFoundException;
 import org.example.licenta.exceptions.MapAlreadyExistsException;
 import org.example.licenta.exceptions.MapNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 @Service
 public class MapService {
 
     @Autowired
     private MapRepository mapRepository;
-
-    // TODO: implement this method
-//    public void saveMap(MultipartFile file, String denumireHarta, Long idDepartament) {
-//        MapDto mapDto = new MapDto();
-//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//        if (fileName.contains("..")) {
-////            TODO: throw new Exception("not a valid file");
-//            System.out.println("not a valid file");
-//        }
-//        mapDto.setDenumireHarta(denumireHarta);
-//        try {
-//            mapDto.setPozaHarta(Base64.getEncoder().encodeToString(file.getBytes()));
-//        }
-//        catch (IOException e) {
-////            TODO: throw new Exception("not a valid file");
-//            e.printStackTrace();
-//        }
-//
-//        mapDto.setIdDepartament(idDepartament);
-////        mapRepository.save(mapDto);
-//    }
 
     public List<MapDto> getMaps() throws MapNotFoundException {
         if (mapRepository.findAll().isEmpty()) {
@@ -60,16 +47,20 @@ public class MapService {
         }
     }
 
-    public MapDto getMapById(String id) throws MapNotFoundException {
+    public MapEntity getMapById(String id) throws MapNotFoundException {
         Optional<MapEntity> map = mapRepository.findById(id);
         if (map.isEmpty()) {
             throw new MapNotFoundException("Map not found");
         }
         else {
-            MapDto mapDto = new MapDto();
-            mapDto.setMapNameId(map.get().getMapNameId());
-//            mapDto.setMapImage(map.get().getMapImage());
-            return mapDto;
+            MapEntity retrieveMapEntity = map.get();
+
+           MapEntity img = new MapEntity();
+           img.setMapName(retrieveMapEntity.getMapName());
+           img.setMapType(retrieveMapEntity.getMapType());
+           img.setMapImage(decompressBytes(retrieveMapEntity.getMapImage()));
+           
+           return img;
         }
     }
 
@@ -91,16 +82,12 @@ public class MapService {
             mapEntity.setMapNameId(id);
             mapEntity.setMapName(file.getOriginalFilename());
             mapEntity.setMapType(file.getContentType());
-            mapEntity.setMapImage(file.getBytes());
+            mapEntity.setMapImage(compressBytes(file.getBytes()));
 
             mapRepository.save(mapEntity);
             return mapEntity;
         }
     }
-
-//    public MapEntity updateMapImage(MultipartFile multipartFile) throws IOException {
-//        return new MapEntity(multipartFile.getOriginalFilename(), multipartFile.getContentType(), multipartFile.getBytes());
-//    }
 
     public MapDto updateMap(MapDto mapDto, String id) throws MapNotFoundException {
 //        if (!mapRepository.existsById(id)) {
@@ -118,5 +105,40 @@ public class MapService {
 //            return mapDto1;
 //        }
         return null;
+    }
+
+    public static byte[] compressBytes(byte[] data) {
+        Deflater deflater = new Deflater();
+        deflater.setInput(data);
+        deflater.finish();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] buffer = new byte[1024];
+        while (!deflater.finished()) {
+            int count = deflater.deflate(buffer);
+            outputStream.write(buffer, 0, count);
+        }
+        try {
+            outputStream.close();
+        } catch (IOException e) {
+        }
+        System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+        return outputStream.toByteArray();
+    }
+
+    public static byte[] decompressBytes(byte[] data) {
+        Inflater inflater = new Inflater();
+        inflater.setInput(data);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] buffer = new byte[1024];
+        try {
+            while (!inflater.finished()) {
+                int count = inflater.inflate(buffer);
+                outputStream.write(buffer, 0, count);
+            }
+            outputStream.close();
+        } catch (IOException ioe) {
+        } catch (DataFormatException e) {
+        }
+        return outputStream.toByteArray();
     }
 }
