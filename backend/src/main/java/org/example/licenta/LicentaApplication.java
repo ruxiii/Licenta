@@ -24,9 +24,21 @@ public class LicentaApplication {
 						  UserRepository userRepository,
 						  PasswordEncoder passwordEncoder,
 						  DepartmentRepository departmentRepository,
-						  TeamRepository teamRepository) {
+						  TeamRepository teamRepository,
+						  MapRepository mapRepository,
+						  PlaceRepository placeRepository){
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isPresent()) {
+//				TODO: DE AVUT GRIJA CU ASTA CA NU MAI MERGE DACA N AM HARTA IN BD
+				if (placeRepository.findAll().size() == 0){
+					MapEntity map_6S = mapRepository.findById("6S").orElse(null);
+					for (int i = 1; i < 101; i++){
+						PlaceEntity place = new PlaceEntity();
+						place.setPlaceNameId("D" + i + "-6S");
+						place.setMapEntity(map_6S);
+						placeRepository.save(place);
+					}
+				}
 				return;
 			}
 

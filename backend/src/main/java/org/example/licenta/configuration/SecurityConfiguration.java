@@ -70,6 +70,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(new AntPathRequestMatcher("/departments")).permitAll();
                     authorize.requestMatchers(new AntPathRequestMatcher("/users")).permitAll();
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps")).permitAll();
+                    authorize.requestMatchers(new AntPathRequestMatcher("/places")).permitAll();
 
 //                    permisiuni admin
                     authorize.requestMatchers(new AntPathRequestMatcher("/teams/{id}/update")).hasRole("ADMIN");
