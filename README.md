@@ -51,3 +51,5 @@
 ***05.05.2024***  - Problems fixed with the maps, now they can be added from both backend and frontend, in the frontend it is shown a preview of the map and you can delete it if you selected the wrong one, actions buttons for users (only the delete button works for the moment), mistake fixed when creating an account (now after creating an account you are redirected to the login endpoint and the popup appears right) + backend adapted to frontend
 
 ***06.05.2024***  - Updating an user from frontend works, small changes in the form for adding an user, endpoint for seeing one user's reservations and its implementations + buttons added in the header based on the roles, the components for seeing a map besed on its id and for the list of reservations made
+
+***09.05.2024***  - Seeing a map when selected from the list + buttons for every seat
