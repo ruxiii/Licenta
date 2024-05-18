@@ -32,7 +32,7 @@ public class MapController {
     }
 
     @GetMapping("/maps/{id}/availabilities/{date}")
-    public Map<MapEntity, Object> getMapById(@PathVariable String id, @PathVariable String date) throws MapNotFoundException {
+    public List<Object> getMapById(@PathVariable String id, @PathVariable String date) throws MapNotFoundException {
         return mapService.getMapById(id, date);
     }
 

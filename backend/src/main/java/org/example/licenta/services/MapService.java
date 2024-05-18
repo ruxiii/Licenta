@@ -58,7 +58,7 @@ public class MapService {
         }
     }
 
-    public Map<MapEntity, Object> getMapById(String id, String date) throws MapNotFoundException {
+    public List<Object> getMapById(String id, String date) throws MapNotFoundException {
         Optional<MapEntity> map = mapRepository.findById(id);
         if (map.isEmpty()) {
             throw new MapNotFoundException("Map not found");
@@ -71,9 +71,10 @@ public class MapService {
            img.setMapType(retrieveMapEntity.getMapType());
            img.setMapImage(decompressBytes(retrieveMapEntity.getMapImage()));
 
-           Map<MapEntity, Object> response = new HashMap<>();
-           response.put(img, getAvailabilities(date));
-           
+           List<Object> response = new ArrayList<>();
+           response.add(img);
+           response.add(getAvailabilities(date));
+
            return response;
         }
     }
