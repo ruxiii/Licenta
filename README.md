@@ -53,3 +53,5 @@
 ***06.05.2024***  - Updating an user from frontend works, small changes in the form for adding an user, endpoint for seeing one user's reservations and its implementations + buttons added in the header based on the roles, the components for seeing a map besed on its id and for the list of reservations made
 
 ***09.05.2024***  - Seeing a map when selected from the list + buttons for every seat
+
+***18.05.2024***  - New way to send the image from backend + list of places available on that date (because of the new enpoint /maps/{id}/availabilities/{date}), frontend adapted for this, calendar implemented for the endpoint
