@@ -58,6 +58,6 @@ export class MapListComponent {
 
   onMapSelectionChange($event){
     this.selectedMap = $event.target.value;
-    this.router.navigate(['/maps/' + this.selectedMap]);
+    this.router.navigate(['/maps/' + this.selectedMap + '/availabilities']);
   }
 }

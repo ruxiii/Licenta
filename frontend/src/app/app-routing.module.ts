@@ -19,6 +19,7 @@ import { MapEditComponent } from './maps/map-edit/map-edit.component';
 import { UserUpdateComponent } from './users/user-update/user-update.component';
 import { MapForReservationComponent } from './maps/map-for-reservation/map-for-reservation.component';
 import { ReservationsMadeComponent } from './reservations/reservations-made/reservation-made.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     
     { path: 'maps', component: MapListComponent },
     { path: 'maps/create', component: MapEditComponent},
-    { path: 'maps/:id', component: MapForReservationComponent},
+    { path: 'maps/:id/availabilities/:date', component: MapForReservationComponent},
+    { path: 'maps/:id/availabilities', component: CalendarComponent},
     
     { path: 'places', component: PlaceListComponent },
     

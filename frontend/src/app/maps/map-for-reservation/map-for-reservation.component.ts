@@ -15,6 +15,7 @@ export class MapForReservationComponent implements OnInit{
   base64Data: any;
   retrieveResonse: any;
   message: string;
+  date: string;
 
   constructor(private http: HttpClient,
               private route: ActivatedRoute,
@@ -24,14 +25,23 @@ export class MapForReservationComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.imgId = params['id']; 
+      this.date = params['date'];
     });
     this.fetchImage();
   }
 
   fetchImage() {
-    this.mapsService.getMapById(this.imgId).subscribe(
+    console.log(this.imgId);
+    console.log(this.date);
+    this.mapsService.getMapById(this.imgId, this.date).subscribe(
       res => {
-        this.retrieveResonse = res;
+        const mapEntityKey = Object.values(res)[0];
+        console.log(mapEntityKey);
+        // const mapEntity = res[mapEntityKey];
+        // console.log(mapEntity);
+        // console.log(mapEntityKey[0]+mapEntityKey[1]+mapEntityKey[2]);
+
+        this.retrieveResonse = mapEntityKey;
         this.base64Data = this.retrieveResonse.mapImage;
         this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
       }

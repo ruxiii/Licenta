@@ -1,0 +1,33 @@
+<br/><br/><br/>
+<div style="border: 8px solid #ddd; border-radius: 10px; padding: 50px; width: 90%; margin: 0 auto;">
+    <h1 style="text-align: center; font-size: 50px;">Select a date to see the availabilities</h1>
+<br/><br/><br/>
+<div id="calendar-container"  [class.dark-theme]="isDarkMode">
+    <table class="calendar"  style="font-size: 18px;"  [class.dark-theme]="isDarkMode">
+      <thead [class.dark-theme]="isDarkMode">
+        <tr [class.dark-theme]="isDarkMode">
+          <th colspan="7" style="font-size: 18px;" [class.dark-theme]="isDarkMode">
+            <button (click)="prevMonth()" class="nav-button">&#10094;</button>
+            {{ getMonthName(currentMonth) }} {{ currentYear }}
+            <button (click)="nextMonth()" class="nav-button">&#10095;</button>
+          </th>
+        </tr>
+        <tr  [class.dark-theme]="isDarkMode">
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody  [class.dark-theme]="isDarkMode">
+        <tr *ngFor="let week of calendar"  [class.dark-theme]="isDarkMode">
+          <td *ngFor="let day of week" (click)="onDateClick(day)"  [class.dark-theme]="isDarkMode">{{ day }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  
