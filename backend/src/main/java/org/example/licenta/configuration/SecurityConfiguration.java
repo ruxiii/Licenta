@@ -93,6 +93,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(new AntPathRequestMatcher("/reservations/{id}/update")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/reservations/create")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}/availabilities/{date}")).hasAnyRole("USER", "ADMIN");
                 });
 
 

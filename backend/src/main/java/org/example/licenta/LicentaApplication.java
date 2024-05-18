@@ -32,12 +32,28 @@ public class LicentaApplication {
 //				TODO: DE AVUT GRIJA CU ASTA CA NU MAI MERGE DACA N AM HARTA IN BD
 				if (placeRepository.findAll().size() == 0){
 					MapEntity map_6S = mapRepository.findById("6S").orElse(null);
-					for (int i = 1; i < 101; i++){
+					for (int i = 1; i < 111; i++){
 						PlaceEntity place = new PlaceEntity();
 						place.setPlaceNameId("D" + i + "-6S");
 						place.setMapEntity(map_6S);
 						placeRepository.save(place);
 					}
+
+                    MapEntity map_6N = mapRepository.findById("6N").orElse(null);
+                    for (int i = 1; i < 131; i++){
+                        PlaceEntity place = new PlaceEntity();
+                        place.setPlaceNameId("D" + i + "-6N");
+                        place.setMapEntity(map_6N);
+                        placeRepository.save(place);
+                    }
+
+                    MapEntity map_5N = mapRepository.findById("5N").orElse(null);
+                    for (int i = 1; i < 57; i++){
+                        PlaceEntity place = new PlaceEntity();
+                        place.setPlaceNameId("D" + i + "-5N");
+                        place.setMapEntity(map_5N);
+                        placeRepository.save(place);
+                    }
 				}
 				return;
 			}

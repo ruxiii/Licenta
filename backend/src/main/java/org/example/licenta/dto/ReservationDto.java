@@ -5,19 +5,21 @@ import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 public class ReservationDto {
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-    private LocalDateTime eventStartDate;
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate reservationDate;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-    private LocalDateTime eventEndDate;
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime reservationStartHour;
 
-//    TODO: poate fac din frontend sa apara si numele utilizatorului nu doar id ul
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime reservationEndHour;
+
     private String userId;
 
     private String placeNameId;

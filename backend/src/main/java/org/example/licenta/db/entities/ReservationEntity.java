@@ -7,7 +7,9 @@ import lombok.NonNull;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -18,15 +20,23 @@ public class ReservationEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long reservationId;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     @NotNull
-    private LocalDateTime reservationStartDate;
+    @Column(name = "reservation_date")
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate reservationDate;
 
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
     @NotNull
-    private LocalDateTime reservationEndDate;
+    @Column(name = "reservation_start_hour")
+    @JsonFormat(pattern = "HH:mm")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime reservationStartHour;
+
+    @NotNull
+    @Column(name = "reservation_end_hour")
+    @JsonFormat(pattern = "HH:mm")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime reservationEndHour;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "userId")

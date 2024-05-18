@@ -14,8 +14,10 @@ import org.example.licenta.exceptions.ReservationNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -43,8 +45,9 @@ public class ReservationService {
                 String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
                 String eventName = reservationEntity.getEventEntity().getEventName();
                 ReservationDto reservationDto = new ReservationDto();
-                reservationDto.setEventStartDate(reservationEntity.getReservationStartDate());
-                reservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
+                reservationDto.setReservationDate(reservationEntity.getReservationDate());
+                reservationDto.setReservationStartHour(reservationEntity.getReservationStartHour());
+                reservationDto.setReservationEndHour(reservationEntity.getReservationEndHour());
                 reservationDto.setUserId(userId);
                 reservationDto.setPlaceNameId(placeId);
                 reservationDto.setEventName(eventName);
@@ -64,8 +67,9 @@ public class ReservationService {
             String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
             String eventName = reservationEntity.getEventEntity().getEventName();
             ReservationDto reservationDto = new ReservationDto();
-            reservationDto.setEventStartDate(reservationEntity.getReservationStartDate());
-            reservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
+            reservationDto.setReservationDate(reservationEntity.getReservationDate());
+            reservationDto.setReservationStartHour(reservationEntity.getReservationStartHour());
+            reservationDto.setReservationEndHour(reservationEntity.getReservationEndHour());
             reservationDto.setUserId(userId);
             reservationDto.setPlaceNameId(placeId);
             reservationDto.setEventName(eventName);
@@ -99,8 +103,9 @@ public class ReservationService {
                     throw new ReservationCanNotBeMadeException("Event not found");
                 } else {
                     ReservationEntity reservationEntity = new ReservationEntity();
-                    reservationEntity.setReservationStartDate(reservationDto.getEventStartDate());
-                    reservationEntity.setReservationEndDate(reservationDto.getEventEndDate());
+                    reservationEntity.setReservationDate(reservationDto.getReservationDate());
+                    reservationEntity.setReservationStartHour(reservationDto.getReservationStartHour());
+                    reservationEntity.setReservationEndHour(reservationDto.getReservationEndHour());
                     reservationEntity.setUserEntity(userEntity);
                     reservationEntity.setPlaceEntity(placeEntity);
                     reservationEntity.setEventEntity(eventEntity);
@@ -130,16 +135,18 @@ public class ReservationService {
                         throw new ReservationCanNotBeMadeException("Event not found");
                     } else {
                         ReservationEntity reservationEntity = reservationRepository.findById(Long.valueOf(id)).get();
-                        reservationEntity.setReservationStartDate(reservationDto.getEventStartDate());
-                        reservationEntity.setReservationEndDate(reservationDto.getEventEndDate());
+                        reservationEntity.setReservationDate(reservationDto.getReservationDate());
+                        reservationEntity.setReservationStartHour(reservationDto.getReservationStartHour());
+                        reservationEntity.setReservationEndHour(reservationDto.getReservationEndHour());
                         reservationEntity.setUserEntity(userEntity);
                         reservationEntity.setPlaceEntity(placeEntity);
                         reservationEntity.setEventEntity(eventEntity);
                         reservationRepository.save(reservationEntity);
 
                         ReservationDto updatedReservationDto = new ReservationDto();
-                        updatedReservationDto.setEventStartDate(reservationEntity.getReservationStartDate());
-                        updatedReservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
+                        updatedReservationDto.setReservationDate(reservationEntity.getReservationDate());
+                        updatedReservationDto.setReservationStartHour(reservationEntity.getReservationStartHour());
+                        updatedReservationDto.setReservationEndHour(reservationEntity.getReservationEndHour());
                         updatedReservationDto.setUserId(userEntity.getUserId());
                         updatedReservationDto.setPlaceNameId(placeEntity.getPlaceNameId());
                         updatedReservationDto.setEventName(eventEntity.getEventName());
@@ -163,8 +170,9 @@ public class ReservationService {
                     String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
                     String eventName = reservationEntity.getEventEntity().getEventName();
                     ReservationDto reservationDto = new ReservationDto();
-                    reservationDto.setEventStartDate(reservationEntity.getReservationStartDate());
-                    reservationDto.setEventEndDate(reservationEntity.getReservationEndDate());
+                    reservationDto.setReservationDate(reservationEntity.getReservationDate());
+                    reservationDto.setReservationStartHour(reservationEntity.getReservationStartHour());
+                    reservationDto.setReservationEndHour(reservationEntity.getReservationEndHour());
                     reservationDto.setUserId(userId);
 //                place id cred ca trebuie sa dispara
                     reservationDto.setPlaceNameId(placeId);

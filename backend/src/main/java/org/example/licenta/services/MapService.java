@@ -1,7 +1,11 @@
 package org.example.licenta.services;
 
 import org.example.licenta.db.entities.MapEntity;
+import org.example.licenta.db.entities.PlaceEntity;
+import org.example.licenta.db.entities.ReservationEntity;
 import org.example.licenta.db.repositories.MapRepository;
+import org.example.licenta.db.repositories.PlaceRepository;
+import org.example.licenta.db.repositories.ReservationRepository;
 import org.example.licenta.dto.MapDto;
 import org.example.licenta.exceptions.DepartmentNotFoundException;
 import org.example.licenta.exceptions.MapAlreadyExistsException;
@@ -16,18 +20,25 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class MapService {
 
     @Autowired
     private MapRepository mapRepository;
+
+    @Autowired
+    private PlaceRepository placeRepository;
+
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     public List<MapDto> getMaps() throws MapNotFoundException {
         if (mapRepository.findAll().isEmpty()) {
@@ -47,7 +58,7 @@ public class MapService {
         }
     }
 
-    public MapEntity getMapById(String id) throws MapNotFoundException {
+    public Map<MapEntity, Object> getMapById(String id, String date) throws MapNotFoundException {
         Optional<MapEntity> map = mapRepository.findById(id);
         if (map.isEmpty()) {
             throw new MapNotFoundException("Map not found");
@@ -59,9 +70,32 @@ public class MapService {
            img.setMapName(retrieveMapEntity.getMapName());
            img.setMapType(retrieveMapEntity.getMapType());
            img.setMapImage(decompressBytes(retrieveMapEntity.getMapImage()));
+
+           Map<MapEntity, Object> response = new HashMap<>();
+           response.put(img, getAvailabilities(date));
            
-           return img;
+           return response;
         }
+    }
+
+    public List<String> getAvailabilities(String dateString) {
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+        List<ReservationEntity> reservations = reservationRepository.findByReservationDate(date);
+
+        List<PlaceEntity> places = placeRepository.findAll();
+
+        List<String> availablePlaceNames = places.stream()
+                .filter(place -> isPlaceAvailable(place, reservations))
+                .map(PlaceEntity::getPlaceNameId)
+                .collect(Collectors.toList());
+
+        return availablePlaceNames;
+    }
+
+    private boolean isPlaceAvailable(PlaceEntity place, List<ReservationEntity> reservations) {
+        return reservations.stream()
+                .noneMatch(reservation -> reservation.getPlaceEntity().equals(place));
     }
 
     public void deleteMap(String id) throws MapNotFoundException {
@@ -121,7 +155,6 @@ public class MapService {
             outputStream.close();
         } catch (IOException e) {
         }
-        System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
         return outputStream.toByteArray();
     }
 

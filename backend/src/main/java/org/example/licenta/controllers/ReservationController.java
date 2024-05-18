@@ -1,5 +1,6 @@
 package org.example.licenta.controllers;
 
+import org.example.licenta.dto.PlaceDto;
 import org.example.licenta.dto.ReservationDto;
 import org.example.licenta.exceptions.ReservationCanNotBeMadeException;
 import org.example.licenta.exceptions.ReservationNotFoundException;

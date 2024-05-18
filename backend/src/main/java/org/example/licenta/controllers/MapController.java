@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -32,9 +31,9 @@ public class MapController {
         return mapService.getMaps();
     }
 
-    @GetMapping("/maps/{id}")
-    public MapEntity getMapById(@PathVariable String id) throws MapNotFoundException {
-        return mapService.getMapById(id);
+    @GetMapping("/maps/{id}/availabilities/{date}")
+    public Map<MapEntity, Object> getMapById(@PathVariable String id, @PathVariable String date) throws MapNotFoundException {
+        return mapService.getMapById(id, date);
     }
 
     @DeleteMapping("/maps/{id}/delete")
