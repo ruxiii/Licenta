@@ -55,3 +55,5 @@
 ***09.05.2024***  - Seeing a map when selected from the list + buttons for every seat
 
 ***18.05.2024***  - New way to send the image from backend + list of places available on that date (because of the new enpoint /maps/{id}/availabilities/{date}), frontend adapted for this, calendar implemented for the endpoint
+
+***20.05.2024***  - Meeting rooms for 5N
