@@ -78,6 +78,47 @@ button.seczone2 {
     transform: rotate(151deg);
 }
 
+button.santorini {
+    width: 73px;
+    height: 45px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(98deg);
+}
+
+button.sardinia {
+    width: 44px;
+    height: 49px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(84deg);
+}
+
+button.creta {
+    width: 44px;
+    height: 49px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(97deg);
+}
+
+button.comoros1 {
+    width: 68px;
+    height: 63px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(152deg);
+}
+
+button.comoros2 {
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(152deg);
+}
+
+
 button{
     border-radius: 5px;
     background-color: green;
