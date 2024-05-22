@@ -59,3 +59,5 @@
 ***20.05.2024***  - Meeting rooms for 5N
 
 ***21.05.2024***  - Meeting rooms for 6N
+
+***22.05.2024***  - Meeting rooms for 6S and for parking
