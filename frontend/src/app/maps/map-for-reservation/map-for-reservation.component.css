@@ -209,3 +209,8 @@ button{
     border: 0px solid green;
 }
 
+button.parking{
+    border: none;
+    border-radius: 0; 
+}
+
