@@ -118,6 +118,86 @@ button.comoros2 {
     transform: rotate(152deg);
 }
 
+button.java {
+    width: 40px;
+    height: 50px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(40deg);
+}
+
+button.sicily {
+    width: 44px;
+    height: 72px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(77deg);
+}
+
+button.cyprus {
+    width: 43px;
+    height: 50px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(97deg);
+}
+
+button.rhodes {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(85deg);
+}
+
+button.seychelles1 {
+    width: 78px;
+    height: 33px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(93deg);
+}
+
+button.seychelles2 {
+    width: 46px;
+    height: 15px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(76deg);
+}
+
+button.thassos1 {
+    width: 78px;
+    height: 32px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(93deg);
+}
+
+button.thassos2 {
+    width: 46px;
+    height: 15px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(76deg);
+}
+
+button.palawan1 {
+    width: 70px;
+    height: 32px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(97deg);
+}
+
+button.palawan2 {
+    width: 60px;
+    height: 20px;
+    border: none;
+    border-radius: 0;  /* Ensures the button is square */
+    transform: rotate(108deg);
+}
+
 
 button{
     border-radius: 5px;
