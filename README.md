@@ -61,3 +61,5 @@
 ***21.05.2024***  - Meeting rooms for 6N
 
 ***22.05.2024***  - Meeting rooms for 6S and for parking
+
+***23.05.2024***  - Beautified the calendar for availabilies + new endpoint for creating a reservation in backend + dasked line around the selected place + events part almost done (i'm gonna think about deleting the event) + the reservation part is not finished and checked  + parking lots added in the database + ReservationDTO + ReservationFullDTO
