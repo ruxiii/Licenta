@@ -1,7 +1,7 @@
 package org.example.licenta.controllers;
 
-import org.example.licenta.dto.PlaceDto;
 import org.example.licenta.dto.ReservationDto;
+import org.example.licenta.dto.ReservationFullDto;
 import org.example.licenta.exceptions.ReservationCanNotBeMadeException;
 import org.example.licenta.exceptions.ReservationNotFoundException;
 import org.example.licenta.services.ReservationService;
@@ -18,13 +18,13 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @GetMapping("/reservations")
-    public List<ReservationDto> getReservations() throws ReservationNotFoundException {
+    public List<ReservationFullDto> getReservations() throws ReservationNotFoundException {
         return reservationService.getReservations();
     }
 
 //    TODO: implement this; nu i corect dar merge pentru moment
     @GetMapping("/reservations/{id}")
-    public ReservationDto getReservation(@PathVariable String id) throws ReservationNotFoundException {
+    public ReservationFullDto getReservation(@PathVariable String id) throws ReservationNotFoundException {
         return reservationService.getReservation(id);
     }
 
@@ -34,19 +34,19 @@ public class ReservationController {
         reservationService.deleteReservation(id);
     }
 
-    @PostMapping("/reservations/create")
-    public void createReservation(@RequestBody ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
-        reservationService.createReservation(reservationDto);
+    @PostMapping("/{imgId}/{date}/reservation/{seatId}")
+    public void createReservation(@PathVariable String imgId, @PathVariable String date, @PathVariable String seatId, String userId, @RequestBody ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
+        reservationService.createReservation(imgId, date, seatId, userId, reservationDto);
     }
 
 //    TODO: implement this; nu i corect dar merge pentru moment
     @PutMapping("/reservations/{id}/update")
-    public ReservationDto updateReservation(@PathVariable String id, @RequestBody ReservationDto reservationDto) throws ReservationNotFoundException, ReservationCanNotBeMadeException {
-        return reservationService.updateReservation(id, reservationDto);
+    public ReservationFullDto updateReservation(@PathVariable String id, @RequestBody ReservationFullDto reservationFullDto) throws ReservationNotFoundException, ReservationCanNotBeMadeException {
+        return reservationService.updateReservation(id, reservationFullDto);
     }
 
     @GetMapping("/my/reservations/{id}")
-    public List<ReservationDto> getMyReservations(@PathVariable String id) throws ReservationNotFoundException {
+    public List<ReservationFullDto> getMyReservations(@PathVariable String id) throws ReservationNotFoundException {
         return reservationService.getMyReservations(id);
     }
 }

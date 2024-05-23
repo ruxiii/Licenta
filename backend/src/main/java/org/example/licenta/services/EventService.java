@@ -27,8 +27,6 @@ public class EventService {
             for (EventEntity event : events) {
                 EventDto eventDto = new EventDto();
                 eventDto.setEventName(event.getEventName());
-                eventDto.setEventStartDate(event.getEventStartDate());
-                eventDto.setEventEndDate(event.getEventEndDate());
                 eventDtos.add(eventDto);
             }
             return eventDtos;
@@ -43,8 +41,6 @@ public class EventService {
         else {
             EventDto eventDto = new EventDto();
             eventDto.setEventName(event.get().getEventName());
-            eventDto.setEventStartDate(event.get().getEventStartDate());
-            eventDto.setEventEndDate(event.get().getEventEndDate());
             return eventDto;
         }
     }
@@ -61,8 +57,6 @@ public class EventService {
     public void createEvent(EventDto eventDto){
         EventEntity eventEntity = new EventEntity();
         eventEntity.setEventName(eventDto.getEventName());
-        eventEntity.setEventStartDate(eventDto.getEventStartDate());
-        eventEntity.setEventEndDate(eventDto.getEventEndDate());
         eventRepository.save(eventEntity);
     }
 
@@ -73,14 +67,10 @@ public class EventService {
         else {
             EventEntity eventEntity = eventRepository.findById(Long.valueOf(id)).get();
             eventEntity.setEventName(eventDto.getEventName());
-            eventEntity.setEventStartDate(eventDto.getEventStartDate());
-            eventEntity.setEventEndDate(eventDto.getEventEndDate());
             eventRepository.save(eventEntity);
 
             EventDto eventDto1 = new EventDto();
             eventDto1.setEventName(eventEntity.getEventName());
-            eventDto1.setEventStartDate(eventEntity.getEventStartDate());
-            eventDto1.setEventEndDate(eventEntity.getEventEndDate());
             return eventDto1;
         }
     }

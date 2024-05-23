@@ -1,5 +1,6 @@
 package org.example.licenta;
 
+import jdk.jfr.Event;
 import org.example.licenta.db.entities.*;
 import org.example.licenta.db.repositories.*;
 import org.springframework.boot.CommandLineRunner;
@@ -26,7 +27,8 @@ public class LicentaApplication {
 						  DepartmentRepository departmentRepository,
 						  TeamRepository teamRepository,
 						  MapRepository mapRepository,
-						  PlaceRepository placeRepository){
+						  PlaceRepository placeRepository,
+						  EventRepository eventRepository){
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isPresent()) {
 //				TODO: DE AVUT GRIJA CU ASTA CA NU MAI MERGE DACA N AM HARTA IN BD
@@ -54,6 +56,14 @@ public class LicentaApplication {
                         place.setMapEntity(map_5N);
                         placeRepository.save(place);
                     }
+
+					MapEntity map_PS2 = mapRepository.findById("PS2").orElse(null);
+					for (int i = 1; i < 101; i++){
+						PlaceEntity place = new PlaceEntity();
+						place.setPlaceNameId("P" + i + "-PS2");
+						place.setMapEntity(map_PS2);
+						placeRepository.save(place);
+					}
 				}
 				return;
 			}
@@ -94,6 +104,18 @@ public class LicentaApplication {
 			admin.setAuthorities(roles);
 
 			authenticationRepository.save(admin);
+
+			EventEntity eventEntity = new EventEntity();
+			eventEntity.setEventName("Daily booking");
+			eventRepository.save(eventEntity);
+
+			EventEntity eventEntity1 = new EventEntity();
+			eventEntity1.setEventName("Meeting / Training");
+			eventRepository.save(eventEntity1);
+
+			EventEntity eventEntity2 = new EventEntity();
+			eventEntity2.setEventName("Visit");
+			eventRepository.save(eventEntity2);
 		};
 	}
 }

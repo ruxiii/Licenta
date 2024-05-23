@@ -82,6 +82,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(new AntPathRequestMatcher("/departments/create")).hasRole("ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/departments/{id}/update")).hasRole("ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps/create")).hasRole("ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}/delete")).hasRole("ADMIN");
 
 //                    permisiuni user si admin
                     authorize.requestMatchers(new AntPathRequestMatcher("/welcome")).hasAnyRole("USER", "ADMIN");
@@ -91,7 +92,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(new AntPathRequestMatcher("/reservations/{id}")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/reservations/{id}/delete")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/reservations/{id}/update")).hasAnyRole("USER", "ADMIN");
-                    authorize.requestMatchers(new AntPathRequestMatcher("/reservations/create")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/{imgId}/{date}/reservation/{seatId}")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}/availabilities/{date}")).hasAnyRole("USER", "ADMIN");
                 });

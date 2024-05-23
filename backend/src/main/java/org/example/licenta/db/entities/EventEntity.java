@@ -18,14 +18,6 @@ public class EventEntity {
 
         private String eventName;
 
-        @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-        @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-        private LocalDateTime eventStartDate;
-
-        @JsonFormat(pattern = "dd-MM-yyyy HH:mm")
-        @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
-        private LocalDateTime eventEndDate;
-
         @OneToOne(mappedBy = "eventEntity")
         private ReservationEntity reservationEntity;
 }
