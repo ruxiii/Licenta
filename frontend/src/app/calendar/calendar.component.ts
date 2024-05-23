@@ -82,21 +82,40 @@ export class CalendarComponent implements OnInit {
   }
 
   onDateClick(day: number) {
-    if (day) {
-      const formattedDate = day.toString().padStart(2, '0') + '-' + (this.currentMonth + 1).toString().padStart(2, '0') + '-' + this.currentYear;
-      
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        width: '250px',
-        data: { date: formattedDate }
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        if (result === 'yes') {
-          this.router.navigate(['/maps/' + this.mapId + '/availabilities/' +  formattedDate]);
-        } 
-      });
+    if (!day) {
+      return; // If the day is null (empty cell), do nothing
     }
+  
+    const currentDate = new Date(); // Get the current date
+  
+    const clickedDate = new Date(this.currentYear, this.currentMonth, day);
+    clickedDate.setHours(currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds());
+  
+    const dayOfWeek = clickedDate.getDay(); // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
+
+    if (dayOfWeek === 6 || dayOfWeek === 0) {
+      return; // If it's a weekend day, do nothing
+    }
+
+    if (clickedDate < currentDate) {
+      return;
+    }
+  
+    const formattedDate = day.toString().padStart(2, '0') + '-' + (this.currentMonth + 1).toString().padStart(2, '0') + '-' + this.currentYear;
+  
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+      data: { date: formattedDate }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'yes') {
+        this.router.navigate(['/maps/' + this.mapId + '/availabilities/' +  formattedDate]);
+      }
+    });
   }
+  
+  
   
   getMonthName(month: number): string {
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -110,5 +129,32 @@ export class CalendarComponent implements OnInit {
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
   }
+
+  isPastDate(day: number): boolean {
+    if (!day) {
+      return false; // If the day is null (empty cell), consider it not in the past
+    }
+  
+    const currentDate = new Date(); // Get the current date
+  
+    const clickedDate = new Date(this.currentYear, this.currentMonth, day);
+    clickedDate.setHours(currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds(), currentDate.getMilliseconds());
+  
+    // Check if the clicked date is before the current date
+    return clickedDate < currentDate;
+  }
+  
+  isWeekend(day: number): boolean {
+    if (!day) {
+      return false; // If the day is null (empty cell), it's not a weekend
+    }
+  
+    const clickedDate = new Date(this.currentYear, this.currentMonth, day);
+    const dayOfWeek = clickedDate.getDay(); // Get the day of the week (0 for Sunday, 1 for Monday, etc.)
+  
+    return dayOfWeek === 0 || dayOfWeek === 6; // Return true if it's Sunday (0) or Saturday (6)
+  }
+  
+  
 
 }

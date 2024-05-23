@@ -1,4 +1,21 @@
 /* CSS for confirmation dialog */
+
+.past-date {
+  color: #D8D8D8; /* Adjust color as needed */  
+}
+
+.past-date:hover {
+    background-color: white;
+}
+
+.weekend {
+  color: #D8D8D8; /* Adjust color as needed */
+}
+
+.weekend:hover {
+    background-color: white;
+}
+
 .confirmation-dialog {
   width: 4000px; /* Adjust the width as needed */
   padding: 300px; /* Adjust the padding as needed */
@@ -89,4 +106,20 @@ h1{
 .dark-theme th {
     background-color: grey ;
     color: #ffffff; /* White text color */
+}
+
+.dark-theme .past-date {
+  color: #686868;
+}
+
+.dark-theme .past-date:hover {
+  background-color: #333;
+}
+
+.dark-theme .weekend {
+  color: #686868;
+}
+
+.dark-theme .weekend:hover {
+  background-color: #333;
 }

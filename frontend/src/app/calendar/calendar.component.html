@@ -24,7 +24,8 @@
       </thead>
       <tbody  [class.dark-theme]="isDarkMode">
         <tr *ngFor="let week of calendar"  [class.dark-theme]="isDarkMode">
-          <td *ngFor="let day of week" (click)="onDateClick(day)"  [class.dark-theme]="isDarkMode">{{ day }}</td>
+          <td *ngFor="let day of week" [ngClass]="{'past-date': isPastDate(day),
+          'weekend': isWeekend(day)}" (click)="onDateClick(day)"  [class.dark-theme]="isDarkMode"><b> {{ day }}</b></td>
         </tr>
       </tbody>
     </table>
