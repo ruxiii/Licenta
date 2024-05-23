@@ -49,11 +49,12 @@ import { MapEditComponent } from './maps/map-edit/map-edit.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { UserUpdateComponent } from './users/user-update/user-update.component';
 import { MapForReservationComponent } from './maps/map-for-reservation/map-for-reservation.component';
-import { ReservationsMadeComponent } from './reservations/reservations-made/reservation-made.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar'; 
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { ReservationEditComponent } from './reservations/reservation-edit/reservation-edit.component';
+import { EventEditComponent } from './events/event-edit/event-edit.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -89,10 +90,11 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     TeamUpdateComponent,
     MapEditComponent,
     UserUpdateComponent,
-    ReservationsMadeComponent,
     MapForReservationComponent,
     CalendarComponent,
     ConfirmationDialogComponent,
+    ReservationEditComponent,
+    EventEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,26 @@
+<br/><br/><br/><br/>
 <br/>
-<div class="card my-5">
-    <div class="card-body">
-      <table class="table table-bordered table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">EventName</th>
-            <th scope="col">EventStartDate</th>
-            <th scope="col">EventEndDate</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let event of events">
-            <td>{{ event.eventName }}</td>
-            <td>{{ event.eventStartDate }}</td>
-            <td>{{ event.eventEndDate }}</td>
-        </tr>
-        </tbody>
-      </table>
+<br/><br/>
+
+<div style="border: 8px solid #ddd; border-radius: 10px; padding: 50px; width: 90%; margin: 0 auto;">
+  <h1 style="text-align: center; font-size: 50px;">Events</h1>
+
+  <button 
+    class="btn btn-success" 
+    style="margin-left: 45%;"
+    *ngIf="userRole === 'ADMIN'"
+    (click)="onNewEvent()">New event</button>
+  <br/><br/><br/>
+
+  <div class="card my-5" style="text-align: center;" [class.dark-theme]="isDarkMode" >
+    <div class="card-body" style="text-align: center;" [class.dark-theme]="isDarkMode" >
+      <div class="form-group" [class.dark-theme]="isDarkMode">
+        <ul class="list-group" [class.dark-theme]="isDarkMode">
+          <li class="list-group-item" *ngFor="let event of events" style="font-size: 18px; text-align: center;" [class.dark-theme]="isDarkMode">
+            {{ event.eventName }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
+</div>

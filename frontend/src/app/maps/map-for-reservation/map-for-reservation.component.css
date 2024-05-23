@@ -6,6 +6,12 @@ img{
     align-items: center; 
 }
 
+.highlighted {
+    /* Add styles for the clicked state */
+    border: 1.7px dashed red;
+  }
+  
+
 button.mallorca {
     width: 56px;
     height: 58px;

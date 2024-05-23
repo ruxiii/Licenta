@@ -1,0 +1,61 @@
+<h1 style="text-align: center;  font-weight: bold; font-size: 35px;">Book {{ seatId }}</h1>
+<br/>
+<div class="card my-5" [class.dark-theme]="isDarkMode">
+    <div class="card-body"[class.dark-theme]="isDarkMode">
+      <form (ngSubmit)="onSubmit(reservationForm)" #reservationForm="ngForm" [class.dark-theme]="isDarkMode">
+        <div class="form-group" [class.dark-theme]="isDarkMode">
+            <label for="selectedDate" class="control-label" [class.dark-theme]="isDarkMode">Selected Date:</label>
+            <input 
+                type="text" 
+                id="selectedDate" 
+                class="form-control"
+                name="selectedDate"
+                [value]="date" 
+                readonly >
+        </div>
+        <br/>
+
+        <div class="form-group" [class.dark-theme]="isDarkMode">
+                <div class="input-row">
+                    <label for="startHour" class="control-label" [class.dark-theme]="isDarkMode">Start Hour:</label>
+                    <input 
+                        style="width: 100%;"
+                        type="time" 
+                        id="startHour" 
+                        class="form-control"
+                        name="startHour"
+                        required>
+                </div>
+                    
+                <div class="input-row2">
+                    <label for="endHour" class="control-label" [class.dark-theme]="isDarkMode">End Hour:</label>
+                    <input 
+                        style="width: 100%;"
+                        type="time" 
+                        id="endHour" 
+                        class="form-control"
+                        name="endHour"
+                        required>
+                </div>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="teamId" [class.dark-theme]="isDarkMode">Event: </label>
+            <!-- <select 
+                id="teamId" 
+                class="form-control"
+                name="teamId"
+                [(ngModel)]="user.teamId"
+                required
+            >
+                <option *ngFor="let team of teamsArray" [ngValue]="team">
+                    {{ team.teamId }} - {{ team.departmentId }}
+                </option>
+            </select> -->
+        </div>
+        <br/>
+                                  
+      </form>
+    </div> 
+  </div>

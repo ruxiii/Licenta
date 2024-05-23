@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
 })
 export class EventsComponent {
   eventName: string;
-  eventStartDate: string;
-  eventEndDate: string;
 }

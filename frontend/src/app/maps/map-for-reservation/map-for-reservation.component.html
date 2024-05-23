@@ -5,11 +5,10 @@
     <div class="col-md-12">
         <div *ngIf=retrievedImage>
             <img [src]="retrievedImage">
-            <!-- DE FACUT CLICK UL -->
         <!-- D1_6S -->
-            <button style="position: absolute; top: 381px; left: 181px; z-index: 999;" (click)="onSeatClick('D1_6S')"></button>
+            <button style="position: absolute; top: 381px; left: 181px; z-index: 999;" (click)="onSeatClick('D1_6S')" [class.highlighted]="isHighlighted('D1_6S')"></button>
         <!-- D2_6S -->
-            <button style="position: absolute; top: 364px; left: 177px; z-index: 999;" (click)="onSeatClick('D2_6S')"></button>
+            <button style="position: absolute; top: 364px; left: 177px; z-index: 999;" (click)="onSeatClick('D2_6S')" [class.highlighted]="isHighlighted('D2_6S')"></button>
         <!-- D3_6S -->
             <button style="position: absolute; top: 345px; left: 171px; z-index: 999;" (click)="onSeatClick('D3_6S')"></button>
         <!-- D4_6S -->
