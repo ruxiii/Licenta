@@ -6,6 +6,10 @@ img{
     align-items: center; 
 }
 
+.reserved{
+    background-color: red;
+}
+
 .highlighted {
     /* Add styles for the clicked state */
     border: 1.7px dashed red;

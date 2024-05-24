@@ -20,6 +20,7 @@ export class MapForReservationComponent implements OnInit{
   message: string;
   date: string;
   highlightedSeat: string;
+  unavailableSeats: string[] =[];
 
   constructor(
               private route: ActivatedRoute,
@@ -43,7 +44,7 @@ export class MapForReservationComponent implements OnInit{
     this.mapsService.getMapById(this.imgId, this.date).subscribe(
       res => {
         const mapEntityKey = Object.values(res)[0];
-        console.log(mapEntityKey);
+        // console.log(mapEntityKey);
         // const mapEntity = res[mapEntityKey];
         // console.log(mapEntity);
         // console.log(mapEntityKey[0]+mapEntityKey[1]+mapEntityKey[2]);
@@ -51,9 +52,54 @@ export class MapForReservationComponent implements OnInit{
         this.retrieveResonse = mapEntityKey;
         this.base64Data = this.retrieveResonse.mapImage;
         this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+
+        const reservationsAvailable = Object.values(res)[1];
+
+        const reservationsAvailableArray = reservationsAvailable as string[];
+
+        this.SeatsUnavailable(reservationsAvailableArray);
       }
     );
   }
+
+  SeatsUnavailable(reservationsAvailableArray: string[]): void {
+    for (let i = 1; i < 111; i++){
+      const seatId = 'D' + i + '-6S';
+      if (!reservationsAvailableArray.includes(seatId)) {
+        console.log(seatId);
+        this.unavailableSeats.push(seatId);
+      }
+    }
+
+    for (let i = 1; i < 131; i++){
+      const seatId = 'D' + i + '-6N';
+      if (!reservationsAvailableArray.includes(seatId)) {
+        console.log(seatId);
+        this.unavailableSeats.push(seatId);
+      }
+    }
+
+    for (let i = 1; i < 57; i++){
+      const seatId = 'D' + i + '-5N';
+      if (!reservationsAvailableArray.includes(seatId)) {
+        console.log(seatId);
+        this.unavailableSeats.push(seatId);
+      }
+    }
+
+    for (let i = 1; i < 101; i++){
+      const seatId = 'P' + i + '-PS2';
+      if (!reservationsAvailableArray.includes(seatId)) {
+        console.log(seatId);
+        this.unavailableSeats.push(seatId);
+      }
+    }
+    }
+
+  seatFunction(seatId: string): boolean {
+    return this.unavailableSeats.includes(seatId);
+  }
+
 
   onSeatClick(seatId: string) {
     this.highlightedSeat = seatId;
@@ -75,6 +121,10 @@ export class MapForReservationComponent implements OnInit{
 
   isHighlighted(seatId: string): boolean {
     return this.highlightedSeat === seatId;
+  }
+
+  isReserved(seatId: string): boolean {
+    return false;
   }
   
 }
