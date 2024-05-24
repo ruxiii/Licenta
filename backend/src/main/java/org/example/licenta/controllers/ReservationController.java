@@ -35,8 +35,8 @@ public class ReservationController {
     }
 
     @PostMapping("/{imgId}/{date}/reservation/{seatId}")
-    public void createReservation(@PathVariable String imgId, @PathVariable String date, @PathVariable String seatId, String userId, @RequestBody ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
-        reservationService.createReservation(imgId, date, seatId, userId, reservationDto);
+    public void createReservation(@PathVariable String imgId, @PathVariable String date, @PathVariable String seatId, @RequestBody ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
+        reservationService.createReservation(imgId, date, seatId, reservationDto);
     }
 
 //    TODO: implement this; nu i corect dar merge pentru moment

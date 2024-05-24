@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -38,7 +39,7 @@ public class ReservationEntity {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime reservationEndHour;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     @NotNull
     private UserEntity userEntity;
@@ -48,7 +49,7 @@ public class ReservationEntity {
     @NotNull
     private PlaceEntity placeEntity;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "eventId", referencedColumnName = "eventId")
     private EventEntity eventEntity;
 }

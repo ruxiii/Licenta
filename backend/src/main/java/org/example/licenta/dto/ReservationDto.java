@@ -1,18 +1,15 @@
 package org.example.licenta.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
-import java.time.LocalTime;
 
 @Data
 public class ReservationDto {
 
-    @JsonFormat(pattern = "HH:mm")
-    private LocalTime reservationStartHour;
+    private String reservationStartHour;
 
-    @JsonFormat(pattern = "HH:mm")
-    private LocalTime reservationEndHour;
+    private String reservationEndHour;
 
     private String eventName;
+
+    private String userId;
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,6 +19,6 @@ public class EventEntity {
 
         private String eventName;
 
-        @OneToOne(mappedBy = "eventEntity")
-        private ReservationEntity reservationEntity;
+        @OneToMany(mappedBy = "eventEntity")
+        private List<ReservationEntity> reservationEntity;
 }

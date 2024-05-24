@@ -16,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,34 +89,61 @@ public class ReservationService {
         }
     }
 
-    public void createReservation(String imgId, String date, String seatId, String userId, ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
-        if (userRepository.findById(userId).isEmpty()) {
+    public void createReservation(String imgId, String date, String seatId, ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
+
+//        System.out.println(reservationDto);
+
+        if (userRepository.findById(reservationDto.getUserId()).isEmpty()) {
             throw new ReservationCanNotBeMadeException("User not found");
-        } else {
-            if (placeRepository.findById(seatId).isEmpty()) {
-                throw new ReservationCanNotBeMadeException("Place not found");
-            } else {
-                UserEntity userEntity = userRepository.findById(userId).get();
-                PlaceEntity placeEntity = placeRepository.findById(seatId).get();
-
-                String eventName = reservationDto.getEventName();
-                EventEntity eventEntity = eventRepository.findByEventName(eventName);
-
-                if (eventEntity == null) {
-                    throw new ReservationCanNotBeMadeException("Event not found");
-                } else {
-                    ReservationEntity reservationEntity = new ReservationEntity();
-                    reservationEntity.setReservationDate(LocalDate.parse(date));
-                    reservationEntity.setReservationStartHour(reservationDto.getReservationStartHour());
-                    reservationEntity.setReservationEndHour(reservationDto.getReservationEndHour());
-                    reservationEntity.setUserEntity(userEntity);
-                    reservationEntity.setPlaceEntity(placeEntity);
-                    reservationEntity.setEventEntity(eventEntity);
-                    reservationRepository.save(reservationEntity);
-                }
-            }
         }
+
+        // Check if place exists
+        if (placeRepository.findById(seatId).isEmpty()) {
+            throw new ReservationCanNotBeMadeException("Place not found");
+        }
+
+        UserEntity userEntity = userRepository.findById(reservationDto.getUserId()).get();
+        PlaceEntity placeEntity = placeRepository.findById(seatId).get();
+
+        // Check if event exists
+        String eventName = reservationDto.getEventName();
+        EventEntity eventEntity = eventRepository.findByEventName(eventName);
+        if (eventEntity == null) {
+            throw new ReservationCanNotBeMadeException("Event not found");
+        }
+
+        // Parse the date
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate reservationDate;
+        try {
+            reservationDate = LocalDate.parse(date, dateFormatter);
+        } catch (DateTimeParseException e) {
+            throw new ReservationCanNotBeMadeException("Invalid date format");
+        }
+
+        // Parse the start and end hours
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime reservationStartHour;
+        LocalTime reservationEndHour;
+        try {
+            reservationStartHour = LocalTime.parse(reservationDto.getReservationStartHour(), timeFormatter);
+            reservationEndHour = LocalTime.parse(reservationDto.getReservationEndHour(), timeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new ReservationCanNotBeMadeException("Invalid time format");
+        }
+
+        // Create and save the reservation entity
+        ReservationEntity reservationEntity = new ReservationEntity();
+        reservationEntity.setReservationDate(reservationDate);
+        reservationEntity.setReservationStartHour(reservationStartHour);
+        reservationEntity.setReservationEndHour(reservationEndHour);
+        reservationEntity.setUserEntity(userEntity);
+        reservationEntity.setPlaceEntity(placeEntity);
+        reservationEntity.setEventEntity(eventEntity);
+
+        reservationRepository.save(reservationEntity);
     }
+
 
     public ReservationFullDto updateReservation(String id, ReservationFullDto reservationDto) throws ReservationNotFoundException, ReservationCanNotBeMadeException {
         if (reservationRepository.findById(Long.valueOf(id)).isEmpty()) {
