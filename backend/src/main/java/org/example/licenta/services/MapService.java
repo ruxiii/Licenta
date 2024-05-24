@@ -10,6 +10,7 @@ import org.example.licenta.dto.MapDto;
 import org.example.licenta.exceptions.DepartmentNotFoundException;
 import org.example.licenta.exceptions.MapAlreadyExistsException;
 import org.example.licenta.exceptions.MapNotFoundException;
+import org.example.licenta.exceptions.ReservationCanNotBeMadeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
@@ -74,13 +77,13 @@ public class MapService {
 
            List<Object> response = new ArrayList<>();
            response.add(img);
-           response.add(getAvailabilities(date));
+           response.add(getAvailabilities(date, hour));
 
            return response;
         }
     }
 
-    public List<String> getAvailabilities(String dateString) {
+    public List<String> getAvailabilities(String dateString, String hour) {
         LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
         List<ReservationEntity> reservations = reservationRepository.findByReservationDate(date);
@@ -88,17 +91,25 @@ public class MapService {
         List<PlaceEntity> places = placeRepository.findAll();
 
         List<String> availablePlaceNames = places.stream()
-                .filter(place -> isPlaceAvailable(place, reservations))
+                .filter(place -> isPlaceNotBooked(place, reservations, hour))
                 .map(PlaceEntity::getPlaceNameId)
                 .collect(Collectors.toList());
 
         return availablePlaceNames;
     }
 
-    private boolean isPlaceAvailable(PlaceEntity place, List<ReservationEntity> reservations) {
+    private boolean isPlaceNotBooked(PlaceEntity place, List<ReservationEntity> reservations, String hour) {
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime hourLD;
+
+        hourLD = LocalTime.parse(hour, timeFormatter);
+
         return reservations.stream()
-                .noneMatch(reservation -> reservation.getPlaceEntity().equals(place));
+                .noneMatch(reservation -> reservation.getPlaceEntity().equals(place) &&
+                        !hourLD.isBefore(reservation.getReservationStartHour()) &&
+                        !hourLD.isAfter(reservation.getReservationEndHour()));
     }
+
 
     public void deleteMap(String id) throws MapNotFoundException {
         if (mapRepository.existsById(id)) {
