@@ -31,9 +31,9 @@ public class MapController {
         return mapService.getMaps();
     }
 
-    @GetMapping("/maps/{id}/availabilities/{date}")
-    public List<Object> getMapById(@PathVariable String id, @PathVariable String date) throws MapNotFoundException {
-        return mapService.getMapById(id, date);
+    @GetMapping("/maps/{id}/availabilities/{date}/{hour}")
+    public List<Object> getMapById(@PathVariable String id, @PathVariable String date, @PathVariable String hour) throws MapNotFoundException {
+        return mapService.getMapById(id, date, hour);
     }
 
     @DeleteMapping("/maps/{id}/delete")
