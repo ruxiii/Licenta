@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './reservations.component.css'
 })
 export class ReservationsComponent {
-  eventStartDate: string;
-  eventEndDate: string;
+  reservationDate: string;
+  reservationStartHour: string;
+  reservationEndHour: string;
+  eventName: string;
   userId: string;
-  placeNameId: string;
-  eventNames: string;
 }

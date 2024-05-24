@@ -1,4 +1,4 @@
-<h1 style="text-align: center;  font-weight: bold; font-size: 35px;">Create an account</h1>
+<h1 style="text-align: center;  font-weight: bold; font-size: 35px; margin-left: 80px;">Create an account</h1>
 <div *ngFor="let line of data">{{ line }}</div>
 <br/>
 <div class="card my-5" [class.dark-theme]="isDarkMode">
@@ -114,7 +114,7 @@
         <div class="row">
             <div class="col-xs-12" style="text-align: center">
                 <button type="submit" [disabled]="!validator(userForm)"
-                class="btn btn-info">Submit</button>
+                class="btn btn-info"  style = "margin-left: 80px;">Submit</button>
             </div>
         </div>
       </form>

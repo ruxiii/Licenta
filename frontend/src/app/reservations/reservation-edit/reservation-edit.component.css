@@ -118,8 +118,12 @@ input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
     border-radius:20px;
  }
 
+ .input-row{
+    margin-left: 430px; /* Adjust the margin as needed */
+ }
+
  .input-row2 {
-    margin-left: 100px; /* Adjust the margin as needed */
+    margin-left: 120px; /* Adjust the margin as needed */
 }
 
 
