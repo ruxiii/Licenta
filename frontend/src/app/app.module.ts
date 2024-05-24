@@ -55,6 +55,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ReservationEditComponent } from './reservations/reservation-edit/reservation-edit.component';
 import { EventEditComponent } from './events/event-edit/event-edit.component';
+import { ClockComponent } from './clock/clock.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -95,6 +96,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     ConfirmationDialogComponent,
     ReservationEditComponent,
     EventEditComponent,
+    ClockComponent,
   ],
   imports: [
     BrowserModule,

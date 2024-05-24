@@ -39,12 +39,12 @@ export class MapsService {
         return this.http.post(this.createMapUrl, formData, { headers, reportProgress: true, observe: 'events' });
     }
 
-    getMapById(id: string, date: string): Observable<any> {
+    getMapById(id: string, date: string, hour:string): Observable<any> {
         const url = '/login';
         if (typeof window !== "undefined") {  
             const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
             const headers = { headers: header };
-            const getUrl = this.getMapByIdUrl + id + "/availabilities/" + date;
+            const getUrl = this.getMapByIdUrl + id + "/availabilities/" + date + "/" + hour;
             return this.http.get<MapsComponent>(getUrl, headers);
         }
     }

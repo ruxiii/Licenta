@@ -21,6 +21,8 @@ import { MapForReservationComponent } from './maps/map-for-reservation/map-for-r
 import { CalendarComponent } from './calendar/calendar.component';
 import { ReservationEditComponent } from './reservations/reservation-edit/reservation-edit.component';
 import { EventEditComponent } from './events/event-edit/event-edit.component';
+import { ClockComponent } from './clock/clock.component';
+
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -39,8 +41,9 @@ const appRoutes: Routes = [
     
     { path: 'maps', component: MapListComponent },
     { path: 'maps/create', component: MapEditComponent},
-    { path: 'maps/:id/availabilities/:date', component: MapForReservationComponent},
     { path: 'maps/:id/availabilities', component: CalendarComponent},
+    { path: 'maps/:id/availabilities/:date', component: ClockComponent },
+    { path: 'maps/:id/availabilities/:date/:hour', component: MapForReservationComponent},
     
     { path: 'places', component: PlaceListComponent },
     

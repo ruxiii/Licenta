@@ -21,6 +21,7 @@ export class MapForReservationComponent implements OnInit{
   date: string;
   highlightedSeat: string;
   unavailableSeats: string[] =[];
+  hour: string;
 
   constructor(
               private route: ActivatedRoute,
@@ -34,6 +35,7 @@ export class MapForReservationComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.imgId = params['id']; 
       this.date = params['date'];
+      this.hour = params['hour'];
     });
     this.fetchImage();
   }
@@ -41,7 +43,7 @@ export class MapForReservationComponent implements OnInit{
   fetchImage() {
     console.log(this.imgId);
     console.log(this.date);
-    this.mapsService.getMapById(this.imgId, this.date).subscribe(
+    this.mapsService.getMapById(this.imgId, this.date, this.hour).subscribe(
       res => {
         const mapEntityKey = Object.values(res)[0];
         // console.log(mapEntityKey);
