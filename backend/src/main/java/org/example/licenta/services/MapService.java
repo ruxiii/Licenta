@@ -61,7 +61,7 @@ public class MapService {
         }
     }
 
-//    TODO: de adaptat ca rezervarile sa fie si n functie de ora
+    //    TODO: de adaptat ca rezervarile sa fie si n functie de ora
     public List<Object> getMapById(String id, String date, String hour) throws MapNotFoundException {
         Optional<MapEntity> map = mapRepository.findById(id);
         if (map.isEmpty()) {
@@ -70,16 +70,17 @@ public class MapService {
         else {
             MapEntity retrieveMapEntity = map.get();
 
-           MapEntity img = new MapEntity();
-           img.setMapName(retrieveMapEntity.getMapName());
-           img.setMapType(retrieveMapEntity.getMapType());
-           img.setMapImage(decompressBytes(retrieveMapEntity.getMapImage()));
+            MapEntity img = new MapEntity();
+            img.setMapName(retrieveMapEntity.getMapName());
+            img.setMapType(retrieveMapEntity.getMapType());
+            img.setMapImage(decompressBytes(retrieveMapEntity.getMapImage()));
 
-           List<Object> response = new ArrayList<>();
-           response.add(img);
-           response.add(getAvailabilities(date, hour));
+            List<Object> response = new ArrayList<>();
+            response.add(img);
+            response.add(getAvailabilities(date, hour));
+            response.add(getBookedPlaces(date));
 
-           return response;
+            return response;
         }
     }
 
@@ -110,6 +111,28 @@ public class MapService {
                         !hourLD.isAfter(reservation.getReservationEndHour()));
     }
 
+    public List<String> getBookedPlaces(String dateString) {
+        LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+        List<ReservationEntity> reservations = reservationRepository.findByReservationDate(date);
+
+        List<String> bookedPlaceDetails = reservations.stream()
+                .map(reservation -> {
+                    String placeName = reservation.getPlaceEntity().getPlaceNameId();
+                    String startHour = reservation.getReservationStartHour().toString();
+                    String endHour = reservation.getReservationEndHour().toString();
+                    return String.format("[%s, %s, %s]", placeName, startHour, endHour);
+                })
+                .collect(Collectors.toList());
+
+        return bookedPlaceDetails;
+    }
+
+//    private boolean isPlaceBooked(PlaceEntity place, List<ReservationEntity> reservations) {
+//        return reservations.stream()
+//                .noneMatch(reservation -> reservation.getPlaceEntity().equals(place));
+//    }
+
 
     public void deleteMap(String id) throws MapNotFoundException {
         if (mapRepository.existsById(id)) {
@@ -122,7 +145,7 @@ public class MapService {
 
     public MapEntity createMap(String id, MultipartFile file) throws MapAlreadyExistsException, IOException {
         if (mapRepository.existsById(id)) {
-                throw new MapAlreadyExistsException("Map already exists");
+            throw new MapAlreadyExistsException("Map already exists");
         }
         else {
             MapEntity mapEntity = new MapEntity();

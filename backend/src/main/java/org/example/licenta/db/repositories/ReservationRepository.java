@@ -1,5 +1,6 @@
 package org.example.licenta.db.repositories;
 
+import org.example.licenta.db.entities.PlaceEntity;
 import org.example.licenta.db.entities.ReservationEntity;
 import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
