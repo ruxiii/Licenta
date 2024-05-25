@@ -60,4 +60,8 @@ export class MapListComponent {
     this.selectedMap = $event.target.value;
     this.router.navigate(['/maps/' + this.selectedMap + '/availabilities']);
   }
+
+  goBack(){
+    this.router.navigate(['/welcome']);
+  }
 }

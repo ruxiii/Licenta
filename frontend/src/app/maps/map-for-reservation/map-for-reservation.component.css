@@ -10,6 +10,10 @@ img{
     background-color: red;
 }
 
+.myReservation{
+    background-color: #E1AD01;
+}
+
 .highlighted {
     /* Add styles for the clicked state */
     border: 1.7px dashed red;

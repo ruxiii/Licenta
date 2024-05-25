@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogSeatReservedComponent } from '../../confirmation-dialog-seat-reserved/confirmation-dialog-seat-reserved.component';
 import { Output, EventEmitter } from '@angular/core';
+import { ReservationsService } from '../../reservations/reservations.service';
+import { UsersService } from '../../users/users.service';
 
 @Component({
   selector: 'app-map-for-reservation',
@@ -29,13 +31,16 @@ export class MapForReservationComponent implements OnInit{
   hourToBeShown: string;
   timeSlots: string[][];
   hourToBeShown2: string;
+  reservations: any;
+  loggedInUserName: string;
 
   constructor(
               private route: ActivatedRoute,
               private mapsService: MapsService,
               private router: Router,
               public dialog: MatDialog,
-
+              public reservationService: ReservationsService,
+              private userService: UsersService
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +50,12 @@ export class MapForReservationComponent implements OnInit{
       this.hour = params['hour'];
     });
     this.fetchImage();
+    this.reservationService.getReservations().subscribe(data => {
+      this.reservations = data;
+    });
+    this.userService.username$.subscribe(username => {
+      this.loggedInUserName = username;
+    });
   }
 
   fetchImage() {
@@ -53,10 +64,6 @@ export class MapForReservationComponent implements OnInit{
     this.mapsService.getMapById(this.imgId, this.date, this.hour).subscribe(
       res => {
         const mapEntityKey = Object.values(res)[0];
-        // console.log(mapEntityKey);
-        // const mapEntity = res[mapEntityKey];
-        // console.log(mapEntity);
-        // console.log(mapEntityKey[0]+mapEntityKey[1]+mapEntityKey[2]);
 
         this.retrieveResonse = mapEntityKey;
         this.base64Data = this.retrieveResonse.mapImage;
@@ -66,7 +73,6 @@ export class MapForReservationComponent implements OnInit{
 
         const reservationsDone = Object.values(res)[2];
         this.reservationsDone = reservationsDone as string[][];
-        // console.log(this.reservationsDone);
 
         const reservationsAvailableArray = reservationsAvailable as string[];
 
@@ -193,5 +199,9 @@ export class MapForReservationComponent implements OnInit{
 
   setHourToBeShown() {
     this.mapsService.setHourToBeShown(this.hourToBeShown);
+  }
+
+  isUserReservation(seatId: string): boolean {
+    return this.reservations.some(reservation => reservation.placeNameId === seatId && reservation.userId === this.loggedInUserName);
   }
 }

@@ -6,7 +6,7 @@
         <div *ngIf=retrievedImage>
             <img [src]="retrievedImage">
         <!-- D1-6S -->
-            <button [class.reserved]="seatFunction('D1-6S')" [disabled]="seatFunction('D1-6S')" style="position: absolute; top: 381px; left: 181px; z-index: 999;" (click)="onSeatClick('D1-6S')" [class.highlighted]="isHighlighted('D1-6S')"></button>
+            <button [class.myReservation]="isUserReservation('D1-6S')" [class.reserved]="seatFunction('D1-6S') && !isUserReservation('D1-6S')" [disabled]="seatFunction('D1-6S')" [class.highlighted]="isHighlighted('D1-6S')" style="position: absolute; top: 381px; left: 181px; z-index: 999;" (click)="onSeatClick('D1-6S')"></button>
         <!-- D2-6S -->
             <button style="position: absolute; top: 364px; left: 177px; z-index: 999;" (click)="onSeatClick('D2-6S')" [class.highlighted]="isHighlighted('D2-6S')"></button>
         <!-- D3-6S -->
