@@ -5,6 +5,7 @@ import { MapsService } from '../maps.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogSeatReservedComponent } from '../../confirmation-dialog-seat-reserved/confirmation-dialog-seat-reserved.component';
 
 @Component({
   selector: 'app-map-for-reservation',
@@ -22,6 +23,11 @@ export class MapForReservationComponent implements OnInit{
   highlightedSeat: string;
   unavailableSeats: string[] =[];
   hour: string;
+  reservationsDone: string[][];
+  hours: string[];
+  hourToBeShown: string;
+  timeSlots: string[][];
+  hourToBeShown2: string;
 
   constructor(
               private route: ActivatedRoute,
@@ -56,6 +62,10 @@ export class MapForReservationComponent implements OnInit{
         this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
 
         const reservationsAvailable = Object.values(res)[1];
+
+        const reservationsDone = Object.values(res)[2];
+        this.reservationsDone = reservationsDone as string[][];
+        // console.log(this.reservationsDone);
 
         const reservationsAvailableArray = reservationsAvailable as string[];
 
@@ -106,20 +116,73 @@ export class MapForReservationComponent implements OnInit{
   onSeatClick(seatId: string) {
     this.highlightedSeat = seatId;
 
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '250px',
-      data: { date: seatId}
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'yes') {
-        this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/' + seatId]);      
+    this.hours = [];
+    this.timeSlots =  [];
+    for (let i =0; i< this.reservationsDone.length; i++){
+      if(this.reservationsDone[i][0] === seatId){
+        this.hours.push(this.reservationsDone[i][1]);
+        this.timeSlots.push([this.reservationsDone[i][1], this.reservationsDone[i][2]]);
       }
-      else {
-        this.highlightedSeat = null;
+    }
+
+    console.log(this.timeSlots);
+
+    this.hours = this.hours.sort((a, b) => a.localeCompare(b)); // Ensure hours are sorted correctly
+    this.hourToBeShown = '';
+    console.log("hourToBeShown before loop", this.hourToBeShown);
+
+    for (let i = 0; i < this.hours.length; i++) {
+      console.log("current hour", this.hours[i]);
+      if (this.hour < this.hours[i]) {
+        this.hourToBeShown = this.hours[i];
+        break; // Once we find the correct hour, we can break out of the loop
       }
-    });
+    }
+
+    console.log("hourToBeShown after loop", this.hourToBeShown);
+
+    // console.log("hours", hourToBeShown);
+
+    if(this.hours !== undefined && this.hours.length > 0 && this.hourToBeShown !== ''){
+      for (let i = 0; i < this.timeSlots.length; i++){
+        if(this.timeSlots[i][0] === this.hourToBeShown){
+          this.hourToBeShown2 = this.timeSlots[i][1];
+          break;
+        }
+      }
+
+      const dialogRef = this.dialog.open(ConfirmationDialogSeatReservedComponent, {
+        width: '250px',
+        data: { date1: this.hourToBeShown, date2: this.hourToBeShown2}
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/' + seatId]);      
+        }
+        else {
+          this.highlightedSeat = null;
+        }
+      });
+    }
+
+    else{
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '250px',
+        data: { date: seatId}
+      });
+    
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === 'yes') {
+          this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/' + seatId]);      
+        }
+        else {
+          this.highlightedSeat = null;
+        }
+      });
+    }
   }
+
 
   isHighlighted(seatId: string): boolean {
     return this.highlightedSeat === seatId;

@@ -56,6 +56,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { ReservationEditComponent } from './reservations/reservation-edit/reservation-edit.component';
 import { EventEditComponent } from './events/event-edit/event-edit.component';
 import { ClockComponent } from './clock/clock.component';
+import { ConfirmationDialogSeatReservedComponent } from './confirmation-dialog-seat-reserved/confirmation-dialog-seat-reserved.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -97,6 +98,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     ReservationEditComponent,
     EventEditComponent,
     ClockComponent,
+    ConfirmationDialogSeatReservedComponent,
   ],
   imports: [
     BrowserModule,
