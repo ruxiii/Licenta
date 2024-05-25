@@ -111,28 +111,22 @@ public class MapService {
                         !hourLD.isAfter(reservation.getReservationEndHour()));
     }
 
-    public List<String> getBookedPlaces(String dateString) {
+    public List<List<String>> getBookedPlaces(String dateString) {
         LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
         List<ReservationEntity> reservations = reservationRepository.findByReservationDate(date);
 
-        List<String> bookedPlaceDetails = reservations.stream()
+        List<List<String>> bookedPlaceDetails = reservations.stream()
                 .map(reservation -> {
                     String placeName = reservation.getPlaceEntity().getPlaceNameId();
                     String startHour = reservation.getReservationStartHour().toString();
                     String endHour = reservation.getReservationEndHour().toString();
-                    return String.format("[%s, %s, %s]", placeName, startHour, endHour);
+                    return List.of(placeName, startHour, endHour);
                 })
                 .collect(Collectors.toList());
 
         return bookedPlaceDetails;
     }
-
-//    private boolean isPlaceBooked(PlaceEntity place, List<ReservationEntity> reservations) {
-//        return reservations.stream()
-//                .noneMatch(reservation -> reservation.getPlaceEntity().equals(place));
-//    }
-
 
     public void deleteMap(String id) throws MapNotFoundException {
         if (mapRepository.existsById(id)) {
