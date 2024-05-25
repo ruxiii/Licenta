@@ -21,6 +21,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService {
@@ -90,29 +92,24 @@ public class ReservationService {
     }
 
     public void createReservation(String imgId, String date, String seatId, ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
-
-//        System.out.println(reservationDto);
-
         if (userRepository.findById(reservationDto.getUserId()).isEmpty()) {
             throw new ReservationCanNotBeMadeException("User not found");
         }
 
-        // Check if place exists
-        if (placeRepository.findById(seatId).isEmpty()) {
+        Optional<PlaceEntity> placeOptional = placeRepository.findById(seatId);
+        if (placeOptional.isEmpty()) {
             throw new ReservationCanNotBeMadeException("Place not found");
         }
 
         UserEntity userEntity = userRepository.findById(reservationDto.getUserId()).get();
-        PlaceEntity placeEntity = placeRepository.findById(seatId).get();
+        PlaceEntity placeEntity = placeOptional.get();
 
-        // Check if event exists
         String eventName = reservationDto.getEventName();
         EventEntity eventEntity = eventRepository.findByEventName(eventName);
         if (eventEntity == null) {
             throw new ReservationCanNotBeMadeException("Event not found");
         }
 
-        // Parse the date
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate reservationDate;
         try {
@@ -121,7 +118,6 @@ public class ReservationService {
             throw new ReservationCanNotBeMadeException("Invalid date format");
         }
 
-        // Parse the start and end hours
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime reservationStartHour;
         LocalTime reservationEndHour;
@@ -132,7 +128,19 @@ public class ReservationService {
             throw new ReservationCanNotBeMadeException("Invalid time format");
         }
 
-        // Create and save the reservation entity
+        // Check if the requested reservation overlaps with any existing reservations for the same place
+        List<ReservationEntity> existingReservations = reservationRepository.findByPlaceEntityAndReservationDate(placeEntity, reservationDate);
+
+        for (ReservationEntity existingReservation : existingReservations) {
+            LocalTime existingStartHour = existingReservation.getReservationStartHour();
+            LocalTime existingEndHour = existingReservation.getReservationEndHour();
+
+            if (reservationStartHour.isBefore(existingEndHour) && reservationEndHour.isAfter(existingStartHour)) {
+                LocalTime availableUntil = existingStartHour;
+                throw new ReservationCanNotBeMadeException("Place only available until " + availableUntil);
+            }
+        }
+
         ReservationEntity reservationEntity = new ReservationEntity();
         reservationEntity.setReservationDate(reservationDate);
         reservationEntity.setReservationStartHour(reservationStartHour);
@@ -143,7 +151,6 @@ public class ReservationService {
 
         reservationRepository.save(reservationEntity);
     }
-
 
     public ReservationFullDto updateReservation(String id, ReservationFullDto reservationDto) throws ReservationNotFoundException, ReservationCanNotBeMadeException {
         if (reservationRepository.findById(Long.valueOf(id)).isEmpty()) {
