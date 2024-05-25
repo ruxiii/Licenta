@@ -11,6 +11,7 @@ export class MapsService {
     private createMapUrl : string;
     private getMapByIdUrl : string;
     tokenType = 'Bearer ';
+    private hourToBeShown: string;
 
     constructor(private http: HttpClient) { 
         this.mapUrl = 'http://localhost:8080/maps';
@@ -48,5 +49,13 @@ export class MapsService {
             return this.http.get<MapsComponent>(getUrl, headers);
         }
     }
+
+    setHourToBeShown(hourToBeShown: string) {
+        this.hourToBeShown = hourToBeShown;
+      }
+    
+      getHourToBeShown(): string {
+        return this.hourToBeShown;
+      }
     
 }

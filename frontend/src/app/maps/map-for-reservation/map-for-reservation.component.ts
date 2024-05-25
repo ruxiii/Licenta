@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogSeatReservedComponent } from '../../confirmation-dialog-seat-reserved/confirmation-dialog-seat-reserved.component';
+import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-map-for-reservation',
@@ -127,7 +128,7 @@ export class MapForReservationComponent implements OnInit{
 
     console.log(this.timeSlots);
 
-    this.hours = this.hours.sort((a, b) => a.localeCompare(b)); // Ensure hours are sorted correctly
+    this.hours = this.hours.sort((a, b) => a.localeCompare(b)); 
     this.hourToBeShown = '';
     console.log("hourToBeShown before loop", this.hourToBeShown);
 
@@ -135,13 +136,12 @@ export class MapForReservationComponent implements OnInit{
       console.log("current hour", this.hours[i]);
       if (this.hour < this.hours[i]) {
         this.hourToBeShown = this.hours[i];
-        break; // Once we find the correct hour, we can break out of the loop
+        break; 
       }
     }
 
+    this.setHourToBeShown();
     console.log("hourToBeShown after loop", this.hourToBeShown);
-
-    // console.log("hours", hourToBeShown);
 
     if(this.hours !== undefined && this.hours.length > 0 && this.hourToBeShown !== ''){
       for (let i = 0; i < this.timeSlots.length; i++){
@@ -183,7 +183,6 @@ export class MapForReservationComponent implements OnInit{
     }
   }
 
-
   isHighlighted(seatId: string): boolean {
     return this.highlightedSeat === seatId;
   }
@@ -191,5 +190,8 @@ export class MapForReservationComponent implements OnInit{
   isReserved(seatId: string): boolean {
     return false;
   }
-  
+
+  setHourToBeShown() {
+    this.mapsService.setHourToBeShown(this.hourToBeShown);
+  }
 }

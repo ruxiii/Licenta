@@ -8,6 +8,7 @@ import { EventsComponent } from '../../events/events.component';
 import { EventsService } from '../../events/events.service';
 import { ReservationsService } from '../reservations.service';
 import { Router } from '@angular/router';
+import { MapsService } from '../../maps/maps.service';
 
 @Component({
   selector: 'app-reservation-edit',
@@ -25,17 +26,21 @@ export class ReservationEditComponent {
   events: EventsComponent[] = [];
   hours: number;
   minutes: number;
+  hourToBeShown: string;
+  somethingWrong = false;
   
   constructor(private route: ActivatedRoute, 
               private themeService: ThemeService,
               private userService: UsersService,
               private eventsService: EventsService,
               private reservationsService: ReservationsService,
-              private router: Router) { 
+              private router: Router,
+              private mapService: MapsService) { 
     this.isDarkMode = this.themeService.isDarkMode();
     this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
     this.isDarkMode = isDark;
     });
+    this.hourToBeShown = this.mapService.getHourToBeShown();
   }
 
   ngOnInit(): void {
@@ -67,15 +72,7 @@ export class ReservationEditComponent {
   }
 
   onSubmit(reservationForm: NgForm) {
-    console.log('imgId', this.imgId);
-    console.log('data', this.date)
-    console.log('seatId', this.seatId);
-    console.log('username', this.loggedInUserName);
-
     const value = reservationForm.value; //dto
-    console.log('start', value.startHour);
-    console.log('end', value.endHour);
-    console.log('event', value.eventName);
 
     this.reservationsService.createReservation(
       this.imgId, 
@@ -89,7 +86,8 @@ export class ReservationEditComponent {
           this.router.navigate(['/reservations']);
         },
         error => {
-          if (error.status === 403) {
+          if (error.status === 401 || error.status === 403) {
+            this.somethingWrong = true;
           }
         }
       );
@@ -99,7 +97,7 @@ export class ReservationEditComponent {
   checkForm(reservationForm: NgForm): boolean {
     const startHour = reservationForm.value.startHour;
     const endHour = reservationForm.value.endHour;
-    return !(reservationForm.valid && startHour < endHour);
+    return !(reservationForm.valid && startHour < endHour && this.somethingWrong === false);
   }
 
   checkTime(reservationForm: NgForm): [number, number] {
