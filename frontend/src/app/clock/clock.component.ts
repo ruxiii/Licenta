@@ -107,5 +107,9 @@ export class ClockComponent {
   
     return { hourIn24HourFormat, minutes };
   }
+
+  goBack() {
+    this.router.navigate(['/maps/' + this.mapId + '/availabilities']);
+  }
   
 }

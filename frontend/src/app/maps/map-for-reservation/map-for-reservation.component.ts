@@ -204,4 +204,8 @@ export class MapForReservationComponent implements OnInit{
   isUserReservation(seatId: string): boolean {
     return this.reservations.some(reservation => reservation.placeNameId === seatId && reservation.userId === this.loggedInUserName);
   }
+
+  goBack() {
+    this.router.navigate(['/maps/' + this.imgId + '/availabilities/' + this.date]);
+  }
 }

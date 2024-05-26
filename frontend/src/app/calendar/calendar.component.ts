@@ -155,6 +155,8 @@ export class CalendarComponent implements OnInit {
     return dayOfWeek === 0 || dayOfWeek === 6; // Return true if it's Sunday (0) or Saturday (6)
   }
   
-  
+  goBack(){
+    this.router.navigate(['/maps']);
+  }
 
 }

@@ -1,5 +1,32 @@
 /* CSS for confirmation dialog */
 
+.arrow-button {
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  background-color: #0066b2;
+  border: none;
+  width: 60px;
+  height: 25px;
+  transform: rotate(180deg);
+  margin-left: -80px;
+}
+
+
+.arrow-button::before {
+  content: '';
+  position: absolute;
+  text-align: center  ;
+  top: 50%;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
 .past-date {
   color: #D8D8D8; /* Adjust color as needed */  
 }
