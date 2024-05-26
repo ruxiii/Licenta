@@ -100,16 +100,21 @@ public class MapService {
     }
 
     private boolean isPlaceNotBooked(PlaceEntity place, List<ReservationEntity> reservations, String hour) {
+        // Ensure hour is zero-padded if necessary
+        String formattedHour = String.format("%02d:%s", Integer.parseInt(hour.split(":")[0]), hour.split(":")[1]);
+
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime hourLD;
 
-        hourLD = LocalTime.parse(hour, timeFormatter);
+        // Parse the formatted hour string
+        hourLD = LocalTime.parse(formattedHour, timeFormatter);
 
         return reservations.stream()
                 .noneMatch(reservation -> reservation.getPlaceEntity().equals(place) &&
                         !hourLD.isBefore(reservation.getReservationStartHour()) &&
                         !hourLD.isAfter(reservation.getReservationEndHour()));
     }
+
 
     public List<List<String>> getBookedPlaces(String dateString) {
         LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
