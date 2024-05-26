@@ -67,3 +67,5 @@
 ***24.05.2024***  - Reservations can oficially be made and if a seat is book it is shown on the map with red (should be adapted based on hours) + the button is disabled if a place is reserved + clock implemented for hours - availabilities will be shown at a certain period of time + endpoint for this (the implementation is not yet adapted)
 
 ***25.05.2024***  - A reservation can be done properly (without overlapping) + if a place is available you can click on it and see (if it is reserved on that day) the next period of time when it's reserved + when creating a booking overlaps with another => it will be shown in frontend that the place is available untill the hour of the other booking + back button in map list (it has to be done for every page + dark mode for the clock!) + if the reservation is made by the logged user => on the map will be showed with yellow, otherwise red
+
+***26.05.2024***  - AM format now accepted in the backend + back buttons + highlights for all seats except meeting rooms
