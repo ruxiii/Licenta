@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ThemeService } from '../theme-toggle/theme.service';
 
 @Component({
   selector: 'app-clock',
@@ -18,17 +20,30 @@ export class ClockComponent {
   minuteHandStyle = {};
   mapId: string;
   date: string;
+  isDarkMode: boolean;
+  private themeSubscription: Subscription;
 
   constructor(private http: HttpClient,
               private router: Router,
-              private route: ActivatedRoute
-  ) {}
+              private route: ActivatedRoute,
+              private themeService: ThemeService
+  ) {
+    this.isDarkMode = this.themeService.isDarkMode();
+    this.themeSubscription = this.themeService.darkModeChanged.subscribe(isDark => {
+    this.isDarkMode = isDark;
+    });
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.mapId = params['id'];
       this.date = params['date'];
     });
+  }
+
+  
+  ngOnDestroy() {
+    this.themeSubscription.unsubscribe();
   }
 
   selectHour(hour: number) {

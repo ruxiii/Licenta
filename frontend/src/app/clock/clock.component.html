@@ -1,30 +1,30 @@
-<button class="arrow-button" (click)="goBack()"></button>
+<!-- <button class="arrow-button" (click)="goBack()"></button> -->
 <br/>
 <h1 style="text-align: center; font-size: 37px;"><b>Select the hour when you want to see the availabilities</b></h1>
-<div class="clock-container">
-    <div class="clock">
-      <div class="clock-face">
-        <div class="hand hour-hand" [ngStyle]="hourHandStyle"></div>
-        <div class="hand minute-hand" [ngStyle]="minuteHandStyle"></div>
+<div class="clock-container"  [class.dark-theme]="isDarkMode">
+    <div class="clock" [class.dark-theme]="isDarkMode">
+      <div class="clock-face"  [class.dark-theme]="isDarkMode">
+        <div class="hand hour-hand" [ngStyle]="hourHandStyle"  [class.dark-theme]="isDarkMode"></div>
+        <div class="hand minute-hand" [ngStyle]="minuteHandStyle"  [class.dark-theme]="isDarkMode"></div>
         <div *ngFor="let hour of hours" class="hour" [ngStyle]="getHourStyle(hour)" (click)="selectHour(hour)" [class.selected]="selectedHour === hour">
           {{ hour }}
         </div>
       </div>
     </div>
   
-    <div class="time-display">
-      <div *ngIf="selectedHour !== null" class="am-pm-selector">
+    <div class="time-display" [class.dark-theme]="isDarkMode" >
+      <div *ngIf="selectedHour !== null" class="am-pm-selector" [class.dark-theme]="isDarkMode">
       <!-- <div class="am-pm-selector"> -->
-        <button (click)="selectPeriod('AM')" [class.selected]="selectedPeriod === 'AM'">AM</button>
-        <button (click)="selectPeriod('PM')" [class.selected]="selectedPeriod === 'PM'">PM</button>
+        <button [class.dark-theme]="isDarkMode" (click)="selectPeriod('AM')" [class.selected]="selectedPeriod === 'AM'">AM</button>
+        <button [class.dark-theme]="isDarkMode" (click)="selectPeriod('PM')" [class.selected]="selectedPeriod === 'PM'">PM</button>
       </div>
     
     
-      <div *ngIf="selectedHour !== null && selectedPeriod !== null" class="minutes-container">
+      <div *ngIf="selectedHour !== null && selectedPeriod !== null" class="minutes-container"  [class.dark-theme]="isDarkMode">
       <!-- <div class="minutes-container"> -->
         <h3 style="font-size: 18px;"><b>Select Minute for: {{ selectedHour }} {{ selectedPeriod }}</b></h3>
-        <div class="minute-selector">
-          <div *ngFor="let minute of minutes" class="minute" (click)="selectMinute(minute)" [class.selected]="selectedMinute === minute">
+        <div class="minute-selector"  [class.dark-theme]="isDarkMode">
+          <div *ngFor="let minute of minutes" class="minute" (click)="selectMinute(minute)" [class.selected]="selectedMinute === minute"  [class.dark-theme]="isDarkMode">
             {{ minute }}
           </div>
         </div>

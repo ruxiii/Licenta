@@ -173,4 +173,53 @@
   .send-button:hover {
     background-color: #81C784;
   }
+
+  div.clock-face.dark-theme{
+    background-color: white;
+    color: white;
+    border: 5px solid grey;
+  }
+
+  div.clock-face.dark-theme .hour{
+    background-color: grey;
+  }
+
+  div.clock-face.dark-theme .hour:hover, div.clock-face.dark-theme .hour.selected{
+    background-color: #333;
+  }
+
+  div.clock-face.dark-theme .hand{
+    background-color: grey;
+  }
+
+  div.clock-face.dark-theme .minute-marker{
+    background-color: grey;
+  }
+
+  div.clock-face.dark-theme .am-pm-selector button{
+    background-color: grey;
+  }
+
+  div.time-display.am-pm-selector.dark-theme.selected{
+    background-color: grey;
+  }
+
+  div.minute.dark-theme{
+    border: 2px solid grey;
+  }
+
+  div.minute.dark-theme:hover, div.minute.dark-theme.selected{
+    background-color: grey;
+    color: white;
+  }
+
+  .am-pm-selector button.dark-theme{
+    background-color: grey;
+    color: white;
+  }
+
+  
+
+
+
   
