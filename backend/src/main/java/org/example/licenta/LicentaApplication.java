@@ -85,8 +85,127 @@ public class LicentaApplication {
 				reservationEntity.setUserEntity(user);
 				reservationEntity.setPlaceEntity(placeRepository.findById("D1-6S").orElse(null));
 				reservationEntity.setEventEntity(eventEntity);
-
 				reservationRepository.save(reservationEntity);
+
+//				JAVA-6S
+				PlaceEntity placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("JAVA-6S");
+				placeEntity.setMapEntity(mapRepository.findById("6S").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				SICILY-6S
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("SICILY-6S");
+				placeEntity.setMapEntity(mapRepository.findById("6S").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				CYPRUS-6S
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("CYPRUS-6S");
+				placeEntity.setMapEntity(mapRepository.findById("6S").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				RHODES-6S
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("RHODES-6S");
+				placeEntity.setMapEntity(mapRepository.findById("6S").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				SEYCHELLES-6S
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("SEYCHELLES-6S");
+				placeEntity.setMapEntity(mapRepository.findById("6S").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				THASSOS-6S
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("THASSOS-6S");
+				placeEntity.setMapEntity(mapRepository.findById("6S").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				PALAWAN-6S
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("PALAWAN-6S");
+				placeEntity.setMapEntity(mapRepository.findById("6S").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				SANTORINI-6N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("SANTORINI-6N");
+				placeEntity.setMapEntity(mapRepository.findById("6N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				SARDINIA-6N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("SARDINIA-6N");
+				placeEntity.setMapEntity(mapRepository.findById("6N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				CRETA-6N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("CRETA-6N");
+				placeEntity.setMapEntity(mapRepository.findById("6N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				COMOROS-6N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("COMOROS-6N");
+				placeEntity.setMapEntity(mapRepository.findById("6N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				MALLORCA-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("MALLORCA-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				CAPRI-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("CAPRI-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				NAXOS-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("NAXOS-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				CORSICA-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("CORSICA-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				CURACAO-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("CURACAO-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				PAROS-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("PAROS-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				GUADELOUPE-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("GUADELOUPE-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				GALAPAGOS-5N
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("GALAPAGOS-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
+				placeRepository.save(placeEntity);
+
+//				SECZONE-PS2
+				placeEntity = new PlaceEntity();
+				placeEntity.setPlaceNameId("SECZONE-PS2");
+				placeEntity.setMapEntity(mapRepository.findById("PS2").orElse(null));
+				placeRepository.save(placeEntity);
 				return;
 			}
 
