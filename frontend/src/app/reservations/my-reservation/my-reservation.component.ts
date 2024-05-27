@@ -65,7 +65,8 @@ export class MyReservationComponent {
   }
 
   onSeeMap(reservation: ReservationsComponent) {
-    const mapId = reservation.placeNameId[4] + reservation.placeNameId[5];
+    const mapId = reservation.placeNameId[reservation.placeNameId.length - 2] + reservation.placeNameId[reservation.placeNameId.length - 1];
+    console.log(mapId);
     this.router.navigate(['/maps/' + mapId + '/availabilities/' + reservation.reservationDate + '/' + reservation.reservationStartHour]);
   }
 }

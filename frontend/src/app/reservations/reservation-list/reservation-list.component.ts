@@ -61,4 +61,8 @@ export class ReservationListComponent {
   ngOnDestroy() {
     this.themeSubscription.unsubscribe();
   }
+
+  myReservations() {
+    this.router.navigate(['my/reservations']);
+  }
 }
