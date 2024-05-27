@@ -8,6 +8,8 @@ import java.time.LocalTime;
 
 @Data
 public class ReservationFullDto {
+    String reservationId;
+
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate reservationDate;
 

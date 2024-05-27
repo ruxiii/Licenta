@@ -45,8 +45,9 @@ public class ReservationController {
         return reservationService.updateReservation(id, reservationFullDto);
     }
 
-    @GetMapping("/my/reservations/{id}")
-    public List<ReservationFullDto> getMyReservations(@PathVariable String id) throws ReservationNotFoundException {
-        return reservationService.getMyReservations(id);
+
+    @GetMapping("my/reservations/{id}")
+    public List<ReservationFullDto> myReservations(@PathVariable String id) throws ReservationCanNotBeMadeException, ReservationNotFoundException {
+       return reservationService.myReservations(id);
     }
 }

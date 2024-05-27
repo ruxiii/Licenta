@@ -50,6 +50,7 @@ public class ReservationService {
                 String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
                 String eventName = reservationEntity.getEventEntity().getEventName();
                 ReservationFullDto reservationDto = new ReservationFullDto();
+                reservationDto.setReservationId(String.valueOf(reservationEntity.getReservationId()));
                 reservationDto.setReservationDate(reservationEntity.getReservationDate());
                 reservationDto.setReservationStartHour(reservationEntity.getReservationStartHour());
                 reservationDto.setReservationEndHour(reservationEntity.getReservationEndHour());
@@ -194,28 +195,25 @@ public class ReservationService {
         }
     }
 
-    public List<ReservationFullDto> getMyReservations(String id) throws ReservationNotFoundException {
-        if (userRepository.findById(id).isEmpty()) {
+    public List<ReservationFullDto> myReservations(String userId) throws ReservationNotFoundException {
+        if (userRepository.findById(userId).isEmpty()) {
             throw new ReservationNotFoundException("User not found");
         } else {
-            UserEntity userEntity = userRepository.findById(id).get();
+            UserEntity userEntity = userRepository.findById(userId).get();
             List<ReservationEntity> reservations = userEntity.getReservations();
             List<ReservationFullDto> reservationDtos = new ArrayList<>();
             for (ReservationEntity reservationEntity : reservations) {
-                if(reservationEntity.getUserEntity().getUserId() == id) {
-                    String userId = reservationEntity.getUserEntity().getUserId();
-                    String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
-                    String eventName = reservationEntity.getEventEntity().getEventName();
-                    ReservationFullDto reservationFullDto = new ReservationFullDto();
-                    reservationFullDto.setReservationDate(reservationEntity.getReservationDate());
-                    reservationFullDto.setReservationStartHour(reservationEntity.getReservationStartHour());
-                    reservationFullDto.setReservationEndHour(reservationEntity.getReservationEndHour());
-                    reservationFullDto.setUserId(userId);
-//                place id cred ca trebuie sa dispara
-                    reservationFullDto.setPlaceNameId(placeId);
-                    reservationFullDto.setEventName(eventName);
-                    reservationDtos.add(reservationFullDto);
-                }
+                String placeId = reservationEntity.getPlaceEntity().getPlaceNameId();
+                String eventName = reservationEntity.getEventEntity().getEventName();
+                ReservationFullDto reservationDto = new ReservationFullDto();
+                reservationDto.setReservationId(String.valueOf(reservationEntity.getReservationId()));
+                reservationDto.setReservationDate(reservationEntity.getReservationDate());
+                reservationDto.setReservationStartHour(reservationEntity.getReservationStartHour());
+                reservationDto.setReservationEndHour(reservationEntity.getReservationEndHour());
+                reservationDto.setUserId(userId);
+                reservationDto.setPlaceNameId(placeId);
+                reservationDto.setEventName(eventName);
+                reservationDtos.add(reservationDto);
             }
             return reservationDtos;
         }

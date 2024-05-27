@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +31,8 @@ public class LicentaApplication {
 						  TeamRepository teamRepository,
 						  MapRepository mapRepository,
 						  PlaceRepository placeRepository,
-						  EventRepository eventRepository){
+						  EventRepository eventRepository,
+						  ReservationRepository reservationRepository){
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isPresent()) {
 //				TODO: DE AVUT GRIJA CU ASTA CA NU MAI MERGE DACA N AM HARTA IN BD
@@ -65,6 +69,24 @@ public class LicentaApplication {
 						placeRepository.save(place);
 					}
 				}
+
+				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+				DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+				ReservationEntity reservationEntity = new ReservationEntity();
+
+				reservationEntity.setReservationDate(LocalDate.parse("21-01-2024", dateFormatter));
+				reservationEntity.setReservationStartHour(LocalTime.parse("12:00", timeFormatter));
+				reservationEntity.setReservationEndHour(LocalTime.parse("12:00", timeFormatter));
+
+				UserEntity user = userRepository.findById("T0").orElse(null);
+				EventEntity eventEntity = eventRepository.findById(1L).orElse(null);
+
+				reservationEntity.setUserEntity(user);
+				reservationEntity.setPlaceEntity(placeRepository.findById("D1-6S").orElse(null));
+				reservationEntity.setEventEntity(eventEntity);
+
+				reservationRepository.save(reservationEntity);
 				return;
 			}
 

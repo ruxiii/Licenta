@@ -44,7 +44,7 @@ public class ReservationEntity {
     @NotNull
     private UserEntity userEntity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "placeNameId", referencedColumnName = "placeNameId")
     @NotNull
     private PlaceEntity placeEntity;

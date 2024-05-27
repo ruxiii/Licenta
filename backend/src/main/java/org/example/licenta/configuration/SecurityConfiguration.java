@@ -72,6 +72,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps")).permitAll();
                     authorize.requestMatchers(new AntPathRequestMatcher("/places")).permitAll();
                     authorize.requestMatchers(new AntPathRequestMatcher("/events")).permitAll();
+                    authorize.requestMatchers(new AntPathRequestMatcher("/reservations")).permitAll();
 
 //                    permisiuni admin
                     authorize.requestMatchers(new AntPathRequestMatcher("/teams/{id}/update")).hasRole("ADMIN");
@@ -98,6 +99,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}/availabilities/{date}")).hasAnyRole("USER", "ADMIN");
                     authorize.requestMatchers(new AntPathRequestMatcher("/maps/{id}/availabilities/{date}/{hour}")).hasAnyRole("USER", "ADMIN");
+                    authorize.requestMatchers(new AntPathRequestMatcher("/my/reservations/{id}")).hasAnyRole("USER", "ADMIN");
                 });
 
 
