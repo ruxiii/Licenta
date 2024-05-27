@@ -7,9 +7,9 @@
         <div *ngIf=retrievedImage>
             <img [src]="retrievedImage">
         <!-- D1-6S -->
-            <button [class.myReservation]="isUserReservation('D1-6S')" [class.reserved]="seatFunction('D1-6S') && !isUserReservation('D1-6S')" [disabled]="seatFunction('D1-6S')" [class.highlighted]="isHighlighted('D1-6S')" style="position: absolute; top: 381px; left: 181px; z-index: 999;" (click)="onSeatClick('D1-6S')"></button>
+            <button [class.myReservation]="isUserReservation('D1-6S') && seatFunction('D1-6S')" [class.reserved]="seatFunction('D1-6S') && !isUserReservation('D1-6S')" [disabled]="seatFunction('D1-6S')" [class.highlighted]="isHighlighted('D1-6S')" style="position: absolute; top: 381px; left: 181px; z-index: 999;" (click)="onSeatClick('D1-6S')"></button>
         <!-- D2-6S -->
-            <button [class.myReservation]="isUserReservation('D2-6S')" [class.reserved]="seatFunction('D2-6S') && !isUserReservation('D2-6S')" [disabled]="seatFunction('D2-6S')" [class.highlighted]="isHighlighted('D2-6S')" style="position: absolute; top: 364px; left: 177px; z-index: 999;" (click)="onSeatClick('D2-6S')"></button>
+            <button [class.myReservation]="isUserReservation('D2-6S') && seatFunction('D2-6S')" [class.reserved]="seatFunction('D2-6S') && !isUserReservation('D2-6S')" [disabled]="seatFunction('D2-6S')" [class.highlighted]="isHighlighted('D2-6S')" style="position: absolute; top: 364px; left: 177px; z-index: 999;" (click)="onSeatClick('D2-6S')"></button>
         <!-- D3-6S -->
             <button [class.myReservation]="isUserReservation('D3-6S')" [class.reserved]="seatFunction('D3-6S') && !isUserReservation('D3-6S')" [disabled]="seatFunction('D3-6S')" [class.highlighted]="isHighlighted('D3-6S')" style="position: absolute; top: 345px; left: 171px; z-index: 999;" (click)="onSeatClick('D3-6S')"></button>
         <!-- D4-6S -->
@@ -75,7 +75,7 @@
         <!-- D34-6S -->
             <button [class.myReservation]="isUserReservation('D34-6S')" [class.reserved]="seatFunction('D34-6S') && !isUserReservation('D34-6S')" [disabled]="seatFunction('D34-6S')" [class.highlighted]="isHighlighted('D34-6S')" style="position: absolute; top: 326px; left: 410px; z-index: 999;" (click)="onSeatClick('D34-6S')"></button>
         <!-- D35-6S -->
-            <button [class.myReservation]="isUserReservation('D35-6S')" [class.reserved]="seatFunction('D35-6S') && !isUserReservation('D35-6S')" [disabled]="seatFunction('D35-6S')" [class.highlighted]="isHighlighted('D35-6S')" style="position: absolute; top: 306px; left: 404px; z-index: 999;" (click)="onSeatClick('D35-6S')"></button>
+            <button [class.myReservation]="isUserReservation('D35-6S') && seatFunction('D35-6S')" [class.reserved]="seatFunction('D35-6S') && !isUserReservation('D35-6S')" [disabled]="seatFunction('D35-6S')" [class.highlighted]="isHighlighted('D35-6S')" style="position: absolute; top: 306px; left: 404px; z-index: 999;" (click)="onSeatClick('D35-6S')"></button>
         <!-- D36-6S -->
             <button [class.myReservation]="isUserReservation('D36-6S')" [class.reserved]="seatFunction('D36-6S') && !isUserReservation('D36-6S')" [disabled]="seatFunction('D36-6S')" [class.highlighted]="isHighlighted('D36-6S')" style="position: absolute; top: 287px; left: 400px; z-index: 999;" (click)="onSeatClick('D36-6S')"></button>
         <!-- D37-6S -->

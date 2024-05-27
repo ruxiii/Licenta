@@ -53,5 +53,6 @@ export class HeaderComponent implements OnDestroy, OnInit {
 
   onLogout(event: any) {
     this.userService.logout();
+    this.showSubMenu = false;
   }
 }

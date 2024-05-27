@@ -9,6 +9,7 @@ import { ConfirmationDialogSeatReservedComponent } from '../../confirmation-dial
 import { Output, EventEmitter } from '@angular/core';
 import { ReservationsService } from '../../reservations/reservations.service';
 import { UsersService } from '../../users/users.service';
+import { ReservationsComponent } from '../../reservations/reservations.component';
 
 @Component({
   selector: 'app-map-for-reservation',
@@ -31,7 +32,7 @@ export class MapForReservationComponent implements OnInit{
   hourToBeShown: string;
   timeSlots: string[][];
   hourToBeShown2: string;
-  reservations: any;
+  reservations: ReservationsComponent[];
   loggedInUserName: string;
 
   constructor(
@@ -39,7 +40,7 @@ export class MapForReservationComponent implements OnInit{
               private mapsService: MapsService,
               private router: Router,
               public dialog: MatDialog,
-              public reservationService: ReservationsService,
+              private reservationsService: ReservationsService,
               private userService: UsersService
   ) { }
 
@@ -50,17 +51,18 @@ export class MapForReservationComponent implements OnInit{
       this.hour = params['hour'];
     });
     this.fetchImage();
-    this.reservationService.getReservations().subscribe(data => {
+    this.reservationsService.getReservations().subscribe(data => {
       this.reservations = data;
+      // console.log(this.reservations);
     });
+    
+
     this.userService.username$.subscribe(username => {
       this.loggedInUserName = username;
     });
   }
 
   fetchImage() {
-    console.log(this.imgId);
-    console.log(this.date);
     this.mapsService.getMapById(this.imgId, this.date, this.hour).subscribe(
       res => {
         const mapEntityKey = Object.values(res)[0];
@@ -116,6 +118,7 @@ export class MapForReservationComponent implements OnInit{
     }
 
   seatFunction(seatId: string): boolean {
+    // console.log(this.unavailableSeats);
     return this.unavailableSeats.includes(seatId);
   }
 
@@ -136,10 +139,8 @@ export class MapForReservationComponent implements OnInit{
 
     this.hours = this.hours.sort((a, b) => a.localeCompare(b)); 
     this.hourToBeShown = '';
-    console.log("hourToBeShown before loop", this.hourToBeShown);
 
     for (let i = 0; i < this.hours.length; i++) {
-      console.log("current hour", this.hours[i]);
       if (this.hour < this.hours[i]) {
         this.hourToBeShown = this.hours[i];
         break; 
@@ -202,10 +203,6 @@ export class MapForReservationComponent implements OnInit{
   }
 
   isUserReservation(seatId: string): boolean {
-    return this.reservations.some(reservation => reservation.placeNameId === seatId && reservation.userId === this.loggedInUserName);
-  }
-
-  goBack() {
-    this.router.navigate(['/maps/' + this.imgId + '/availabilities/' + this.date]);
+    return this.reservations.some(reservation => reservation.placeNameId === seatId && reservation.userId === this.loggedInUserName && reservation.reservationDate === this.date);
   }
 }

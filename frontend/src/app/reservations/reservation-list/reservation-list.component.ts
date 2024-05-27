@@ -35,6 +35,8 @@ export class ReservationListComponent {
   ngOnInit() {
     this.reservationsService.getReservations().subscribe(data => {
       this.reservations = data;
+      console.log(this.reservations);
+
     });
     this.postList();
   }

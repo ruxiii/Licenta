@@ -1,0 +1,39 @@
+td {
+    background-color: #ffffff;
+  }
+  
+  button.btn.btn-primary.btn-info{
+    background-color: #e1ad01;
+    border-color: #e1ad01;
+}
+
+
+  .ngx-pagination {
+    margin-left: 0;
+    margin-bottom: 1rem;
+    color: black;
+  }
+  
+  .dark-theme tr {
+      background-color: grey ;
+      color: #ffffff; /* White text color */
+  }
+  
+  .dark-theme td {
+    background-color: grey ;
+    color: #ffffff; /* White text color */
+  }
+  
+  .dark-theme {
+      .ngx-pagination a, .ngx-pagination button {
+          color: #ffffff;
+          display: block;
+          padding: 0.1875rem 0.625rem;
+          border-radius: 0;
+      }
+    
+      .ngx-pagination a:hover, .dark-theme .ngx-pagination button:hover {
+        color: black; /* Change color on hover */
+      }
+    }
+  

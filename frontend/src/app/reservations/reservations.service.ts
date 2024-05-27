@@ -10,11 +10,13 @@ export class ReservationsService{
 
     private reservationUrl : string;
     private createReservationUrl : string;
+    private myReservationUrl : string;
     tokenType = 'Bearer ';
 
     constructor(private http: HttpClient) { 
         this.reservationUrl = 'http://localhost:8080/reservations';
         this.createReservationUrl = 'http://localhost:8080/';
+        this.myReservationUrl = 'http://localhost:8080/my/reservations/';
     }
 
     public getReservations(): Observable<ReservationsComponent[]> {
@@ -37,6 +39,15 @@ export class ReservationsService{
                 eventName,
                 userId
             }, headers);
+        }
+    }
+
+    public getMyReservations(userId: string): Observable<ReservationsComponent[]> {
+        const url = '/login';
+        if (typeof window !== "undefined") {  
+            const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+            const headers = { headers: header };
+            return this.http.get<ReservationsComponent[]>(this.myReservationUrl + userId, headers);
         }
     }
 }

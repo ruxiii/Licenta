@@ -83,7 +83,10 @@ export class ReservationEditComponent {
        value.startHour, 
        value.endHour).subscribe(
         () => {
-          this.router.navigate(['/reservations']);
+          if(this.loggedInUserName === 'ADMIN')
+            this.router.navigate(['/reservations']);
+          else
+            this.router.navigate(['my/reservations']);
         },
         error => {
           if (error.status === 401 || error.status === 403) {
