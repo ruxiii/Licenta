@@ -1,6 +1,7 @@
 package org.example.licenta.controllers;
 
 import org.example.licenta.db.entities.PlaceEntity;
+import org.example.licenta.dto.MeetingRoomReservationDto;
 import org.example.licenta.dto.PlaceDto;
 import org.example.licenta.dto.ReservationDto;
 import org.example.licenta.dto.ReservationFullDto;
@@ -42,8 +43,8 @@ public class ReservationController {
     }
 
     @PostMapping("/{imgId}/{date}/reservation/meetingRoom/{roomId}")
-    public PlaceDto createMeetingRoomReservation(@PathVariable String imgId, @PathVariable String date, @PathVariable String roomId, @RequestBody ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
-        return reservationService.createMeetingRoomReservation(imgId, date, roomId, reservationDto);
+    public PlaceDto createMeetingRoomReservation(@PathVariable String imgId, @PathVariable String date, @PathVariable String roomId, @RequestBody MeetingRoomReservationDto meetingRoomReservationDto) throws ReservationCanNotBeMadeException {
+        return reservationService.createMeetingRoomReservation(imgId, date, roomId, meetingRoomReservationDto);
     }
 
 //    TODO: implement this; nu i corect dar merge pentru moment

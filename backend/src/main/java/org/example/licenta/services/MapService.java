@@ -61,7 +61,6 @@ public class MapService {
         }
     }
 
-    //    TODO: de adaptat ca rezervarile sa fie si n functie de ora
     public List<Object> getMapById(String id, String date, String hour) throws MapNotFoundException {
         Optional<MapEntity> map = mapRepository.findById(id);
         if (map.isEmpty()) {
