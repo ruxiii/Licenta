@@ -8,10 +8,13 @@ import org.example.licenta.db.repositories.EventRepository;
 import org.example.licenta.db.repositories.PlaceRepository;
 import org.example.licenta.db.repositories.ReservationRepository;
 import org.example.licenta.db.repositories.UserRepository;
+import org.example.licenta.dto.PlaceDto;
 import org.example.licenta.dto.ReservationDto;
 import org.example.licenta.dto.ReservationFullDto;
 import org.example.licenta.exceptions.ReservationCanNotBeMadeException;
 import org.example.licenta.exceptions.ReservationNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -129,7 +132,6 @@ public class ReservationService {
             throw new ReservationCanNotBeMadeException("Invalid time format");
         }
 
-        // Check if the requested reservation overlaps with any existing reservations for the same place
         List<ReservationEntity> existingReservations = reservationRepository.findByPlaceEntityAndReservationDate(placeEntity, reservationDate);
 
         for (ReservationEntity existingReservation : existingReservations) {
@@ -217,5 +219,121 @@ public class ReservationService {
             }
             return reservationDtos;
         }
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
+
+    public PlaceDto createMeetingRoomReservation(String imgId, String date, String roomId, ReservationDto reservationDto) throws ReservationCanNotBeMadeException {
+        logger.info("Starting reservation creation process for userId: {}", reservationDto.getUserId());
+
+        if (userRepository.findById(reservationDto.getUserId()).isEmpty()) {
+            logger.error("User not found");
+            throw new ReservationCanNotBeMadeException("User not found");
+        }
+
+        Optional<PlaceEntity> placeOptional = placeRepository.findById(roomId);
+        if (placeOptional.isEmpty()) {
+            logger.error("Place not found");
+            throw new ReservationCanNotBeMadeException("Place not found");
+        }
+
+        UserEntity userEntity = userRepository.findById(reservationDto.getUserId()).get();
+        PlaceEntity placeEntity = placeOptional.get();
+
+        String eventName = reservationDto.getEventName();
+        EventEntity eventEntity = eventRepository.findByEventName(eventName);
+        if (eventEntity == null) {
+            logger.error("Event not found");
+            throw new ReservationCanNotBeMadeException("Event not found");
+        }
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate reservationDate;
+        try {
+            reservationDate = LocalDate.parse(date, dateFormatter);
+        } catch (DateTimeParseException e) {
+            logger.error("Invalid date format: {}", date);
+            throw new ReservationCanNotBeMadeException("Invalid date format");
+        }
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime reservationStartHour;
+        LocalTime reservationEndHour;
+        try {
+            reservationStartHour = LocalTime.parse(reservationDto.getReservationStartHour(), timeFormatter);
+            reservationEndHour = LocalTime.parse(reservationDto.getReservationEndHour(), timeFormatter);
+        } catch (DateTimeParseException e) {
+            logger.error("Invalid time format: {} - {}", reservationDto.getReservationStartHour(), reservationDto.getReservationEndHour());
+            throw new ReservationCanNotBeMadeException("Invalid time format");
+        }
+
+        if (!isPlaceAvailable(placeEntity, reservationDate, reservationStartHour, reservationEndHour)) {
+            logger.info("Place not available, searching for alternative");
+            placeEntity = findOptimalAlternativePlace(reservationDate, reservationStartHour, reservationEndHour)
+                    .orElseThrow(() -> {
+                        logger.error("No available places for the requested time interval");
+                        return new ReservationCanNotBeMadeException("No available places for the requested time interval");
+                    });
+        }
+
+        ReservationEntity reservationEntity = new ReservationEntity();
+        reservationEntity.setReservationDate(reservationDate);
+        reservationEntity.setReservationStartHour(reservationStartHour);
+        reservationEntity.setReservationEndHour(reservationEndHour);
+        reservationEntity.setUserEntity(userEntity);
+        reservationEntity.setPlaceEntity(placeEntity);
+        reservationEntity.setEventEntity(eventEntity);
+
+        reservationRepository.save(reservationEntity);
+
+        logger.info("Reservation created successfully for userId: {}", reservationDto.getUserId());
+
+        PlaceDto placeDto = new PlaceDto();
+        placeDto.setPlaceNameId(placeEntity.getPlaceNameId());
+        placeDto.setMapNameId(placeEntity.getMapEntity().getMapNameId());
+        return placeDto;
+    }
+
+    private boolean isPlaceAvailable(PlaceEntity placeEntity, LocalDate date, LocalTime startHour, LocalTime endHour) {
+        List<ReservationEntity> existingReservations = reservationRepository.findByPlaceEntityAndReservationDate(placeEntity, date);
+        for (ReservationEntity existingReservation : existingReservations) {
+            LocalTime existingStartHour = existingReservation.getReservationStartHour();
+            LocalTime existingEndHour = existingReservation.getReservationEndHour();
+            if (startHour.isBefore(existingEndHour) && endHour.isAfter(existingStartHour)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Optional<PlaceEntity> findOptimalAlternativePlace(LocalDate date, LocalTime startHour, LocalTime endHour) {
+        List<PlaceEntity> allPlaces = placeRepository.findAll();
+
+        // Sort places based on some heuristic that represents their optimal usage
+        allPlaces.sort((place1, place2) -> {
+            int availability1 = calculateAvailabilityScore(place1, date, startHour, endHour);
+            int availability2 = calculateAvailabilityScore(place2, date, startHour, endHour);
+            return Integer.compare(availability1, availability2);
+        });
+
+        for (PlaceEntity place : allPlaces) {
+            if (isPlaceAvailable(place, date, startHour, endHour)) {
+                return Optional.of(place);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private int calculateAvailabilityScore(PlaceEntity placeEntity, LocalDate date, LocalTime startHour, LocalTime endHour) {
+        List<ReservationEntity> existingReservations = reservationRepository.findByPlaceEntityAndReservationDate(placeEntity, date);
+        int score = 0;
+        for (ReservationEntity reservation : existingReservations) {
+            LocalTime existingStartHour = reservation.getReservationStartHour();
+            LocalTime existingEndHour = reservation.getReservationEndHour();
+            if (startHour.isBefore(existingEndHour) && endHour.isAfter(existingStartHour)) {
+                score++;
+            }
+        }
+        return score;
     }
 }
