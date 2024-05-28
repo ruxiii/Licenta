@@ -71,3 +71,5 @@
 ***26.05.2024***  - AM format now accepted in the backend + back buttons + highlights for all seats except meeting rooms
 
 ***27.05.2024***  - Dark mode for clock + deleting the reservation started + my/reservations endpoint + see on the map the reserved place + hardcoded some things so that it won't be problems if i delete the database + meeting rooms added in the databse + buttons for places should work properly now (there were some errors when i logged with another account => but they should be fixed now) + the buttons should be green if the place is not reserved, red if it s reserved and yellow if it is reserved by the logged user
+
+***28.05.2024***  - Greedy for meeting rooms, frontend adapted to this, colors for the meeting rooms (not the one with weird shape)
