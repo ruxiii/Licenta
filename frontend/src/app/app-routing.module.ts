@@ -23,6 +23,7 @@ import { ReservationEditComponent } from './reservations/reservation-edit/reserv
 import { EventEditComponent } from './events/event-edit/event-edit.component';
 import { ClockComponent } from './clock/clock.component';
 import { MyReservationComponent } from './reservations/my-reservation/my-reservation.component';
+import { MeetingRoomReservationComponent } from './reservations/meeting-room-reservation/meeting-room-reservation.component';
 
 
 const appRoutes: Routes = [
@@ -51,6 +52,8 @@ const appRoutes: Routes = [
     { path: 'reservations', component: ReservationListComponent},
     { path: 'my/reservations', component: MyReservationComponent},
     { path: ':imgId/:date/reservation/:seatId', component: ReservationEditComponent}, 
+    { path: ':imgId/:date/reservation/meetingRoom/:roomId', component: MeetingRoomReservationComponent}, 
+
     
     { path: 'events', component: EventListComponent},
     { path: 'events/create', component: EventEditComponent},

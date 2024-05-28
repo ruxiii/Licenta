@@ -58,6 +58,7 @@ import { EventEditComponent } from './events/event-edit/event-edit.component';
 import { ClockComponent } from './clock/clock.component';
 import { ConfirmationDialogSeatReservedComponent } from './confirmation-dialog-seat-reserved/confirmation-dialog-seat-reserved.component';
 import { MyReservationComponent } from './reservations/my-reservation/my-reservation.component';
+import { MeetingRoomReservationComponent } from './reservations/meeting-room-reservation/meeting-room-reservation.component';
 
 export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
   return new HttpClient(backend);
@@ -101,6 +102,7 @@ export function provideCustomHttpClient(backend: HttpBackend): HttpClient {
     ClockComponent,
     ConfirmationDialogSeatReservedComponent,
     MyReservationComponent,
+    MeetingRoomReservationComponent,
   ],
   imports: [
     BrowserModule,

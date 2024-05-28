@@ -115,6 +115,86 @@ export class MapForReservationComponent implements OnInit{
         this.unavailableSeats.push(seatId);
       }
     }
+
+      if(!reservationsAvailableArray.includes('JAVA-6S')){
+        this.unavailableSeats.push('JAVA-6S');
+      }
+
+      if(!reservationsAvailableArray.includes('SICILY-6S')){
+        this.unavailableSeats.push('SICILY-6S');
+      }
+
+      if(!reservationsAvailableArray.includes('CYPRUS-6S')){
+        this.unavailableSeats.push('CYPRUS-6S');
+      }
+
+      if(!reservationsAvailableArray.includes('RHODES-6S')){
+        this.unavailableSeats.push('RHODES-6S');
+      }
+
+      if(!reservationsAvailableArray.includes('SEYCHELLES-6S')){
+        this.unavailableSeats.push('SEYCHELLES-6S');
+      }
+
+      if(!reservationsAvailableArray.includes('THASSOS-6S')){
+        this.unavailableSeats.push('THASSOS-6S');
+      }
+
+      if(!reservationsAvailableArray.includes('PALAWAN-6S')){
+        this.unavailableSeats.push('PALAWAN-6S');
+      }
+
+      if(!reservationsAvailableArray.includes('SANTORINI-6N')){
+        this.unavailableSeats.push('SANTORINI-6N');
+      }
+
+      if(!reservationsAvailableArray.includes('SARDINIA-6N')){
+        this.unavailableSeats.push('SARDINIA-6N');
+      }
+
+      if(!reservationsAvailableArray.includes('CRETA-6N')){
+        this.unavailableSeats.push('CRETA-6N');
+      }
+
+      if(!reservationsAvailableArray.includes('COMOROS-6N')){
+        this.unavailableSeats.push('COMOROS-6N');
+      }
+
+      if(!reservationsAvailableArray.includes('MALLORCA-5N')){
+        this.unavailableSeats.push('MALLORCA-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('CAPRI-5N')){
+        this.unavailableSeats.push('CAPRI-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('NAXOS-5N')){
+        this.unavailableSeats.push('NAXOS-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('CORSICA-5N')){
+        this.unavailableSeats.push('CORSICA-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('CURACAO-5N')){
+        this.unavailableSeats.push('CURACAO-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('PAROS-5N')){
+        this.unavailableSeats.push('PAROS-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('GUADELOUPE-5N')){
+        this.unavailableSeats.push('GUADELOUPE-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('GALAPAGOS-5N')){
+        this.unavailableSeats.push('GALAPAGOS-5N');
+      }
+
+      if(!reservationsAvailableArray.includes('SECZONE2-5N')){
+        this.unavailableSeats.push('SECZONE2-5N');
+      }
     }
 
   seatFunction(seatId: string): boolean {
@@ -165,7 +245,14 @@ export class MapForReservationComponent implements OnInit{
     
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
-          this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/' + seatId]);      
+          if(seatId === 'JAVA-6S' || seatId ==='SICILY-6S'  || seatId ==='CYPRUS-6S' || seatId ==='RHODES-6S' || seatId ==='SEYCHELLES-6S' || seatId ==='THASSOS-6S' || seatId ==='PALAWAN-6S' 
+          || seatId ==='SANTORINI-6N' || seatId ==='SARDINIA-6N' || seatId === 'CRETA-6N' || seatId === 'COMOROS-6N' || seatId === 'MALLORCA-5N' || seatId === 'CAPRI-5N' || seatId === 'NAXOS-5N' || seatId === 'CORSICA-5N'
+          || seatId === 'CURACAO-5N' || seatId ==='PAROS-5N' || seatId === 'GUADELOUPE-5N' || seatId === 'GALAPAGOS-5N' || seatId === 'SECZONE2-5N'){
+            this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/meetingRoom/' + seatId]);
+          }
+          else{
+            this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/' + seatId]);      
+          }
         }
         else {
           this.highlightedSeat = null;
@@ -181,7 +268,14 @@ export class MapForReservationComponent implements OnInit{
     
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'yes') {
-          this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/' + seatId]);      
+          if(seatId === 'JAVA-6S' || seatId ==='SICILY-6S'  || seatId ==='CYPRUS-6S' || seatId ==='RHODES-6S' || seatId ==='SEYCHELLES-6S' || seatId ==='THASSOS-6S' || seatId ==='PALAWAN-6S' 
+          || seatId ==='SANTORINI-6N' || seatId ==='SARDINIA-6N' || seatId === 'CRETA-6N' || seatId === 'COMOROS-6N' || seatId === 'MALLORCA-5N' || seatId === 'CAPRI-5N' || seatId === 'NAXOS-5N' || seatId === 'CORSICA-5N'
+          || seatId === 'CURACAO-5N' || seatId ==='PAROS-5N' || seatId === 'GUADELOUPE-5N' || seatId === 'GALAPAGOS-5N' || seatId === 'SECZONE2-5N'){
+            this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/meetingRoom/' + seatId]);
+          }
+          else{
+            this.router.navigate(['/' + this.imgId + '/' + this.date + '/reservation/' + seatId]);      
+          }
         }
         else {
           this.highlightedSeat = null;

@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { ReservationsComponent } from "./reservations.component";
 import { HttpHeaders } from "@angular/common/http";
 import { eventNames } from "process";
+import { PlacesComponent } from "../places/places.component";
 
 @Injectable()
 export class ReservationsService{
@@ -11,12 +12,14 @@ export class ReservationsService{
     private reservationUrl : string;
     private createReservationUrl : string;
     private myReservationUrl : string;
+    private createMeetingRoomReservationUrl : string;
     tokenType = 'Bearer ';
 
     constructor(private http: HttpClient) { 
         this.reservationUrl = 'http://localhost:8080/reservations';
         this.createReservationUrl = 'http://localhost:8080/';
         this.myReservationUrl = 'http://localhost:8080/my/reservations/';
+        this.createMeetingRoomReservationUrl = 'http://localhost:8080/';
     }
 
     public getReservations(): Observable<ReservationsComponent[]> {
@@ -48,6 +51,21 @@ export class ReservationsService{
             const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
             const headers = { headers: header };
             return this.http.get<ReservationsComponent[]>(this.myReservationUrl + userId, headers);
+        }
+    }
+
+    public createMeetingRoomReservation(imgId: string, date: string, roomId: string, userId: string, eventName: string, reservationStartHour: string, reservationEndHour: string, flag: boolean): Observable<PlacesComponent> {
+        const url = '/login';
+        if (typeof window !== "undefined") {  
+            const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+            const headers = { headers: header };
+            return this.http.post<PlacesComponent>(this.createMeetingRoomReservationUrl + imgId + '/' + date + '/reservation/meetingRoom/' + roomId , {
+                reservationStartHour,
+                reservationEndHour,
+                eventName,
+                userId,
+                flag
+            }, headers);
         }
     }
 }
