@@ -23,10 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -228,7 +225,10 @@ public class ReservationService {
                 reservationDto.setEventName(eventName);
                 reservationDtos.add(reservationDto);
             }
-            return reservationDtos;
+
+            return reservationDtos.stream()
+                    .sorted(Comparator.comparing(ReservationFullDto::getReservationDate).reversed())
+                    .collect(Collectors.toList());
         }
     }
 
