@@ -71,7 +71,7 @@ export class MyReservationComponent {
 
   isExpired(reservationDate: string, reservationEndHour: string): boolean {
     const currentDateTime = new Date();
-    console.log(currentDateTime);
+    // console.log(currentDateTime);
   
     const [day, month, year] = reservationDate.split('-');
   
@@ -80,11 +80,17 @@ export class MyReservationComponent {
     const [hour, minute] = reservationEndHour.split(':');
     reservationEndDateTime.setHours(parseInt(hour));
     reservationEndDateTime.setMinutes(parseInt(minute));
-    console.log(reservationEndDateTime);
+    // console.log(reservationEndDateTime);
 
     if (currentDateTime > reservationEndDateTime) {
       return true;
     }
+  }
+
+  deleteReservation(reservation: ReservationsComponent) {
+    this.reservationsService.deleteReservation(reservation.reservationId).subscribe(data => {
+      this.reservations = this.reservations.filter(u => u !== reservation);
+    });
   }
   
 }

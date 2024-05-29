@@ -13,6 +13,7 @@ export class ReservationsService{
     private createReservationUrl : string;
     private myReservationUrl : string;
     private createMeetingRoomReservationUrl : string;
+    private deleteReservationUrl : string;
     tokenType = 'Bearer ';
 
     constructor(private http: HttpClient) { 
@@ -20,6 +21,7 @@ export class ReservationsService{
         this.createReservationUrl = 'http://localhost:8080/';
         this.myReservationUrl = 'http://localhost:8080/my/reservations/';
         this.createMeetingRoomReservationUrl = 'http://localhost:8080/';
+        this.deleteReservationUrl = 'http://localhost:8080/reservations/';
     }
 
     public getReservations(): Observable<ReservationsComponent[]> {
@@ -66,6 +68,15 @@ export class ReservationsService{
                 userId,
                 flag
             }, headers);
+        }
+    }
+
+    public deleteReservation(reservationId: string): Observable<ReservationsComponent> {
+        const url = '/login';
+        if (typeof window !== "undefined") {  
+            const header = new HttpHeaders().set('Authorization', this.tokenType + window.localStorage.getItem("auth_token")); 
+            const headers = { headers: header };
+            return this.http.delete<ReservationsComponent>(this.deleteReservationUrl + reservationId + '/delete', headers);
         }
     }
 }
