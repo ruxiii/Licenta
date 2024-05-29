@@ -17,7 +17,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @GetMapping("/departments")
-    public List<DepartmentDto> getDepartments() throws DepartmentNotFoundException {
+    public List<DepartmentDto> getDepartments() throws NullPointerException {
         return departmentService.getDepartments();
     }
 

@@ -18,9 +18,13 @@ public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    public List<DepartmentDto> getDepartments() throws DepartmentNotFoundException {
+    public DepartmentService(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
+
+    public List<DepartmentDto> getDepartments() throws NullPointerException {
         if (departmentRepository.findAll().isEmpty()) {
-            throw new DepartmentNotFoundException("No departments found");
+            throw new NullPointerException("No departments found");
         }
         else {
             List<DepartmentEntity> departments = departmentRepository.findAll();
@@ -37,14 +41,13 @@ public class DepartmentService {
 
     public DepartmentDto getDepartmentById(String id) throws DepartmentNotFoundException {
         Optional<DepartmentEntity> department = departmentRepository.findById(id);
-        if (department.isEmpty()) {
-            throw new DepartmentNotFoundException("Department not found");
-        }
-        else {
+        if (department.isPresent()) {
             DepartmentDto departmentDto = new DepartmentDto();
             departmentDto.setDepartmentId(department.get().getDepartmentId());
             departmentDto.setDepartmentName(department.get().getDepartmentName());
             return departmentDto;
+        } else {
+            throw new DepartmentNotFoundException("Department not found");
         }
     }
 

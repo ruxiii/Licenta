@@ -9,5 +9,4 @@ class LicentaApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
