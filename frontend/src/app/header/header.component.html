@@ -17,10 +17,9 @@
                 <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/teams">Teams</a></li>
                 <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/users">Users</a></li>
                 <li routerLinkActive="active" *ngIf="(userRole === 'ADMIN' || userRole === 'USER') && loggedInUserName"><a routerLink="/maps">Maps</a></li>
-                <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/places">Places</a></li>
-                <li routerLinkActive="active" *ngIf="loggedInUserName && userRole === 'ADMIN'"><a routerLink="/reservations">Reservations</a></li>
+                <!-- <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/places">Places</a></li> -->
                 <li routerLinkActive="active" *ngIf="userRole === 'ADMIN' && loggedInUserName"><a routerLink="/events">Events</a></li>
-                <li routerLinkActive="active" *ngIf="userRole === 'USER'  && loggedInUserName"><a routerLink="my/reservations">My reservations</a></li>
+                <li routerLinkActive="active" *ngIf="(userRole === 'ADMIN' || userRole === 'USER') && loggedInUserName"><a routerLink="my/reservations">My reservations</a></li>
             </ul>
         </div>
         <ul class="menu" *ngIf="loggedInUserName">

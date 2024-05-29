@@ -38,7 +38,6 @@ export class MyReservationComponent {
     });
     this.reservationsService.getMyReservations(this.loggedInUserName).subscribe(data => {
       this.reservations = data;
-      console.log(this.reservations);
     });
     this.postList();
   }
@@ -69,4 +68,23 @@ export class MyReservationComponent {
     console.log(mapId);
     this.router.navigate(['/maps/' + mapId + '/availabilities/' + reservation.reservationDate + '/' + reservation.reservationStartHour]);
   }
+
+  isExpired(reservationDate: string, reservationEndHour: string): boolean {
+    const currentDateTime = new Date();
+    console.log(currentDateTime);
+  
+    const [day, month, year] = reservationDate.split('-');
+  
+    const reservationEndDateTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  
+    const [hour, minute] = reservationEndHour.split(':');
+    reservationEndDateTime.setHours(parseInt(hour));
+    reservationEndDateTime.setMinutes(parseInt(minute));
+    console.log(reservationEndDateTime);
+
+    if (currentDateTime > reservationEndDateTime) {
+      return true;
+    }
+  }
+  
 }

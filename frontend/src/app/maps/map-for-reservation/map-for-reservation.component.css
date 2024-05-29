@@ -316,6 +316,60 @@ button.rhodes.highlighted{
     border: 2px dashed red;
 }
 
+/* Container for the two buttons */
+.palawan1.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+}
+
+.palawan2.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+    border-bottom: 2px green;
+}
+
+.thassos1.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+}
+
+.thassos2.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+    border-bottom: 2px green;
+    border-left: 2px green;
+}
+
+.seychelles1.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+}
+
+.seychelles2.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+    border-top: 2px green;
+    border-right: 2px green;
+}
+
+button.santorini.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+}
+
+button.sardinia.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+}
+
+button.creta.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+}
+
+.comoros1.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+}
+
+.comoros2.highlighted {
+    border: 2px dashed red; /* Add a border to the container */ 
+    border-top: 2px green;
+}
+
+
+
+
 
 
   

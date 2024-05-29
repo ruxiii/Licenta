@@ -35,5 +35,19 @@ td {
       .ngx-pagination a:hover, .dark-theme .ngx-pagination button:hover {
         color: black; /* Change color on hover */
       }
+
+      .expired {
+        background-color: #AA4A44	
     }
+    }
+
+    
+    .expired {
+      background-color: #ffbeab
+  }
+    
+    .active {
+      background-color: #C1E1C1;
+    }
+    
   
