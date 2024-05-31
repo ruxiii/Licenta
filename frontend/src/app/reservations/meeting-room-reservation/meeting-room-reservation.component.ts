@@ -89,8 +89,7 @@ export class MeetingRoomReservationComponent implements OnInit{
             this.router.navigate(['/maps']);
           }
         } else {
-          alert('Reservation created successfully!');
-          this.router.navigate(['/my/reservations']);
+          this.finalizeReservation(reservationForm);
         }
       },
       (error) => {

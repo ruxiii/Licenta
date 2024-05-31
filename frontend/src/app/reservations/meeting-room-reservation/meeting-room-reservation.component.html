@@ -1,25 +1,3 @@
-<!-- <div>
-  <h2>Book a {{this.roomId}}</h2>
-  <form (ngSubmit)="createReservation()">
-    <div>
-      <label for="eventName">Event Name</label>
-      <input id="eventName" [(ngModel)]="eventName" name="eventName" required>
-    </div>
-    <div>
-      <label for="startHour">Start Hour</label>
-      <input id="startHour" type="time" [(ngModel)]="reservationStartHour" name="startHour" required>
-    </div>
-    <div>
-      <label for="endHour">End Hour</label>
-      <input id="endHour" type="time" [(ngModel)]="reservationEndHour" name="endHour" required>
-    </div>
-    <button type="submit">Book</button>
-  </form>
-  <div *ngIf="suggestedPlace">
-    <p>Suggested Place: {{ suggestedPlace.placeNameId }}</p>
-  </div>
-</div> -->
-
 <h1 style="text-align: center; font-weight: bold; font-size: 35px; margin-left: 80px">Book {{ roomId }}</h1>
 <br/>
 <div class="card my-5" [class.dark-theme]="isDarkMode">

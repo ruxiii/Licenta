@@ -100,7 +100,7 @@ export class ClockComponent {
       // Format the time
       const time = `${hourIn24HourFormat}:${minutes}`;
   
-      console.log(time);
+      // console.log(time);
       // Assuming you want to navigate to a route with parameters including the formatted time
       this.router.navigate(['/maps/' + this.mapId + '/availabilities/' + this.date + "/" + time]);
     }

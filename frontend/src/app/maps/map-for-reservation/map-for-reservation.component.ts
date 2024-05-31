@@ -10,6 +10,7 @@ import { Output, EventEmitter } from '@angular/core';
 import { ReservationsService } from '../../reservations/reservations.service';
 import { UsersService } from '../../users/users.service';
 import { ReservationsComponent } from '../../reservations/reservations.component';
+import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-map-for-reservation',
@@ -214,16 +215,21 @@ export class MapForReservationComponent implements OnInit{
         this.timeSlots.push([this.reservationsDone[i][1], this.reservationsDone[i][2]]);
       }
     }
-
-    console.log(this.timeSlots);
+    console.log("hours", this.hours); 
+    console.log("time slots", this.timeSlots);
 
     this.hours = this.hours.sort((a, b) => a.localeCompare(b)); 
     this.hourToBeShown = '';
-
-    for (let i = 0; i < this.hours.length; i++) {
-      if (this.hour < this.hours[i]) {
-        this.hourToBeShown = this.hours[i];
-        break; 
+    
+    if (this.hours.length === 1){
+      this.hourToBeShown = this.hours[0];
+    } 
+    else{
+      for (let i = 0; i < this.hours.length; i++) {
+        if (this.hour < this.hours[i]) {
+          this.hourToBeShown = this.hours[i];
+          break; 
+        }
       }
     }
 
