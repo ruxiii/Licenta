@@ -70,22 +70,22 @@ public class LicentaApplication {
 					}
 				}
 
-//				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//				DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-//
-//				ReservationEntity reservationEntity = new ReservationEntity();
-//
-//				reservationEntity.setReservationDate(LocalDate.parse("21-01-2024", dateFormatter));
-//				reservationEntity.setReservationStartHour(LocalTime.parse("12:00", timeFormatter));
-//				reservationEntity.setReservationEndHour(LocalTime.parse("12:00", timeFormatter));
-//
-//				UserEntity user = userRepository.findById("T0").orElse(null);
-//				EventEntity eventEntity = eventRepository.findById(1L).orElse(null);
-//
-//				reservationEntity.setUserEntity(user);
-//				reservationEntity.setPlaceEntity(placeRepository.findById("D1-6S").orElse(null));
-//				reservationEntity.setEventEntity(eventEntity);
-//				reservationRepository.save(reservationEntity);
+				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+				DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+				ReservationEntity reservationEntity = new ReservationEntity();
+
+				reservationEntity.setReservationDate(LocalDate.parse("21-01-2024", dateFormatter));
+				reservationEntity.setReservationStartHour(LocalTime.parse("12:00", timeFormatter));
+				reservationEntity.setReservationEndHour(LocalTime.parse("12:00", timeFormatter));
+
+				UserEntity user = userRepository.findById("T0").orElse(null);
+				EventEntity eventEntity = eventRepository.findById(1L).orElse(null);
+
+				reservationEntity.setUserEntity(user);
+				reservationEntity.setPlaceEntity(placeRepository.findById("D1-6S").orElse(null));
+				reservationEntity.setEventEntity(eventEntity);
+				reservationRepository.save(reservationEntity);
 
 //				JAVA-6S
 				PlaceEntity placeEntity = new PlaceEntity();
@@ -203,8 +203,8 @@ public class LicentaApplication {
 
 //				SECZONE-PS2
 				placeEntity = new PlaceEntity();
-				placeEntity.setPlaceNameId("SECZONE-PS2");
-				placeEntity.setMapEntity(mapRepository.findById("PS2").orElse(null));
+				placeEntity.setPlaceNameId("SECZONE2-5N");
+				placeEntity.setMapEntity(mapRepository.findById("5N").orElse(null));
 				placeRepository.save(placeEntity);
 				return;
 			}

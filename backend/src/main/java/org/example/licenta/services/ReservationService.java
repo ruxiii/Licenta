@@ -327,12 +327,10 @@ public class ReservationService {
     private Optional<PlaceEntity> findOptimalAlternativePlace(LocalDate date, LocalTime startHour, LocalTime endHour) {
         List<PlaceEntity> allPlaces = placeRepository.findAll();
 
-        // Filter only the allowed meeting rooms
         List<PlaceEntity> allowedMeetingRooms = allPlaces.stream()
-                .filter(place -> ALLOWED_MEETING_ROOMS.contains(place.getPlaceNameId())) // Assuming PlaceEntity has a method getRoomId() to get the room ID
+                .filter(place -> ALLOWED_MEETING_ROOMS.contains(place.getPlaceNameId()))
                 .collect(Collectors.toList());
 
-        // Sort allowed meeting rooms based on some heuristic that represents their optimal usage
         allowedMeetingRooms.sort((place1, place2) -> {
             int availability1 = calculateAvailabilityScore(place1, date, startHour, endHour);
             int availability2 = calculateAvailabilityScore(place2, date, startHour, endHour);
