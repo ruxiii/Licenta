@@ -1,0 +1,49 @@
+h1{
+    font-size: 55px;
+    text-align: center;
+}
+
+.btn-success{
+    background-color: #009E60;
+    border-color: #009E60;
+}
+
+.btn-info{
+    background-color: #e1ad01;
+    border-color: #e1ad01;
+}
+
+h2{
+    font-size: 25px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.container {
+    display: flex;
+    text-align: center;
+}
+  
+.column {
+    flex: 1;
+    padding: 10px;
+    margin-left: -100px;    
+    text-align: center;
+}
+
+label {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.toggle-password {
+    position: absolute; /* Position button absolute within form-group */
+    top: 365px; /* Adjust top position as needed */
+    right: -84px; /* Adjust right position as needed */
+    padding: 6px 11px; /* Add padding to button */
+    background-color: lightgreen; /* Add background color to button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border-radius */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+  

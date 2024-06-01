@@ -1,0 +1,38 @@
+<br/>
+<div class="card my-5"  style="text-align: center;">
+    <div class="card-body "  style="text-align: center;">
+      <div class="table-container">
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" style="text-align: center;">Date</th>
+              <th scope="col" style="text-align: center;">From</th>
+              <th scope="col" style="text-align: center;">To</th>
+              <th scope="col" style="text-align: center;">User</th>
+              <th scope="col" style="text-align: center;">Place Reserved</th>
+              <th scope="col" style="text-align: center;">Event</th>
+          </tr>
+        </thead>
+        <tbody [class.dark-theme]="isDarkMode">
+          <tr *ngFor="let reservation of reservations | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+            <td>{{ reservation.reservationDate }}</td>
+            <td>{{ reservation.reservationStartHour }}</td>
+            <td>{{ reservation.reservationEndHour }}</td>
+            <td>{{ reservation.userId }}</td>
+            <td>{{ reservation.placeNameId }}</td>
+            <td>{{ reservation.eventName }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center;" [class.dark-theme]="isDarkMode">
+        <pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <button 
+  class="btn btn-success" 
+  style="margin-left: 10%;"
+  (click) = "myReservations()">My reservations</button>

@@ -1,0 +1,5 @@
+<button mat-icon-button (click)="toggleTheme()">
+    <mat-icon [ngClass]="{ 'sun-icon': isDarkMode }">
+        {{ isDarkMode ? 'wb_sunny' : 'nights_stay' }}
+    </mat-icon>
+</button>

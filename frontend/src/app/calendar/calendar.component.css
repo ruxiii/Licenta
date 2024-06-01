@@ -1,0 +1,152 @@
+/* CSS for confirmation dialog */
+
+.arrow-button {
+  display: inline-block;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  background-color: #0066b2;
+  border: none;
+  width: 60px;
+  height: 25px;
+  transform: rotate(180deg);
+  margin-left: -80px;
+}
+
+
+.arrow-button::before {
+  content: '';
+  position: absolute;
+  text-align: center  ;
+  top: 50%;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.past-date {
+  color: #D8D8D8; /* Adjust color as needed */  
+}
+
+.past-date:hover {
+    background-color: white;
+}
+
+.weekend {
+  color: #D8D8D8; /* Adjust color as needed */
+}
+
+.weekend:hover {
+    background-color: white;
+}
+
+.confirmation-dialog {
+  width: 4000px; /* Adjust the width as needed */
+  padding: 300px; /* Adjust the padding as needed */
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-dialog .mat-dialog-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.confirmation-dialog .mat-dialog-content {
+  margin-bottom: 20px;
+}
+
+.confirmation-dialog .mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.confirmation-dialog .mat-dialog-actions button {
+  margin-left: 10px;
+}
+
+.confirmation-dialog .no-button {
+  color: #f44336;
+}
+
+.confirmation-dialog .yes-button {
+  color: #4caf50;
+}
+
+
+.calendar {
+    width: 100%;
+    max-width: 4000px;
+    border-collapse: collapse;
+  }
+  .calendar th, .calendar td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  .calendar th {
+    background-color: #f2f2f2;
+  }
+  .calendar td {
+    cursor: pointer;
+  }
+
+  .nav-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 10px; /* Adjust the margin as needed */
+  }
+  
+  .nav-button:hover {
+    color: #333;
+  }
+
+  .table-container {
+    width: 80%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    font-size: 16px;
+}
+
+td:hover {
+    background-color: #BEBEBE;
+}
+
+h1{
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.dark-theme tr {
+    background-color: grey ;
+    color: #ffffff; /* White text color */
+}
+
+.dark-theme th {
+    background-color: grey ;
+    color: #ffffff; /* White text color */
+}
+
+.dark-theme .past-date {
+  color: #686868;
+}
+
+.dark-theme .past-date:hover {
+  background-color: #333;
+}
+
+.dark-theme .weekend {
+  color: #686868;
+}
+
+.dark-theme .weekend:hover {
+  background-color: #333;
+}

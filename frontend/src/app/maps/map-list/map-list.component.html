@@ -1,0 +1,30 @@
+<!-- <button class="arrow-button" (click)="goBack()"></button> -->
+<br/><br/><br/><br/>
+<br/>
+<br/><br/>
+
+<div style="border: 8px solid #ddd; border-radius: 10px; padding: 50px; width: 90%; margin: 0 auto;">
+  <h1 style="text-align: center; font-size: 50px;">Select an interactive map</h1>
+
+  <button 
+  class="btn btn-success" 
+  style="margin-left: 44%;"
+  (click) = "onNewMap()"
+  *ngIf="userRole === 'ADMIN'"
+
+  >New map</button>
+  <br/><br/><br/>
+
+  <div class="card my-5" style="text-align: center;">
+    <div class="card-body" style="text-align: center;">
+      <div class="form-group">
+        <select class="form-control" id="mapSelection" [(ngModel)]="selectedMap" (change)="onMapSelectionChange($event)">
+          <option *ngFor="let map of maps" [value]="map.mapNameId" style="font-size: 18px; text-align: center;">
+              {{ refactor(map.mapName) }}
+          </option>
+      </select>
+      
+      </div>
+    </div>
+  </div>
+</div>

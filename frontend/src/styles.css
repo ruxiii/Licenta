@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-typography{
+  background-color: #E0FFFF;
+}
+
+td {
+  background-color: #ffffff;
+}
+
+.ngx-pagination {
+  margin-left: 0;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.dropdown-item {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark Theme Styles */
+.dark-theme {
+  background-color: #333;
+  color: white;
+
+      .navbar-default .navbar-brand {
+        color: #ffffff;
+      }
+
+      .form-group[_ngcontent-ng-c2501443257] label[_ngcontent-ng-c2501443257]{
+        color: #ffffff;
+      }
+}
+
+.dark-theme{ 
+  .form-group[_ngcontent-ng-c597361932][_ngcontent-ng-c597361932] label[_ngcontent-ng-c597361932][_ngcontent-ng-c597361932]{
+      color: #ffffff;
+  }
+}
+
+.dark-theme{
+  .form-group[_ngcontent-ng-c597361932] label[_ngcontent-ng-c597361932]{
+      color: #ffffff;
+  }
+} 
+
+.dark-theme{
+  .toggle-confirm-password{
+    color: black;
+  }
+}
+
+.dark-theme{
+  .toggle-password{
+    color: black;
+  }
+}
+
+.dark-theme {
+  .ngx-pagination a, .ngx-pagination button {
+      color: #ffffff;
+      display: block;
+      padding: 0.1875rem 0.625rem;
+      border-radius: 0;
+  }
+
+  .ngx-pagination a:hover, .dark-theme .ngx-pagination button:hover {
+    color: black; /* Change color on hover */
+  }
+}

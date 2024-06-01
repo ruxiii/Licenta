@@ -1,0 +1,122 @@
+<h1 style="text-align: center;  font-weight: bold; font-size: 35px; margin-left: 80px;">Create an account</h1>
+<div *ngFor="let line of data">{{ line }}</div>
+<br/>
+<div class="card my-5" [class.dark-theme]="isDarkMode">
+    <div class="card-body"[class.dark-theme]="isDarkMode">
+      <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm" [class.dark-theme]="isDarkMode">
+        <div class="form-group" [class.dark-theme]="isDarkMode">
+            <label for="userName" class="control-label" [class.dark-theme]="isDarkMode">Name:</label>
+            <input 
+                type="text" 
+                id="userName" 
+                class="form-control"
+                name="userName"
+                ngModel
+                required
+                #name="ngModel"
+                [placeholder]="name.touched ? 'Please enter your name!' : 'Enter your name'">
+        </div>
+        <br/>
+         
+        <div class="form-group">
+            <label for="userFirstName" [class.dark-theme]="isDarkMode">First Name: </label>
+            <input 
+                type="text" 
+                id="userFirstName" 
+                class="form-control"
+                name="userFirstName"
+                ngModel
+                required
+                #firstname="ngModel"
+                [placeholder]="firstname.touched ? 'Please enter your first name!' : 'Enter your first name'">
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="teamId" [class.dark-theme]="isDarkMode">Team: </label>
+            <select 
+                id="teamId" 
+                class="form-control"
+                name="teamId"
+                [(ngModel)]="user.teamId"
+                required
+            >
+                <option *ngFor="let team of teamsArray" [ngValue]="team">
+                    {{ team.teamId }} - {{ team.departmentId }}
+                </option>
+            </select>
+        </div>
+        <br/>
+        
+
+        <div class="form-group">
+            <label for="userEmail" [class.dark-theme]="isDarkMode">Email: </label>
+            <input 
+                type="email" 
+                id="userEmail" 
+                class="form-control"
+                name="userEmail"
+                ngModel
+                required
+                email
+                #email="ngModel"
+                [placeholder]="email.invalid && email.touched ? 'Please enter a valid email!' : 'Enter your email'">    
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="userPassword" [class.dark-theme]="isDarkMode">Password: </label>
+            <input 
+                type="{{ passwordVisible ? 'text' : 'password' }}" 
+                class="form-control"
+                [(ngModel)]="userPassword" 
+                name="userPassword"
+                placeholder="Enter your password"
+                required
+                (ngModelChange)="validatePasswords(); patternValidator1(userPassword)"
+            >
+            <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                {{ passwordVisible ? 'Hide' : 'Show' }}
+            </button>
+        </div>
+        <br/>
+        
+        <div class="form-group">
+            <label for="confirmPassword" [class.dark-theme]="isDarkMode">Confirm password: </label>
+            <input 
+                type="{{ confirmPasswordVisible ? 'text' : 'password' }}" 
+                class="form-control"
+                [(ngModel)]="confirmPassword" 
+                name="confirmPassword"
+                placeholder="Re-enter your password"
+                required
+                (ngModelChange)="validatePasswords()" 
+            >
+            <button type="button" class="toggle-confirm-password" (click)="toggleConfirmPasswordVisibility()">
+                {{ confirmPasswordVisible ? 'Hide' : 'Show' }}
+            </button>
+        </div>
+        <span *ngIf="!passwordsMatch" class="error-message"></span>
+        <span class="warning-message">
+                <b style="color: black;">Requirements:</b> 
+                <em>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> > 6 characters </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> capital letters  </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> lower letters </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> numbers         </div>
+                    <div [ngClass]="{ 'red-text': passwordStrength1 === false, 'green-text': passwordStrength1 !== false }" *ngIf="passwordStrength1 === false"> special characters</div>
+                    <div [ngClass]="{ 'red-text': passwordsMatch === false, 'green-text': passwordsMatch !== false }" *ngIf="passwordsMatch === false"> passwords match</div>
+                </em>
+        </span>
+        
+        <br/><br/>
+
+        <div class="row">
+            <div class="col-xs-12" style="text-align: center">
+                <button type="submit" [disabled]="!validator(userForm)"
+                class="btn btn-info"  style = "margin-left: 80px;">Submit</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
