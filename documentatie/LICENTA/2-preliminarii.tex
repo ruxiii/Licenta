@@ -12,6 +12,7 @@ Aceasta are la bază arhitectura de tipul „client-server” în care clienții
     \label{fig:client-server}
 \end{figure}
 
+\newpage
 Aplicația OfOps a fost construită având partea de server dezvoltată cu ajutorul MySQL, Spring Boot și Java, iar partea de client a fost implementată folosind instrumente specifice frontend-ului și anume Angular, HTML (HyperText Markup Language), CSS (Cascading Style Sheets) și Typescript. Aceste tehnologii vor fi descrise în subcapitolele ce urmează. 
 
 \subsection{Stocarea datelor}
@@ -201,7 +202,7 @@ Iar răspunsul primit de la backend este de forma (tot din motive de securitate,
 \captionsetup{type=listing}
    \begin{lstlisting}
     {
-    "authenticationEntity": {
+    "authentication": {
         "userId": "T0",
         "userPassword": "$2a$10$WTkxlkyVeNAxnbHVdY
         WiOtzdv.aRlPnWAFA/5MTW",
@@ -234,7 +235,7 @@ Se poate observa, de asemenea, faptul că, în răspunsul returnat, valoarea par
     \label{fig:autentificare-gresita}
 \end{figure}
 
-Acest lucru ne aduce la al doilea nivel de securitate al aplicației și anume acela de autorizare. Autorizarea se realizează cu ajutorul tabelei \textbf{Roles} în care sunt stocate rolurile de \textbf{ADMIN} și \textbf{USER}. Adminul are acces complet în aplicație, în timp ce user-ul poate doar să rezerve spațiul de care are nevoie și să-și vadă propriile rezervări. Diferența dintre roluri este cel mai bine evidențiată la nivelul butoanelor din header, întrucât acestea diferă atât pentru cele cele două roluri, cât și dacă utilizatorul nu este logat pe aplicație. 
+Acest lucru ne aduce la al doilea nivel de securitate al aplicației și anume acela de autorizare. Autorizarea se realizează cu ajutorul tabelei \textbf{Roles} în care sunt stocate rolurile de \textbf{ADMIN} și \textbf{USER}. Adminul are acces complet în aplicație, în timp ce user-ul poate doar să rezerve spațiul de care are nevoie și să-și vadă propriile rezervări. Diferența dintre roluri este cel mai bine evidențiată la nivelul butoanelor din \textbf{Navbar}, întrucât acestea diferă atât pentru cele cele două roluri, cât și dacă utilizatorul nu este logat pe aplicație. 
 
 \begin{figure}[!htb]
     \centering
