@@ -21,6 +21,7 @@ export class MyReservationComponent {
   tableSize: number = 10;
   tableSizes: number[] = [5, 10, 15, 20];
   loggedInUserName: string; 
+  mapId: string;
 
   constructor(  private reservationsService: ReservationsService,
                 private themeService: ThemeService,
@@ -64,9 +65,13 @@ export class MyReservationComponent {
   }
 
   onSeeMap(reservation: ReservationsComponent) {
-    const mapId = reservation.placeNameId[reservation.placeNameId.length - 2] + reservation.placeNameId[reservation.placeNameId.length - 1];
-    console.log(mapId);
-    this.router.navigate(['/maps/' + mapId + '/availabilities/' + reservation.reservationDate + '/' + reservation.reservationStartHour]);
+    if(reservation.placeNameId[0] === 'P' ){
+      this.mapId = "PS2";
+    }
+    else{
+      this.mapId = reservation.placeNameId[reservation.placeNameId.length - 2] + reservation.placeNameId[reservation.placeNameId.length - 1];
+    }
+    this.router.navigate(['/maps/' + this.mapId + '/availabilities/' + reservation.reservationDate + '/' + reservation.reservationStartHour]);
   }
 
   isExpired(reservationDate: string, reservationEndHour: string): boolean {

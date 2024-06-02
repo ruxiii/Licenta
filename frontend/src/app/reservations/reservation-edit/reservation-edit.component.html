@@ -18,7 +18,7 @@
 
             <div class="form-group" [class.dark-theme]="isDarkMode">
                 <div class="input-row">
-                    <label for="startHour" class="control-label" [class.dark-theme]="isDarkMode" style="text-align: center;">Start Hour:</label>
+                    <label for="startHour" class="control-label" [class.dark-theme]="isDarkMode" style="text-align: center;">Start Time:</label>
                     <input 
                         style="width: 100%;"
                         type="time" 
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="input-row2">
-                    <label for="endHour" class="control-label" [class.dark-theme]="isDarkMode" style="text-align: center;">End Hour:</label>
+                    <label for="endHour" class="control-label" [class.dark-theme]="isDarkMode" style="text-align: center;">End Time:</label>
                     <input 
                         style="width: 100%;"
                         type="time" 
@@ -74,7 +74,7 @@
                 </select>
             </div>
             <br/>
-            <div *ngIf="somethingWrong" style="color: red; margin-left: 470px; font-weight: bold; font-size: 20px;">Place only available until {{ hourToBeShown }}!</div>
+            <div *ngIf="somethingWrong" style="color: red; margin-left: 420px; font-weight: bold; font-size: 20px;">The next reservation for this place is at {{ hourToBeShown }}!</div>
             <br/>
             <div class="row">
                 <div class="col-xs-12" style="text-align: center">

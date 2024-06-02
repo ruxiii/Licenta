@@ -32,5 +32,5 @@
   </div>
   <div *ngIf="selectedMinute !== null && selectedPeriod !== null" class="confirmation" style="margin-right: 70px;">
     <h3 style="font-size: 20px;"><b>Selected Time: {{ formatTime(selectedHour, selectedMinute, selectedPeriod) }}</b></h3>
-        <button class="send-button" (click)="sendTime()">Send Time</button>
+        <button class="send-button" (click)="sendTime()">Choose time</button>
       </div>

@@ -14,20 +14,21 @@
           </tr>
         </thead>
     
-          <tbody [class.dark-theme]="isDarkMode">
-            <tr *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
-              <td style="text-align: center;">{{ user.userId }}</td>
-              <td style="text-align: center;">{{ user.userName }}</td>
-              <td style="text-align: center;">{{ user.userFirstName }}</td>
-              <td style="text-align: center;">{{ user.userEmail }}</td>
-              <td style="text-align: center;">{{ user.userRole }}</td>
-              <td style="text-align: center;">{{ user.teamId }}</td>
-              <td style="text-align: center;">
-                <button class="btn btn-primary" (click)="updateUser(user)">Update</button>
-                <button class="btn btn-danger" (click)="deleteUser(user)">Delete</button> 
-              </td>
-            </tr>
-          </tbody>
+        <tbody [class.dark-theme]="isDarkMode">
+          <tr *ngFor="let user of users.slice(1) | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: count - 1 }; let i = index">
+            <td style="text-align: center;">{{ user.userId }}</td>
+            <td style="text-align: center;">{{ user.userName }}</td>
+            <td style="text-align: center;">{{ user.userFirstName }}</td>
+            <td style="text-align: center;">{{ user.userEmail }}</td>
+            <td style="text-align: center;">{{ user.userRole }}</td>
+            <td style="text-align: center;">{{ user.teamId }}</td>
+            <td style="text-align: center;">
+              <button class="btn btn-primary" (click)="updateUser(user)">Update</button>
+              <button class="btn btn-danger" (click)="deleteUser(user)">Delete</button> 
+            </td>
+          </tr>
+        </tbody>
+        
         </table>
           <div style="text-align: center;" [class.dark-theme]="isDarkMode">
             <pagination-controls previousLabel="Previous" nextLabel="Next" (pageChange)="onTableDataChange($event)">
