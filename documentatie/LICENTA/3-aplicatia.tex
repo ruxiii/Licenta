@@ -1,6 +1,6 @@
 \chapter{Prezentarea aplicației}
 
-OfOps este o aplicație WEB concepută pentru simplificarea procesului de rezervare a diferitelor resurse dintr-un mediu de lucru. Indiferent dacă aveți nevoie să vă asigurați un loc de parcare, să rezervați un birou pentru o anumită perioadă de timp sau o sală de ședință, OfOps vine în ajutorul tău!
+OfOps este o aplicație WEB concepută pentru simplificarea procesului de rezervare a diferitelor resurse dintr-un mediu de lucru. Indiferent dacă aveți nevoie să vă asigurați un loc de parcare, să rezervați un birou pentru o anumită perioadă de timp sau o sală de ședință, OfOps vine în ajutorul dumneavoastră!
 
 \section{Flow-ul aplicației}
 
@@ -26,7 +26,7 @@ Navigarea pe OfOps urmează următorul curs:
 
 \section{Pagina principală și mențiuni generale}
 
-Pagina principală este cea care întâmpină utilizatorul în momentul în care navighează pentru prima oară pe ea. Aceasta oferă opțiuni limitate utilizatorului și anume cele de \textbf{Login} și \textbf{Create an account}.
+Pagina principală este cea care întâmpină utilizatorul în momentul în care navighează pentru prima oară pe OfOps. Aceasta oferă opțiuni limitate utilizatorului și anume cele de \textbf{Login} și \textbf{Create an account}.
 
 \begin{figure}[!htb]
     \centering
@@ -35,7 +35,7 @@ Pagina principală este cea care întâmpină utilizatorul în momentul în care
     \label{fig:principal}
 \end{figure}
 
-De asemenea, OfOps dispune și de varianta pentru dark mode. Această opțiune, cunoscută și sub denumirea de night mode, a devenit populară în ultimii ani, mai exact, din anul 2019 în care Google a introdus-o pe Android OS, fapt ce i-a făcut pe toți giganții din industria IT să-i urmeze modelul.\cite{citation9} Posibilitatea utilizatorului de alege modul de navigare pe aplicație denotă prioritizarea dorințelor acestuia, rezultâand, astfel, o experiență mult mai plăcută pentru el. Schimbarea la dark mode se realizează prin apăsarea butonului din dreapta sus a paginii.
+De asemenea, OfOps dispune și de varianta pentru dark mode. Această opțiune, cunoscută și sub denumirea de night mode, a devenit populară în ultimii ani, mai exact, din anul 2019 în care Google a introdus-o pe Android OS, fapt ce i-a făcut pe toți giganții din industria IT să-i urmeze modelul.\cite{citation9} Posibilitatea utilizatorului de alege modul de navigare pe aplicație denotă prioritizarea dorințelor acestuia, rezultând astfel o experiență mult mai plăcută pentru el. Schimbarea la dark mode se realizează prin apăsarea butonului din dreapta sus a paginii.
 
 \begin{figure}[!htb]
     \centering
@@ -44,9 +44,70 @@ De asemenea, OfOps dispune și de varianta pentru dark mode. Această opțiune, 
     \label{fig:dark}
 \end{figure}
 
-\section{Pagina de înregistrare a unui utilizator}
+\section{Partea de ADMIN}
 
-Pagina de înregistrare a unui utilizator este disponibilă în momentul click-ului pe butonul \textbf{Create an account} din pagina principală. Utilizatorul este redirecționar către formularul de creare a unui cont.  
+Partea de \textbf{ADMIN} a OfOps are același curs ca partea de \textbf{USER}, însă dispune de câteva funcționalități în plus. 
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/navadm.png}
+    \caption{Navbar pentru ADMIN}
+    \label{fig:navadm}
+\end{figure}
+
+Rolurile adminului sunt:
+\begin{itemize}[left=1.5cm]
+    \item \textbf{Departments}: poate adăuga un nou departament, edita sau șterge unul deja existent;
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.9\linewidth]{images/adaugdep.png}
+        \caption{Adăugarea unui departament}
+        \label{fig:adaugdep}
+    \end{figure}
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.9\linewidth]{images/listadep.png}
+        \caption{Lista departamentelor}
+        \label{fig:listadep}
+    \end{figure}
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.9\linewidth]{images/exceptiedep.png}
+        \caption{Adăugarea unui departmanet deja existent}
+        \label{fig:exceptiedep}
+    \end{figure}
+    
+    \item \textbf{Teams} și \textbf{Users} se comportă ca \textbf{Departments}: în plus la \textbf{Users}, în cazul în care un user dorește să-și schimbe parola, acesta va trebui să facă o solicitare adminului aplicației pentru a-și putea schimba parola;
+    \item \textbf{Maps}: poate adăuga o hartă nouă, pe lângă cele deja existente care trebuie ulterior configurată; aceasta va fi disponibilă în dropdown-ul de hărți; 
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.9\linewidth]{images/hartadeadaug.png}
+        \caption{Adăugarea unei hărți}
+        \label{fig:hartadeadaug}
+    \end{figure}
+
+    \item \textbf{Events}: poate adăuga un eveniment nou pe lângă cele deja existente (Daily booking - pentru rezervarea zilnică a unui birou sau loc de parcare, Meeting / Training - pentru rezervarea unei săli de ședință, Visit - pentru rezervarea unor birouri pentru persoane dintr-o delegație străină).
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[width=0.9\linewidth]{images/events.png}
+        \caption{Lista evenimentelor și butonul \textbf{New event}}
+        \label{fig:events}
+    \end{figure}
+    
+\end{itemize}
+
+\section{Partea de USER}
+
+\subsection{Pagina de înregistrare a unui utilizator}
+
+Pagina de înregistrare a unui utilizator este disponibilă în momentul click-ului pe butonul \textbf{Create an account} din pagina principală. Utilizatorul este direcționat către formularul de înregistrare.  
+
+\newpage
 
 \begin{figure}[!htb]
     \centering
@@ -55,7 +116,7 @@ Pagina de înregistrare a unui utilizator este disponibilă în momentul click-u
     \label{fig:inregistrare}
 \end{figure}
 
-Crearea unui cont se realizează pein completarea tuturor câmpurilor. Acestea au implementate validări pe care dacă user-ul nu le îndeplinește va duce la inactivarea butonului de submit. În caz contrar, butonul se va activa. De asemenea, există un set de reguli pentru parolă, astfel încât aceasta să fie cât mai greu de spart. Utlizitatorul are posibilitatea să își vadă parola în cazul în care nu se potrivește cu cea trecută la \textbf{Confirm password}.
+Crearea unui cont se realizează prin completarea tuturor câmpurilor. Acestea au implementate validări pe care dacă user-ul nu le îndeplinește va duce la inactivarea butonului de \textbf{Submit}. În caz contrar, butonul \textbf{Submit} se va activa. Totodată, există un set de reguli pentru parolă, astfel încât aceasta să fie cât mai greu de spart. Utilizatorul are posibilitatea să își vadă parola în cazul în care nu se potrivește cu cea trecută la \textbf{Confirm password}.
 
 \begin{figure}[!htb]
     \centering
@@ -73,7 +134,7 @@ La apăsarea butonului de \textbf{Submit}, user-ul va fi redirecționat către p
     \label{fig:autentf}
 \end{figure}
 
-\section{Pagina de sign in}
+\subsection{Pagina de sign in}
 Pagina de \textbf{Sign in} este locul în care utilizatorul se loghează pe OfOps. 
 
 \begin{figure}[!htb]
@@ -85,7 +146,7 @@ Pagina de \textbf{Sign in} este locul în care utilizatorul se loghează pe OfOp
 
 \newpage
 
-De asemenea, după logarea în aplicațtie, utilizatorul are posbilitatea de logout.
+De asemenea, după logarea în aplicație, utilizatorul are posibilitatea de logout.
 
 \begin{figure}[!htb]
     \centering
@@ -94,11 +155,9 @@ De asemenea, după logarea în aplicațtie, utilizatorul are posbilitatea de log
     \label{fig:logout}
 \end{figure}
 
-\section{Rezervarea unui loc}
+\subsection{Rezervarea unui loc}
 
 Rezervarea unui loc este principala funcționalitate a aplicației. Aceasta începe prin apăsarea butonul de \textbf{Start} din pagina principală după ce utilizatorul s-a autentificat sau apăsând pe butonul \textbf{Maps}. Ulterior, user-ul va fi redirecționat către fereastra din care poate alege una dintre hărțile din dropdown. 
-
-\newpage
 
 \begin{figure}[!htb]
     \centering
@@ -107,7 +166,7 @@ Rezervarea unui loc este principala funcționalitate a aplicației. Aceasta înc
     \label{fig:harti}
 \end{figure}
 
-Odată selectată o hartă, va trebui aleasă ziua în care se dorește a fi rezervarea. Din calendarul apărut, utilizatorul nu poate alege zilele de weekend sau zilele din trecut, întrucât reținerea locurilor în trecut sau în zilele de sâmbătă și duminică este inutilă.  
+Odată selectată o hartă, va trebui aleasă ziua în care se dorește a fi făcută rezervarea. Din calendarul apărut, utilizatorul nu poate alege zilele de weekend sau zilele din trecut, întrucât reținerea locurilor în trecut sau în zilele de sâmbătă și duminică este inutilă.  
 
 \begin{figure}[!htb]
     \centering
@@ -116,18 +175,20 @@ Odată selectată o hartă, va trebui aleasă ziua în care se dorește a fi rez
     \label{fig:calendarvechi}
 \end{figure}
 
-Selectarea datei este însoțită de un popup pentru exprimarea dorinței de a rezerva în acea zi pe care utilizatorul trebuie să o confirme sau nu, după preferințele sale.
+Selectarea datei este însoțită de un pop-up pentru exprimarea dorinței de a rezerva în acea zi pe care utilizatorul trebuie să o confirme sau nu, după preferințele sale.
 
 \newpage
 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=0.9\linewidth]{images/calendar bun.png}
-    \caption{Popup pentru confirmare}
+    \caption{Pop-up pentru confirmare}
     \label{fig:calendarbun}
 \end{figure}
 
-Ulterior, se va face redirecționarea către ceasul unde se va alege momentul la care utilizatorul vrea să vadă disponibilitățile. Mai întâi se selectează ora. Click-ul pe ora dorită va declanșa apariția butoanelor AM-PM, iar alegerea formatului va duce la apariția minutelor. Am decis ca implementarea butoanelor să fie pentru fiecare minut, întrucât pot exista momente în care se dorește o verificare a locurilor libere într-un moment actual, în care ora nu este fixă. Alegerea completă a timpului duce la apariția butonului de \textbf{Choose time}, însoțit de rezultatul selectării timpului.
+Ulterior, se va face redirecționarea către ceasul de unde se va alege momentul la care utilizatorul vrea să vadă disponibilitățile. Mai întâi se selectează ora. Click-ul pe ora dorită va declanșa apariția butoanelor AM-PM, iar alegerea formatului va duce la apariția minutelor. Am decis ca implementarea butoanelor să fie pentru fiecare minut, întrucât pot exista momente în care se dorește o verificare a locurilor libere într-un moment actual, în care ora nu este fixă. Alegerea completă a timpului duce la apariția butonului de \textbf{Choose time}, însoțit de rezultatul selectării timpului.
+
+\newpage
 
 \begin{figure}[!htb]
     \centering
@@ -138,8 +199,6 @@ Ulterior, se va face redirecționarea către ceasul unde se va alege momentul la
 
 Toți acești pași ne conduc către harta interactivă pentru alegerea unui birou sau a unui loc de parcare în funcție de preferință.
 
-\newpage
-
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=0.9\linewidth]{images/hartaint.png}
@@ -149,6 +208,8 @@ Toți acești pași ne conduc către harta interactivă pentru alegerea unui bir
 
 Printr-o privire foarte rapidă asupra hărții, se poate remarca că o bulină (reprezentând un birou) este roșie. Aceasta semnifică faptul că biroul este rezervat în momentul în care utilizatorul a ales să verifice disponibilitatea. Bulinele verzi indică faptul că nu există o rezervare la ora dorită pentru birourile respective. Fiind harta interactivă, alegerea unui loc se face apăsând direct pe biroul respectiv.
 
+\newpage
+
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=0.9\linewidth]{images/rezerv.png}
@@ -156,11 +217,9 @@ Printr-o privire foarte rapidă asupra hărții, se poate remarca că o bulină 
     \label{fig:rezerv}
 \end{figure}
 
-Înainte de rezervarea propriu-zisă, utilizatorului îi va apărea un popup de confirmare pentru selectarea locului. Se poate observa, de asemenea, că locul selectat este înconjurat de o linie punctată, astfel încât user-ul să vadă precis ce loc dorește să rezerze înainte de a apăsa butonul \textbf{Yes}.
+Înainte de rezervarea propriu-zisă, utilizatorului îi va apărea un pop-up de confirmare pentru selectarea locului. Se poate observa, de asemenea, că locul selectat este înconjurat de o linie punctată, astfel încât user-ul să vadă precis ce loc dorește să rezerze înainte de a apăsa butonul \textbf{Yes}.
 
 În cazul în care există o rezervare viitoare pentru locul selectat, utilizatorul va primi o notificare în acest sens. Dacă utilizatorul alege să selecteze acest birou, rezervarea sa trebuie făcută în cunoștință de cauză sau poate alege alt loc.
-
-\newpage
 
 \begin{figure}[!htb]
     \centering
@@ -187,9 +246,9 @@ Există posibilitatea ca rezervarea pe care dorește să o facă utilizatorul î
     \label{fig:rezerv incorect}
 \end{figure}
 
-\section{Rezervarea unei săli de ședință}
+\subsection{Rezervarea unei săli de ședință}
 
-Rezervarea unei săli de ședință urmează același curs ca rezervarea unui birou sau al unui loc de parcare, însă are ceva în plus față de celelalte. Atunci când un utilizator încearcă să rezerve o sală de ședință, dacă intervalul dorit se suprapune chiar și un minut cu o altă rezervare, user-ul va primi ca alertă o propunere de sală liberă în perioada dorită. Acest lucru scoate OfOps în evidență, întrucât are dispune de o metodă care eficientizează programarea sălilor de ședință. Acest algoritm implică obținerea tuturor sălilor de ședință și calcularea unui scor de disponibilitate după care sălile sunt sortate. Metoda de calculare a punctajului de disponibilitate se rezumă la numărul de rezervări existente care se suprapun cu intervalul de timp specificat. Scorul se va incrementa doar dacă există suprapunere între rezervări, sortarea crescătoare oferindu-ne, asfel, prima opțiune cu scorul cel mai mic. Utilizatorul poate alege varianta propusă, apăsând \textbf{OK} sau pot refuza propunerea prin apăsarea \textbf{Cancel}, fiind redirecționați către pagina de alegere a hărții. Pentru exemplu, în intervalul 09:00 - 10:00, voi încerca să rezerv sala \textbf{Sicily-6S} care este ocupată între 09:30 - 10:30.
+Rezervarea unei săli de ședință urmează același curs ca rezervarea unui birou sau al unui loc de parcare, însă are ceva în plus față de celelalte. Atunci când un utilizator încearcă să rezerve o sală de ședință, dacă intervalul dorit se suprapune chiar și un minut cu o altă rezervare, user-ul va primi ca alertă o propunere de sală liberă în perioada dorită. Acest lucru scoate OfOps în evidență, întrucât dispune de o metodă care eficientizează programarea sălilor de ședință. Acest algoritm implică obținerea tuturor sălilor de ședință și calcularea unui scor de disponibilitate după care sălile sunt sortate. Metoda de calculare a punctajului de disponibilitate se rezumă la numărul de rezervări existente care se suprapun cu intervalul de timp specificat. Scorul se va incrementa doar dacă există suprapunere între rezervări, sortarea crescătoare oferindu-ne, asfel, prima opțiune cu scorul cel mai mic. Utilizatorul poate alege varianta propusă, apăsând \textbf{OK} sau poate refuza propunerea prin apăsarea \textbf{Cancel}, fiind redirecționat către pagina de alegere a hărții. Pentru exemplu, în intervalul 09:00 - 10:00, voi încerca să rezerv sala \textbf{Sicily-6S} care este ocupată între 09:30 - 10:30.
 
 \begin{figure}[!htb]
     \centering
@@ -217,7 +276,7 @@ Dacă răspunsul este afirmativ, utilizatorul primește o alertă cum că rezerv
 Astfel, user-ul va fi redirecționat către pagina de 
 \textbf{My Reservations}.
 
-\section{Pagina My Reservations}
+\subsection{Pagina My Reservations}
 
 Este pagina în care utilizatorul își poate vedea rezervările.
 
@@ -230,7 +289,7 @@ Este pagina în care utilizatorul își poate vedea rezervările.
 
 Aceasta are, de asemenea, introdusă și funcționalitatea de paginare, astfel încât gestionarea rezervărilor să fie o experiență plăcută pentru user, fără a-l încărca de informație.
 
-Culoarea roșie a ultimei rezervări marchează faptul că aceasta este expirată, iar celelalte reprezintă viitoarele rezervări. Se poate observa că sunt prezente detaliile rezervărilor (data, orele de început și sfârșit, eventimentul pentru care sunt rezervate) și două butoane: \textbf{See on Map} și \textbf{Delete}.
+Culoarea roșie a ultimei rezervări marchează faptul că aceasta este expirată, iar celelalte reprezintă viitoarele rezervări. Se poate observa că sunt prezente detaliile rezervărilor (data, orele de început și sfârșit, evenimentul pentru care sunt rezervate) și două butoane: \textbf{See on Map} și \textbf{Delete}.
 
 \textbf{Delete} va șterge rezervarea, după dorința utilizatorului.
 
@@ -241,7 +300,7 @@ Culoarea roșie a ultimei rezervări marchează faptul că aceasta este expirat�
     \label{fig:delete}
 \end{figure}
 
-Butonul \textbf{See on map} vine în ajutorul user-ului pentru a-și aduce aminte de locul rezervat. Acesta va fi redirecționat către harta și locul rezervat care va fi distins prin culoarea galbenă.
+Butonul \textbf{See on map} vine în ajutorul user-ului pentru a-i aduce aminte de locul rezervat. Acesta va fi redirecționat către harta și locul rezervat care va fi distins prin culoarea galbenă.
 
 \begin{figure}[!htb]
     \centering
@@ -250,4 +309,3 @@ Butonul \textbf{See on map} vine în ajutorul user-ului pentru a-și aduce amint
     \label{fig:rezerv utiliz}
 \end{figure}
 
-\section{Partea de ADMIN}

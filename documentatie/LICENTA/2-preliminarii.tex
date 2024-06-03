@@ -7,7 +7,7 @@ Aceasta are la bază arhitectura de tipul „client-server” în care clienții
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=0.7\linewidth]{images/client-server-network.png}
+    \includegraphics[width=0.45\linewidth]{images/client-server-network.png}
     \caption{Comunicarea client-server}
     \label{fig:client-server}
 \end{figure}
@@ -16,7 +16,7 @@ Aceasta are la bază arhitectura de tipul „client-server” în care clienții
 Aplicația OfOps a fost construită având partea de server dezvoltată cu ajutorul MySQL, Spring Boot și Java, iar partea de client a fost implementată folosind instrumente specifice frontend-ului și anume Angular, HTML (HyperText Markup Language), CSS (Cascading Style Sheets) și Typescript. Aceste tehnologii vor fi descrise în subcapitolele ce urmează. 
 
 \subsection{Stocarea datelor}
-MySQL este un sistem pentru management-ul bazelor de date relaționale reprezentând baze de date care stochează date în tabele separate.\cite{citation2} Structura sa este menită să fie un instrument flexibil pentru programare, întrucât se pot seta regulile pe baza cărora să fie construită baza de date, relațiile între tabele (one-one, many-one, one-many, many-many), cheile primare sau străine, constrângeri etc. Utilizarea MySQL pentru stocarea bazei de date este una eficientă, întrucât modul în care această aplicație a fost construită nu permite inconsistența, duplicarea sau lipsa datelor.
+MySQL este un sistem pentru management-ul bazelor de date relaționale reprezentând baze de date care stochează date în tabele separate.\cite{citation2} Structura sa este menită să fie un instrument flexibil pentru programare, întrucât se pot seta reguli pe baza cărora să fie construită baza de date, relațiile între tabele (one-one, many-one, one-many, many-many), cheile primare sau străine, constrângeri etc. Utilizarea MySQL pentru stocarea bazei de date este una eficientă, întrucât modul în care această aplicație a fost construită nu permite inconsistența, duplicarea sau lipsa datelor.
 
 Luând în considerare avantajele MySQL, am ales ca baza de date a aplicației OfOps să fie păstrată în MySQL Workbench versiunea 8.0 CE datorită volumului mare de date pe care îl suportă. Aceasta oferă o interfață intuitivă și ușor de utilizat, stocarea tabelelor este bine organizată și, printr-un singur click, ai la dispoziție atât detalii despre tabele, cât și datele păstrate în ele, făcând interacțiunea cu MySQL Workbench una facilă și rapidă.
 
@@ -32,8 +32,6 @@ Luând în considerare avantajele MySQL, am ales ca baza de date a aplicației O
 \subsection{Backend}
 Pentru implementarea backend-ului am utilizat Java și Spring Boot. 
 
-\newpage
-
 \begin{minipage}{\textwidth}
 \hfill
 \begin{minipage}{0.9\textwidth}
@@ -41,9 +39,9 @@ Pentru implementarea backend-ului am utilizat Java și Spring Boot.
 \end{minipage}
 \end{minipage}
 
-\hspace{0cm} Java este un limbaj de programare orientat pe obiecte, high-level, creat în jurul anilor 1990. Până atunci, C și C++ erau cele mai răspândite limbaje de programare, însă utilizarea lor la scală largă era restrânsă și costisitoare. Motivația dezvoltării Java a reprezentat-o nevoia unui limbaj de programare care să poată fi folosit pentru diferite dispozitive electronice cum ar fi cuptorul cu microunde sau chiar dispozitivele cu control remote.\cite{citation3} Versatilitatea și simplitatea acestui limbaj l-au adus printre cele mai populare și răspândite modalități de a coda inclusiv și în prezent. 
+\hspace{0cm} Java este un limbaj de programare orientat pe obiecte, high-level, creat în jurul anilor 1990. Până atunci, C și C++ erau cele mai răspândite limbaje de programare, însă utilizarea lor la scală largă era restrânsă și costisitoare. Motivația dezvoltării Java a reprezentat-o nevoia unui limbaj de programare care să poată fi folosit pentru diferite dispozitive electronice sau chiar pentru dispozitive cu control remote.\cite{citation3} Versatilitatea și simplitatea acestui limbaj l-au adus printre cele mai populare și răspândite modalități de a coda, inclusiv și în prezent. 
 
-De asemenea, Java joacă un rol important și în această licență, întrucât majoritatea codului dezvoltat are la bază acest limbaj de programare. Codul a necesitat instalarea în prealabil a unui JRE (Java Runtime Environment), astfel încât compilarea sa să se realizeze cu succes.
+De asemenea, Java joacă un rol important și în implementarea acestei aplicații, întrucât majoritatea codului dezvoltat are la bază acest limbaj de programare. Codul a necesitat instalarea în prealabil a unui JRE (Java Runtime Environment), astfel încât compilarea sa să se realizeze cu succes.
 
 \begin{figure}[!htb]
     \centering
@@ -61,9 +59,9 @@ De asemenea, Java joacă un rol important și în această licență, întrucât
 \end{minipage}
 \end{minipage}
 
-\hspace{0cm}Spring este un framework care vine în ajutorul construirii rapide ale unor aplicații stand-alone, lucrând cu alte librării deja integrate ceea ce înseamnă că dezvoltarea aplicației nu va necesita o  configurare foarte mare în plus.\cite{citation4}
+\hspace{0cm}Spring este un framework care vine în ajutorul construirii rapide a unor aplicații stand-alone, lucrând cu alte librării deja integrate, ceea ce înseamnă că dezvoltarea aplicației nu va necesita o  configurare foarte mare în plus.\cite{citation4}
 
-Am ales Maven pentru adăugarea dependințelor, iar, pe lângă cele deja integrate în proiect, am mai adăugat: Spring-Boot-Starter-Data-JPA (interacțiune backend - baza de date), Spring-Boot-Starter-WEB (simplifică construirea aplicațiilor WEB cu Spring), MySQL-Connector-J (conexiunea cu baza de date), Lombok (generare de cod comun), Spring-Boot-Starter-Test (pentru testele unitare), Spring-Boot-Starter-Security și Java-JWT (pentru securitatea aplicației).
+Am ales Maven pentru adăugarea dependințelor, iar, pe lângă cele deja integrate în proiect, am mai adăugat: Spring-Boot-Starter-Data-JPA (interacțiune backend - baza de date), Spring-Boot-Starter-WEB (simplifică construirea aplicațiilor WEB cu Spring), MySQL-Connector-J (conexiunea cu baza de date), Lombok (generare de cod comun), Spring-Boot-Starter-Test (pentru testele unitare și de integrare), Spring-Boot-Starter-Security și Java-JWT (pentru securitatea aplicației).
 
 \vspace{1.5em}
 \subsection{Frontend}
@@ -76,9 +74,7 @@ Pentru implementarea frontend-ului am utilizat Angular, HTML, CSS și TypeScript
 \end{minipage}
 \end{minipage}
 
-\hspace{0cm} Angular este un framework pentru frontend care ajută la crearea unei aplicații de tipul single-page. Ce diferențiază Angular de celelalte framework-uri pentru frontend este strucutura sa bazată pe componente. Astfel, scheletul codului este mai ușor de organizat, deoarece fiecare componentă are rolul ei bine definit, iar identificarea unei potențiale greșeli este mai ușor de găsit.\cite{citation5}
-
-\newpage
+\hspace{0cm} Angular este un framework pentru frontend care ajută la crearea unei aplicații de tipul single-page. Ce diferențiază Angular de celelalte framework-uri pentru frontend este strucutura sa bazată pe componente. Astfel, arhitectura codului este mai ușor de organizat, deoarece fiecare componentă are rolul ei bine definit, iar identificarea unei potențiale greșeli este mai ușor de găsit.\cite{citation5}
 
 \begin{center}
 \begin{minipage}{0.8\textwidth}
@@ -105,7 +101,7 @@ export class MyReservationComponent { }
 \end{minipage}
 \end{minipage}
 
-\hspace{0cm} Expunerea componentelor din Angular se realizează în pagină cu ajutorul elementelor de HTML. Acesta oferă o structurare bine pusă la punct conținutului paginii, existând diferențe între tipuri de text (titlu, bold, itallic etc.), liste, tabele și multe alte elemente care fac experiența user-ului în aplicație mai placută. 
+\hspace{0cm} Expunerea componentelor din Angular se realizează în pagină cu ajutorul elementelor de HTML. Acesta oferă o structurare bine pusă la punct a conținutului paginii, existând diferențe între tipuri de text (titlu, bold, itallic etc.), liste, tabele și multe alte elemente care fac experiența user-ului în aplicație mai placută. 
 
 \begin{center}
 \begin{minipage}{0.8\textwidth}
@@ -168,15 +164,13 @@ export class DepartmentsComponent {
 \section{Asigurarea securității}
 
 Securitatea OfOps se menține la două niveluri: \begin{itemize}[left=1.5cm]
-    \item Autentificarea propriu-zisă în aplicație printr-un sistem de tipul user-parolă
-    \item Accesibilitatea datelor este limitată pentru fiecare rol, oferind doar anumite opțiuni de utilizare a aplicației în funcție de rolul atribuit
+    \item Autentificarea propriu-zisă în aplicație printr-un sistem de tipul user-parolă;
+    \item Accesibilitatea datelor este limitată pentru fiecare rol, oferind doar anumite opțiuni de utilizare a aplicației în funcție de rolul atribuit.
 \end{itemize}
 
-Aceste lucruri s-au realizat la nivel de implementare cu ajutorul JWT (JSON Web Token) care a rezolvat atat problema de autentificare, cât și pe cea de autorizare. 
+Aceste lucruri s-au realizat la nivel de implementare cu ajutorul JWT (JSON Web Token) care a rezolvat atât problema de autentificare, cât și pe cea de autorizare. 
 
-JWT este un standard bazat pe transmiterea în siguranță a unor date care, prin simplititatea, siguranța și versatilitatea sa, a ajuns să fie folosit în cele mai mari framework-uri web.\cite{citation6} Token-ul este format dintr-un header, un payload și o semnătură/ datele criptate. Primele două sunt obiecte de tip JSON cu o structură deja definită, însă ultima parte depinde în mod direct de tipul de criptare utilizat.
-
-Modul în care se folosește acest token este următorul. Mai întâi, din browser, se trimite către backend, printr-o metodă HTTP de tipul POST pe endpoint-ul de /login, un username și o parolă pentru care server-ul crează un JWT. Acest token este trimis înapoi la frontend, moment în care acesta trimite înapoi header-ul pentru autorizare. Se verifică semnătura și se preiau detaliile utilizatorului și se trimite răspunsul, astfel, către client.
+JWT este un standard bazat pe transmiterea în siguranță a unor date care, prin simplititatea, siguranța și versatilitatea sa, a ajuns să fie folosit în cele mai mari framework-uri web.\cite{citation6} Token-ul este format dintr-un header, un payload și o semnătură/ datele criptate. Primele două sunt obiecte de tip JSON cu o structură deja definită, însă ultima parte depinde în mod direct de tipul de criptare utilizat. Mai întâi, din browser, se trimite către backend, printr-o metodă HTTP de tipul POST pe endpoint-ul de /login, un username și o parolă pentru care server-ul crează un JWT. Acest token este trimis înapoi la frontend, moment în care acesta trimite înapoi header-ul pentru autorizare. Se verifică semnătura și se preiau detaliile utilizatorului și se trimite răspunsul, astfel, către client.
  
 \begin{figure}[!htb]
     \centering
@@ -185,7 +179,6 @@ Modul în care se folosește acest token este următorul. Mai întâi, din brows
     \label{fig:jwt}
 \end{figure}
 
-\newpage
 Folosirea token-ului pentru autentificare se face în modul următor:
 
 \begin{figure}[!htb]
@@ -226,7 +219,7 @@ Iar răspunsul primit de la backend este de forma (tot din motive de securitate,
 \end{minipage}
 \end{center}
 
-Se poate observa, de asemenea, faptul că, în răspunsul returnat, valoarea parolei nu este cea reală (cea tastată de utilizator), ci este valoarea criptată a parolei. Pentru acest lucru, interfața \textbf{PasswordEncoder} oferită de pachetul Spring-Boot-Starter-Security. În momentul în care un user încearcă să se logheze pe aplicație, va face un request de tip POST către backend. Astfel, se va apela metoda din \textbf{loginUser} din \textbf{LoginService} care va verifica dacă parola introdusă de utilizator este aceeași cu cea stocată în baza de date, prin intermediul metodei \textbf{matches} tot din cadrul interfeței \textbf{PasswordEncoder}. În cazul în care parolele sunt la fel, user-ul va avea drepturi în aplicație, altfel va primi un warning și nu va fi lăsat să se logheze în OfOps.
+Se poate observa, de asemenea, faptul că, în răspunsul returnat, valoarea parolei nu este cea reală (cea tastată de utilizator), ci este valoarea criptată a parolei. Pentru acest lucru, am utilizat interfața \textbf{PasswordEncoder} oferită de pachetul Spring-Boot-Starter-Security. În momentul în care un user încearcă să se logheze pe aplicație, va face un request de tip POST către backend. Astfel, se va apela metoda \textbf{loginUser} din \textbf{LoginService} care va verifica dacă parola introdusă de utilizator este aceeași cu cea stocată în baza de date, prin intermediul metodei \textbf{matches} tot din cadrul interfeței \textbf{PasswordEncoder}. În situația în care parolele sunt la fel, user-ul va avea drepturi în aplicație, altfel va primi un warning și nu va fi lăsat să se logheze în OfOps.
 
 \begin{figure}[!htb]
     \centering
@@ -235,7 +228,7 @@ Se poate observa, de asemenea, faptul că, în răspunsul returnat, valoarea par
     \label{fig:autentificare-gresita}
 \end{figure}
 
-Acest lucru ne aduce la al doilea nivel de securitate al aplicației și anume acela de autorizare. Autorizarea se realizează cu ajutorul tabelei \textbf{Roles} în care sunt stocate rolurile de \textbf{ADMIN} și \textbf{USER}. Adminul are acces complet în aplicație, în timp ce user-ul poate doar să rezerve spațiul de care are nevoie și să-și vadă propriile rezervări. Diferența dintre roluri este cel mai bine evidențiată la nivelul butoanelor din \textbf{Navbar}, întrucât acestea diferă atât pentru cele cele două roluri, cât și dacă utilizatorul nu este logat pe aplicație. 
+Acest lucru ne aduce la al doilea nivel de securitate al aplicației și anume acela de autorizare. Autorizarea se realizează cu ajutorul tabelei \textbf{Roles} în care sunt stocate rolurile de \textbf{ADMIN} și \textbf{USER}. \textbf{ADMIN-UL} are acces complet în aplicație, în timp ce \textbf{USER-UL} poate doar să rezerve spațiul de care are nevoie și să-și vadă propriile rezervări. Diferența dintre roluri este cel mai bine evidențiată la nivelul butoanelor din \textbf{Navbar}, întrucât acestea diferă atât pentru cele două roluri, cât și dacă utilizatorul nu este logat pe aplicație. 
 
 \begin{figure}[!htb]
     \centering
@@ -262,7 +255,7 @@ Acest lucru ne aduce la al doilea nivel de securitate al aplicației și anume a
 \section{Mijloace de testare}
 Până la crearea frontend-ului, partea de backend a fost testată cu ajutorul testelor unitare, de integrare și cu ajutorul aplicației Postman.
 
-Testele unitare contribuie la crearea de la 0 și creșterea unui proiect durabil.\cite{citation7} Importanța lor este dată de faptul că, folosindu-le, observarea potențialelor greșeli în scrierea de cod este iminentă. Practic, ele urmăresc flow-ul metodei pentru care sunt făcute și sunt scrise cu scopul de a vedea cum reacționează codul în diferente cazuri.
+Testele unitare contribuie la crearea de la zero și dezvoltarea unui proiect durabil.\cite{citation7} Importanța lor este dată de faptul că, folosindu-le, observarea potențialelor greșeli în scrierea de cod este iminentă. Practic, ele urmăresc flow-ul metodei și sunt scrise cu scopul de a vedea cum reacționează codul în diferite cazuri.
 
 \begin{center}
 \begin{minipage}{0.9\textwidth}
@@ -273,6 +266,14 @@ Testele unitare contribuie la crearea de la 0 și creșterea unui proiect durabi
     @Mock
     private DepartmentRepository departmentRepository;
 
+        \end{lstlisting} 
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{0.9\textwidth}
+\captionsetup{type=listing}
+   \begin{lstlisting}
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.initMocks(this);
@@ -320,9 +321,9 @@ Testele unitare contribuie la crearea de la 0 și creșterea unui proiect durabi
 \end{minipage}
 \end{center}
 
-Am folosit adnotarea \textbf{@Mock} care o să simuleze interacțiunea cu baza de date, astfel încât executarea testelor nu o să afecteze în mod direct intrările bazei de date. Acest lucru se întâmplă înaintea fiecărui test executat în metoda \textbf{setUp}. Primul test verifică faptul că, în cazul în care un departament care se dorește a fi șters din baza de date nu există, codul va arunca excepția \textbf{DepartmentNotFoundException}. Al doilea test simulează comportamentul în care un departament există și trebuie șters. Astfel, verificăm ca metoda \textbf{deleteById(any())} este apelată, executându-se ștergerea. Ușurința acestor teste unitare o reprezintă faptul că, în esență, nu ne interesează tipul de date cu care este apelată metoda, ci doar cum se comportă codul și dacă acesta urmărește folw-ul corespunzător. De aceea, toate metodele au ca parametru \textbf{any()}.
+Am folosit adnotarea \textbf{@Mock} prin care se simulează interacțiunea cu baza de date, astfel încât executarea testelor să nu afecteze în mod direct intrările bazei de date. Acest lucru se întâmplă înaintea fiecărui test executat în metoda \textbf{setUp}. Primul test verifică faptul că, în cazul în care un departament care se dorește a fi șters din baza de date nu există, codul va arunca excepția \textbf{DepartmentNotFoundException}. Al doilea test simulează comportamentul în care un departament există și trebuie șters. Astfel, verificăm ca metoda \textbf{deleteById(any())} este apelată, executându-se ștergerea. Ușurința acestor teste unitare o reprezintă faptul că, în esență, nu ne interesează tipul de date cu care este apelată metoda, ci doar cum se comportă codul și dacă acesta urmărește flow-ul corespunzător. De aceea, toate metodele au ca parametru \textbf{any()}.
 
-Am realizat și câteva teste de integrare pentru pentru partea de departament. Testele de integrare oferă un mijloc de testare a testelor unitare \cite{citation8}, dar cu date reale, mai aproape de posibilele date primite de la frontend.
+Am realizat și câteva teste de integrare pentru pentru partea de departament. Testele de integrare oferă un mijloc de verificare a testelor unitare \cite{citation8}, dar cu date reale, mai aproape de posibilele date primite de la frontend.
 
 \begin{center}
 \begin{minipage}{0.9\textwidth}
@@ -335,14 +336,6 @@ Am realizat și câteva teste de integrare pentru pentru partea de departament. 
         return departmentEntity;
     }
     
-    \end{lstlisting} 
-\end{minipage}
-\end{center}
-
-\begin{center}
-\begin{minipage}{0.9\textwidth}
-\captionsetup{type=listing}
-   \begin{lstlisting}
     @Test
     public void getDepartmentByIdTest_departments_found(){
         DepartmentEntity departmentEntity= 
@@ -351,11 +344,19 @@ Am realizat și câteva teste de integrare pentru pentru partea de departament. 
                                 new ArrayList<>();
         departmentEntities.add(departmentEntity);
 
+            \end{lstlisting} 
+\end{minipage}
+\end{center}
+        
+
+\begin{center}
+\begin{minipage}{0.9\textwidth}
+\captionsetup{type=listing}
+   \begin{lstlisting}
         when(departmentRepository.findAll())
-                                .thenReturn(departmentEntities);
-
+                    .thenReturn(departmentEntities);
+   
         departmentService.getDepartments();
-
         Assertions.assertEquals(
                     departmentService.getDepartments().size(), 1);
         Assertions.assertEquals(departmentService.getDepartments()
@@ -368,7 +369,7 @@ Am realizat și câteva teste de integrare pentru pentru partea de departament. 
 \end{minipage}
 \end{center}
 
-De asemenea, backend-ul a fost testat înainte și prin request-uri HTTP în Postman către portul 8080 pe care rula aplicația. Postman este o aplicație cu interfață deja integrată care vine în ajutorul programatarului în cazul dezvoltă backend-ul unei aplicații de la 0, fără a avea un frontend disponibil în care să testeze interacțiunea cu baza de date.
+De asemenea, backend-ul a fost testat înainte și prin request-uri HTTP în Postman către portul 8080 pe care rula aplicația. Postman este o aplicație cu interfață deja integrată care vine în ajutorul programatorului în cazul în care dezvoltă backend-ul unei aplicații de la zero, fără a avea un frontend disponibil în care să testeze interacțiunea cu baza de date.
 
 \begin{figure}[!htb]
     \centering
