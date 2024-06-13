@@ -1,7 +1,7 @@
 \chapter{Preliminarii}
 
 \section{Tehnologii folosite}
-Aplicația WEB reprezintă un program de tip software stocat pe un server remote, devenind accesibil pentru o masă mare de utilizatori care doresc să acceseze date rapid și ușor. Componentele sale pot  comunica prin protocoale bazate pe internet cum ar fi HTTP (Hyper Text Transfer Protocol) sau HTTPS (Hyper Text Transfer Protocol Secure).\cite{citation1}  Principalele avantaje ale aplicațiilor WEB le reprezintă accesibilitatea – acessarea lor se face folosind doar un browser WEB indiferent de circumstanțele externe (ora și loc) –, ușurința utilizatorului de a naviga pe platformă fără a avea nevoie de resurse suplimentare și scalabilitatea – poate gestiona un volum mare de date fără a se degrada –.
+Aplicația WEB reprezintă un program de tip software stocat pe un server remote, devenind accesibil pentru o masă mare de utilizatori care doresc să acceseze date rapid și ușor. Componentele sale pot  comunica prin protocoale bazate pe internet cum ar fi HTTP (Hyper Text Transfer Protocol) sau HTTPS (Hyper Text Transfer Protocol Secure) \cite{citation1}.  Principalele avantaje ale aplicațiilor WEB le reprezintă accesibilitatea – acessarea lor se face folosind doar un browser WEB indiferent de circumstanțele externe (ora și loc) –, ușurința utilizatorului de a naviga pe platformă fără a avea nevoie de resurse suplimentare și scalabilitatea – poate gestiona un volum mare de date fără a se degrada –.
 
 Aceasta are la bază arhitectura de tipul „client-server” în care clienții efectuează diferite operațiuni asupra serverului, iar răspunsurile serverului sunt primite prin intermediul internetului. 
 
@@ -16,7 +16,7 @@ Aceasta are la bază arhitectura de tipul „client-server” în care clienții
 Aplicația OfOps a fost construită având partea de server dezvoltată cu ajutorul MySQL, Spring Boot și Java, iar partea de client a fost implementată folosind instrumente specifice frontend-ului și anume Angular, HTML (HyperText Markup Language), CSS (Cascading Style Sheets) și Typescript. Aceste tehnologii vor fi descrise în subcapitolele ce urmează. 
 
 \subsection{Stocarea datelor}
-MySQL este un sistem pentru management-ul bazelor de date relaționale reprezentând baze de date care stochează date în tabele separate.\cite{citation2} Structura sa este menită să fie un instrument flexibil pentru programare, întrucât se pot seta reguli pe baza cărora să fie construită baza de date, relațiile între tabele (one-one, many-one, one-many, many-many), cheile primare sau străine, constrângeri etc. Utilizarea MySQL pentru stocarea bazei de date este una eficientă, întrucât modul în care această aplicație a fost construită nu permite inconsistența, duplicarea sau lipsa datelor.
+MySQL este un sistem pentru management-ul bazelor de date relaționale reprezentând baze de date care stochează date în tabele separate \cite{citation2}. Structura sa este menită să fie un instrument flexibil pentru programare, întrucât se pot seta reguli pe baza cărora să fie construită baza de date, relațiile între tabele (one-one, many-one, one-many, many-many), cheile primare sau străine, constrângeri etc. Utilizarea MySQL pentru stocarea bazei de date este una eficientă, întrucât modul în care această aplicație a fost construită nu permite inconsistența, duplicarea sau lipsa datelor.
 
 Luând în considerare avantajele MySQL, am ales ca baza de date a aplicației OfOps să fie păstrată în MySQL Workbench versiunea 8.0 CE datorită volumului mare de date pe care îl suportă. Aceasta oferă o interfață intuitivă și ușor de utilizat, stocarea tabelelor este bine organizată și, printr-un singur click, ai la dispoziție atât detalii despre tabele, cât și datele păstrate în ele, făcând interacțiunea cu MySQL Workbench una facilă și rapidă.
 
@@ -39,7 +39,7 @@ Pentru implementarea backend-ului am utilizat Java și Spring Boot.
 \end{minipage}
 \end{minipage}
 
-\hspace{0cm} Java este un limbaj de programare orientat pe obiecte, high-level, creat în jurul anilor 1990. Până atunci, C și C++ erau cele mai răspândite limbaje de programare, însă utilizarea lor la scală largă era restrânsă și costisitoare. Motivația dezvoltării Java a reprezentat-o nevoia unui limbaj de programare care să poată fi folosit pentru diferite dispozitive electronice sau chiar pentru dispozitive cu control remote.\cite{citation3} Versatilitatea și simplitatea acestui limbaj l-au adus printre cele mai populare și răspândite modalități de a coda, inclusiv și în prezent. 
+\hspace{0cm} Java este un limbaj de programare orientat pe obiecte, high-level, creat în jurul anilor 1990. Până atunci, C și C++ erau cele mai răspândite limbaje de programare, însă utilizarea lor la scală largă era restrânsă și costisitoare. Motivația dezvoltării Java a reprezentat-o nevoia unui limbaj de programare care să poată fi folosit pentru diferite dispozitive electronice sau chiar pentru dispozitive cu control remote \cite{citation3}. Versatilitatea și simplitatea acestui limbaj l-au adus printre cele mai populare și răspândite modalități de a coda, inclusiv și în prezent. 
 
 De asemenea, Java joacă un rol important și în implementarea acestei aplicații, întrucât majoritatea codului dezvoltat are la bază acest limbaj de programare. Codul a necesitat instalarea în prealabil a unui JRE (Java Runtime Environment), astfel încât compilarea sa să se realizeze cu succes.
 
@@ -59,7 +59,7 @@ De asemenea, Java joacă un rol important și în implementarea acestei aplicaț
 \end{minipage}
 \end{minipage}
 
-\hspace{0cm}Spring este un framework care vine în ajutorul construirii rapide a unor aplicații stand-alone, lucrând cu alte librării deja integrate, ceea ce înseamnă că dezvoltarea aplicației nu va necesita o  configurare foarte mare în plus.\cite{citation4}
+\hspace{0cm}Spring este un framework care vine în ajutorul construirii rapide a unor aplicații stand-alone, lucrând cu alte librării deja integrate, ceea ce înseamnă că dezvoltarea aplicației nu va necesita o  configurare foarte mare în plus \cite{citation4}.
 
 Am ales Maven pentru adăugarea dependințelor, iar, pe lângă cele deja integrate în proiect, am mai adăugat: Spring-Boot-Starter-Data-JPA (interacțiune backend - baza de date), Spring-Boot-Starter-WEB (simplifică construirea aplicațiilor WEB cu Spring), MySQL-Connector-J (conexiunea cu baza de date), Lombok (generare de cod comun), Spring-Boot-Starter-Test (pentru testele unitare și de integrare), Spring-Boot-Starter-Security și Java-JWT (pentru securitatea aplicației).
 
@@ -74,7 +74,7 @@ Pentru implementarea frontend-ului am utilizat Angular, HTML, CSS și TypeScript
 \end{minipage}
 \end{minipage}
 
-\hspace{0cm} Angular este un framework pentru frontend care ajută la crearea unei aplicații de tipul single-page. Ce diferențiază Angular de celelalte framework-uri pentru frontend este strucutura sa bazată pe componente. Astfel, arhitectura codului este mai ușor de organizat, deoarece fiecare componentă are rolul ei bine definit, iar identificarea unei potențiale greșeli este mai ușor de găsit.\cite{citation5}
+\hspace{0cm} Angular este un framework pentru frontend care ajută la crearea unei aplicații de tipul single-page. Ce diferențiază Angular de celelalte framework-uri pentru frontend este strucutura sa bazată pe componente. Astfel, arhitectura codului este mai ușor de organizat, deoarece fiecare componentă are rolul ei bine definit, iar identificarea unei potențiale greșeli este mai ușor de găsit \cite{citation5}.
 
 \begin{center}
 \begin{minipage}{0.8\textwidth}
@@ -170,7 +170,7 @@ Securitatea OfOps se menține la două niveluri: \begin{itemize}[left=1.5cm]
 
 Aceste lucruri s-au realizat la nivel de implementare cu ajutorul JWT (JSON Web Token) care a rezolvat atât problema de autentificare, cât și pe cea de autorizare. 
 
-JWT este un standard bazat pe transmiterea în siguranță a unor date care, prin simplititatea, siguranța și versatilitatea sa, a ajuns să fie folosit în cele mai mari framework-uri web.\cite{citation6} Token-ul este format dintr-un header, un payload și o semnătură/ datele criptate. Primele două sunt obiecte de tip JSON cu o structură deja definită, însă ultima parte depinde în mod direct de tipul de criptare utilizat. Mai întâi, din browser, se trimite către backend, printr-o metodă HTTP de tipul POST pe endpoint-ul de /login, un username și o parolă pentru care server-ul crează un JWT. Acest token este trimis înapoi la frontend, moment în care acesta trimite înapoi header-ul pentru autorizare. Se verifică semnătura și se preiau detaliile utilizatorului și se trimite răspunsul, astfel, către client.
+JWT este un standard bazat pe transmiterea în siguranță a unor date care, prin simplititatea, siguranța și versatilitatea sa, a ajuns să fie folosit în cele mai mari framework-uri web \cite{citation6}. Token-ul este format dintr-un header, un payload și o semnătură/ datele criptate. Primele două sunt obiecte de tip JSON cu o structură deja definită, însă ultima parte depinde în mod direct de tipul de criptare utilizat. Mai întâi, din browser, se trimite către backend, printr-o metodă HTTP de tipul POST pe endpoint-ul de /login, un username și o parolă pentru care server-ul crează un JWT. Acest token este trimis înapoi la frontend, moment în care acesta trimite înapoi header-ul pentru autorizare. Se verifică semnătura și se preiau detaliile utilizatorului și se trimite răspunsul, astfel, către client.
  
 \begin{figure}[!htb]
     \centering
@@ -255,7 +255,7 @@ Acest lucru ne aduce la al doilea nivel de securitate al aplicației și anume a
 \section{Mijloace de testare}
 Până la crearea frontend-ului, partea de backend a fost testată cu ajutorul testelor unitare, de integrare și cu ajutorul aplicației Postman.
 
-Testele unitare contribuie la crearea de la zero și dezvoltarea unui proiect durabil.\cite{citation7} Importanța lor este dată de faptul că, folosindu-le, observarea potențialelor greșeli în scrierea de cod este iminentă. Practic, ele urmăresc flow-ul metodei și sunt scrise cu scopul de a vedea cum reacționează codul în diferite cazuri.
+Testele unitare contribuie la crearea de la zero și dezvoltarea unui proiect durabil \cite{citation7}. Importanța lor este dată de faptul că, folosindu-le, observarea potențialelor greșeli în scrierea de cod este iminentă. Practic, ele urmăresc flow-ul metodei și sunt scrise cu scopul de a vedea cum reacționează codul în diferite cazuri.
 
 \begin{center}
 \begin{minipage}{0.9\textwidth}
