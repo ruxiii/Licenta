@@ -208,13 +208,15 @@ public class UserService{
                 throw new TeamNotFoundException("Team not found");
             }
             else {
+                String password = passwordEncoder.encode(userFullDto.getUserPassword());
+
                 String teamId = userFullDto.getTeamId();
                 TeamEntity teamEntity = teamRepository.findById(teamId).get();
                 UserEntity userEntity = user.get();
                 userEntity.setUserName(userFullDto.getUserName().toUpperCase());
                 userEntity.setUserFirstName(userFullDto.getUserFirstName().toUpperCase());
                 userEntity.setUserEmail(userFullDto.getUserEmail());
-                userEntity.setUserPassword(userFullDto.getUserPassword());
+                userEntity.setUserPassword(password);
                 userEntity.setUserRole(roleRepository.findByAuthority("USER").get().getAuthority());
                 userEntity.setTeamEntity(teamEntity);
 

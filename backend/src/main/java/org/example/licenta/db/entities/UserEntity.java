@@ -27,6 +27,6 @@ public class UserEntity {
     @JoinColumn(name = "teamId", referencedColumnName = "teamId")
     private TeamEntity teamEntity;
 
-    @OneToMany(mappedBy = "userEntity")
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReservationEntity> reservations;
 }
