@@ -40,6 +40,7 @@ export class UserEditComponent implements OnInit, OnDestroy{
   data: string[] = [];
   departments: any[] = [];
   everythingOK: boolean = false;
+  loggedInUserName: string;
 
   constructor(private userService: UsersService, 
               private route: ActivatedRoute, 
@@ -64,6 +65,9 @@ export class UserEditComponent implements OnInit, OnDestroy{
     });
     this.departmentsService.getDepartmentsIds().subscribe(departments => {
       this.departments = departments;
+    });
+    this.userService.username$.subscribe(username => {
+      this.loggedInUserName = username;
     });
   }
 
@@ -116,7 +120,12 @@ export class UserEditComponent implements OnInit, OnDestroy{
 
       this.showUserDetailPopup(lastUserId);
     });
-    this.router.navigate(['/login']);
+    if (this.loggedInUserName === 'T0') {
+      this.router.navigate(['/users']);
+    }   
+    else {
+      this.router.navigate(['/login']);
+    }
   }
 
   showUserDetailPopup(userId: string) {

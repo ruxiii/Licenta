@@ -12,7 +12,7 @@ import { AxiosService } from '../../axios.service';
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent implements OnDestroy {
-  users: UsersComponent[];
+  users: any[] = [];
   isDarkMode: boolean;
   private themeSubscription: Subscription;
   POSTS: any;
